@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace KompasPlugin
 {
-    class Validator
+    /// <summary>
+    /// Статический класс проверки правильности значения параметра
+    /// </summary>
+    public class Validator
     {
+        static public bool IsValidateSize(double min, double max, double value)
+        {
+            return (value > min || value < max);
+        }
     }
 }

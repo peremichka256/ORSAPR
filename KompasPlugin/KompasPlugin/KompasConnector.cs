@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace KompasPlugin
 {
-    class KompasConnector
+    //TODO: модификатор доступа для класса, размер строк, RSDN
+    /// <summary>
+    /// Класс связи с КОМПАС-3D через API
+    /// </summary>
+    public class KompasConnector
     {
     }
 }

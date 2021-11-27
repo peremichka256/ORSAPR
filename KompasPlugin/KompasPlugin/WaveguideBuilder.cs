@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace KompasPlugin
 {
-    class WaveguideBuilder
+    /// <summary>
+    /// Класс осуществляющий построение детали
+    /// </summary>
+    public class WaveguideBuilder
     {
     }
 }

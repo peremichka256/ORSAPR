@@ -79,5 +79,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\KompasPlugin\KompasPlugin.csproj">
+      <Project>{bdb83347-6fde-429c-8d9d-2630f00ee444}</Project>
+      <Name>KompasPlugin</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
