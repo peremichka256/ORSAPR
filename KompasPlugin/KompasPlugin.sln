@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KompasPluginUI", "KompasPlu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KompasPlugin", "KompasPlugin\KompasPlugin.csproj", "{BDB83347-6FDE-429C-8D9D-2630F00EE444}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KompasPluginUnitTests", "KompasPluginUnitTests\KompasPluginUnitTests.csproj", "{BA7CA498-778A-496C-86D4-81C109EEF6DD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KompasPlugin.UnitTests", "KompasPluginUnitTests\KompasPlugin.UnitTests.csproj", "{BA7CA498-778A-496C-86D4-81C109EEF6DD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{C67DB7BE-619B-4D14-9153-BB67FF0251F5}"
 EndProject

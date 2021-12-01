@@ -94,20 +94,21 @@ namespace KompasPlugin
         private const double MIN_WAVEGUIDE_LENGTH = 300.0;
         private const double MAX_WAVEGUIDE_LENGTH = 1000.0;
 
+        private const double ANCHORAGE_CROSS_SECTION_DIFFERENCE = 50.0;
+        private const int CROSS_SECTION_SIDE_MULTIPLIER = 2;
+
         /// <summary>
         /// Задаёт или возвращает высоту крепления
         /// </summary>
         public double AchorageHeight
         {
-            get
-            {
-                return _anchorageHeight;
-            }
+            get { return _anchorageHeight; }
 
             set
             {
-                if(Validator.IsValidateSize(MIN_ANCHORAGE_HEIGHT, 
-                    MAX_ANCHORAGE_HEIGHT, value))
+                if (Validator.IsValidateSize(MIN_ANCHORAGE_HEIGHT, MAX_ANCHORAGE_HEIGHT, value)
+                && Validator.IsStrictlyGreater(value, CrossSectionHeight, 
+                    ANCHORAGE_CROSS_SECTION_DIFFERENCE))
                 {
                     _anchorageHeight = value;
                 }
@@ -124,10 +125,7 @@ namespace KompasPlugin
         /// </summary>
         public double AnchorageThickness
         {
-            get
-            {
-                return _anchorageThickness;
-            }
+            get { return _anchorageThickness; }
 
             set
             {
@@ -149,15 +147,13 @@ namespace KompasPlugin
         /// </summary>
         public double AnchorageWidth
         {
-            get
-            {
-                return _anchorageWidth;
-            }
+            get { return _anchorageWidth; }
 
             set
             {
-                if (Validator.IsValidateSize(MIN_ANCHORAGE_WIDTH,
-                    MAX_ANCHORAGE_WIDTH, value))
+                if (Validator.IsValidateSize(MIN_ANCHORAGE_WIDTH, MAX_ANCHORAGE_WIDTH, value)
+                && Validator.IsStrictlyGreater(value,CrossSectionWidth, 
+                    ANCHORAGE_CROSS_SECTION_DIFFERENCE))
                 {
                     _anchorageWidth = value;
                 }
@@ -172,12 +168,9 @@ namespace KompasPlugin
         /// <summary>
         /// Задаёт или возвращает высоту сечения
         /// </summary>
-        public double СrossSectionHeight
+        public double CrossSectionHeight
         {
-            get
-            {
-                return _crossSectionHeight;
-            }
+            get { return _crossSectionHeight; }
 
             set
             {
@@ -197,12 +190,9 @@ namespace KompasPlugin
         /// <summary>
         /// Задаёт или возвращает толщину стенок сечения
         /// </summary>
-        public double СrossSectionThickness
+        public double CrossSectionThickness
         {
-            get
-            {
-                return _crossSectionThickness;
-            }
+            get { return _crossSectionThickness; }
 
             set
             {
@@ -222,17 +212,15 @@ namespace KompasPlugin
         /// <summary>
         /// Задаёт или возвращает ширину сечения
         /// </summary>
-        public double СrossSectionWidth
+        public double CrossSectionWidth
         {
-            get
-            {
-                return _crossSectionWidth;
-            }
+            get { return _crossSectionWidth; }
 
             set
             {
-                if (Validator.IsValidateSize(MIN_CROSS_SECTION_WIDTH,
-                    MAX_CROSS_SECTION_WIDTH, value))
+                if (Validator.IsValidateSize(MIN_CROSS_SECTION_WIDTH, MAX_CROSS_SECTION_WIDTH, value)
+                && Validator.IsRatioCorrect(CrossSectionHeight, 
+                    value, CROSS_SECTION_SIDE_MULTIPLIER))
                 {
                     _crossSectionWidth = value;
                 }
@@ -249,10 +237,7 @@ namespace KompasPlugin
         /// </summary>
         public double DistanceAngleToHole
         {
-            get
-            {
-                return _distanceAngleToHole;
-            }
+            get { return _distanceAngleToHole; }
 
             set
             {
@@ -274,10 +259,7 @@ namespace KompasPlugin
         /// </summary>
         public double HoleDiameters
         {
-            get
-            {
-                return _holeDiameters;
-            }
+            get { return _holeDiameters; }
 
             set
             {
@@ -299,10 +281,7 @@ namespace KompasPlugin
         /// </summary>
         public double RadiusCrossTie
         {
-            get
-            {
-                return _radiusCrossTie;
-            }
+            get { return _radiusCrossTie; }
 
             set
             {
@@ -324,10 +303,7 @@ namespace KompasPlugin
         /// </summary>
         public double WaveguideLength
         {
-            get
-            {
-                return _waveguideLength;
-            }
+            get { return _waveguideLength; }
 
             set
             {
@@ -342,6 +318,37 @@ namespace KompasPlugin
                         ("Waveguide length should be not less than 1 and no more 7");
                 }
             }
+        }
+
+        /// <summary>
+        /// Конструктор класса
+        /// </summary>
+        /// <param name="anchorageHeight">Высота крепления</param>
+        /// <param name="anchorageThickness">Толщина крепления</param>
+        /// <param name="anchorageWidth">Ширина крепления</param>
+        /// <param name="crossSectionHeight">Высота сечения</param>
+        /// <param name="crossSectionThickness">Толщина стенок сечения</param>
+        /// <param name="crossSectionWidth">Ширина сечения</param>
+        /// <param name="distanceAngleToHole">Расстояние от угла сечения до отверстий</param>
+        /// <param name="holeDiameters">Диаметр отверстий</param>
+        /// <param name="radiusCrossTie">Радиус фаски</param>
+        /// <param name="waveguideLength">Длина волновода</param>
+        public WaveguideParameters(double anchorageHeight, double anchorageThickness,
+            double anchorageWidth, double crossSectionHeight,
+            double crossSectionThickness, double crossSectionWidth,
+            double distanceAngleToHole, double holeDiameters,
+            double radiusCrossTie, double waveguideLength)
+        {
+            this.CrossSectionHeight = crossSectionHeight;
+            this.CrossSectionThickness = crossSectionThickness;
+            this.CrossSectionWidth = crossSectionWidth;
+            this.AchorageHeight = anchorageHeight;
+            this.AnchorageThickness = anchorageThickness;
+            this.AnchorageWidth = anchorageWidth;
+            this.DistanceAngleToHole = distanceAngleToHole;
+            this.HoleDiameters = holeDiameters;
+            this.RadiusCrossTie = radiusCrossTie;
+            this.WaveguideLength = waveguideLength;
         }
     }
 }

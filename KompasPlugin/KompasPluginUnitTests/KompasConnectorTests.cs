@@ -10,7 +10,7 @@ using KompasPlugin;
 namespace KompasPluginUnitTests
 {
     [TestFixture]
-    class KompasConnectorTests
+    public class KompasConnectorTests
     {
     }
 }

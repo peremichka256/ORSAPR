@@ -9,7 +9,7 @@ using KompasPlugin;
 namespace KompasPluginUnitTests
 {
     [TestFixture]
-    class ValidatorTests
+    public class ValidatorTests
     {
     }
 }

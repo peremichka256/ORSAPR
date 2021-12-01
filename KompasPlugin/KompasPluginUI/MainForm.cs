@@ -25,6 +25,19 @@ namespace KompasPlugin
         public MainForm()
         {
             InitializeComponent();
+            /*_waveguideParameters = new WaveguideParameters(double.Parse(AnchorageHeightTextBox.Text),
+                double.Parse(AnchorageThicknessTextBox.Text),
+                double.Parse(AnchorageWidthTextBox.Text),
+                double.Parse(CrossSectionHeightTextBox.Text),
+                double.Parse(CrossSectionThicknessTextBox.Text),
+                double.Parse(AnchorageHeightTextBox.Text),
+                double.Parse(DistanceAngleToHoleTextBox.Text),
+                double.Parse(HoleDiametersTextBox.Text),
+                double.Parse(RadiusCrossTieTextBox.Text),
+                double.Parse(WaveguideLengthTextBox.Text));*/
+            _waveguideParameters = new WaveguideParameters(90, 12,
+                130, 40, 7, 80, 30,
+                4, 3, 400);
         }
 
         private void HoleDiametersTextBox_TextChanged(object sender, EventArgs e)
@@ -79,7 +92,7 @@ namespace KompasPlugin
 
         private void BuildButton_Click(object sender, EventArgs e)
         {
-            _waveguideParameters = new WaveguideParameters();
+
         }
     }
 }
