@@ -64,51 +64,52 @@ namespace KompasPlugin
         /// <summary>
         /// Конастанты минимальных и максимальных значений параметров в миллиметрах
         /// </summary>
-        private const double MIN_ANCHORAGE_HEIGHT = 65.0;
-        private const double MAX_ANCHORAGE_HEIGHT = 100.0;
+        public const double MIN_ANCHORAGE_HEIGHT = 65.0;
+        public const double MAX_ANCHORAGE_HEIGHT = 100.0;
 
-        private const double MIN_ANCHORAGE_THICKNESS = 10.0;
-        private const double MAX_ANCHORAGE_THICKNESS = 20.0;
+        public const double MIN_ANCHORAGE_THICKNESS = 10.0;
+        public const double MAX_ANCHORAGE_THICKNESS = 20.0;
 
-        private const double MIN_ANCHORAGE_WIDTH = 80.0;
-        private const double MAX_ANCHORAGE_WIDTH = 150.0;
+        public const double MIN_ANCHORAGE_WIDTH = 80.0;
+        public const double MAX_ANCHORAGE_WIDTH = 150.0;
 
-        private const double MIN_CROSS_SECTION_HEIGHT = 15.0;
-        private const double MAX_CROSS_SECTION_HEIGHT = 50.0;
+        public const double MIN_CROSS_SECTION_HEIGHT = 15.0;
+        public const double MAX_CROSS_SECTION_HEIGHT = 50.0;
 
-        private const double MIN_CROSS_SECTION_THICKNESS = 5.0;
-        private const double MAX_CROSS_SECTION_THICKNESS = 10.0;
+        public const double MIN_CROSS_SECTION_THICKNESS = 5.0;
+        public const double MAX_CROSS_SECTION_THICKNESS = 10.0;
 
-        private const double MIN_CROSS_SECTION_WIDTH = 30.0;
-        private const double MAX_CROSS_SECTION_WIDTH = 100.0;
+        public const double MIN_CROSS_SECTION_WIDTH = 30.0;
+        public const double MAX_CROSS_SECTION_WIDTH = 100.0;
 
-        private const double MIN_DISTANCE_ANGLE_TO_HOLE = 20.0;
-        private const double MAX_DISTANCE_ANGLE_TO_HOLE = 50.0;
+        public const double MIN_DISTANCE_ANGLE_TO_HOLE = 20.0;
+        public const double MAX_DISTANCE_ANGLE_TO_HOLE = 50.0;
 
-        private const double MIN_HOLE_DIAMETERS = 3.5;
-        private const double MAX_HOLE_DIAMETERS = 4.8;
+        public const double MIN_HOLE_DIAMETERS = 3.5;
+        public const double MAX_HOLE_DIAMETERS = 4.8;
 
-        private const double MIN_RADIUS_CROSS_TIE = 1.0;
-        private const double MAX_RADIUS_CROSS_TIE = 7.0;
+        public const double MIN_RADIUS_CROSS_TIE = 1.0;
+        public const double MAX_RADIUS_CROSS_TIE = 7.0;
 
-        private const double MIN_WAVEGUIDE_LENGTH = 300.0;
-        private const double MAX_WAVEGUIDE_LENGTH = 1000.0;
+        public const double MIN_WAVEGUIDE_LENGTH = 300.0;
+        public const double MAX_WAVEGUIDE_LENGTH = 1000.0;
 
-        private const double ANCHORAGE_CROSS_SECTION_DIFFERENCE = 50.0;
-        private const int CROSS_SECTION_SIDE_MULTIPLIER = 2;
+        /// <summary>
+        /// Константы ограничений для параметров
+        /// </summary>
+        public const double ANCHORAGE_CROSS_SECTION_DIFFERENCE = 50.0;
+        public const int CROSS_SECTION_SIDE_MULTIPLIER = 2;
 
         /// <summary>
         /// Задаёт или возвращает высоту крепления
         /// </summary>
-        public double AchorageHeight
+        public double AnchorageHeight
         {
             get { return _anchorageHeight; }
 
             set
             {
-                if (Validator.IsValidateSize(MIN_ANCHORAGE_HEIGHT, MAX_ANCHORAGE_HEIGHT, value)
-                && Validator.IsStrictlyGreater(value, CrossSectionHeight, 
-                    ANCHORAGE_CROSS_SECTION_DIFFERENCE))
+                if (Validator.IsValidateSize(MIN_ANCHORAGE_HEIGHT, MAX_ANCHORAGE_HEIGHT, value))
                 {
                     _anchorageHeight = value;
                 }
@@ -151,9 +152,7 @@ namespace KompasPlugin
 
             set
             {
-                if (Validator.IsValidateSize(MIN_ANCHORAGE_WIDTH, MAX_ANCHORAGE_WIDTH, value)
-                && Validator.IsStrictlyGreater(value,CrossSectionWidth, 
-                    ANCHORAGE_CROSS_SECTION_DIFFERENCE))
+                if (Validator.IsValidateSize(MIN_ANCHORAGE_WIDTH, MAX_ANCHORAGE_WIDTH, value))
                 {
                     _anchorageWidth = value;
                 }
@@ -218,9 +217,7 @@ namespace KompasPlugin
 
             set
             {
-                if (Validator.IsValidateSize(MIN_CROSS_SECTION_WIDTH, MAX_CROSS_SECTION_WIDTH, value)
-                && Validator.IsRatioCorrect(CrossSectionHeight, 
-                    value, CROSS_SECTION_SIDE_MULTIPLIER))
+                if (Validator.IsValidateSize(MIN_CROSS_SECTION_WIDTH, MAX_CROSS_SECTION_WIDTH, value))
                 {
                     _crossSectionWidth = value;
                 }
@@ -342,13 +339,30 @@ namespace KompasPlugin
             this.CrossSectionHeight = crossSectionHeight;
             this.CrossSectionThickness = crossSectionThickness;
             this.CrossSectionWidth = crossSectionWidth;
-            this.AchorageHeight = anchorageHeight;
+            this.AnchorageHeight = anchorageHeight;
             this.AnchorageThickness = anchorageThickness;
             this.AnchorageWidth = anchorageWidth;
             this.DistanceAngleToHole = distanceAngleToHole;
             this.HoleDiameters = holeDiameters;
             this.RadiusCrossTie = radiusCrossTie;
             this.WaveguideLength = waveguideLength;
+        }
+
+        /// <summary>
+        /// Конструктор класса с минимальными значенми по умолчанию
+        /// </summary>
+        public WaveguideParameters()
+        {
+            this.AnchorageHeight = MIN_ANCHORAGE_HEIGHT;
+            this.AnchorageThickness = MIN_ANCHORAGE_THICKNESS;
+            this.AnchorageWidth = MIN_ANCHORAGE_WIDTH;
+            this.CrossSectionHeight = MIN_CROSS_SECTION_HEIGHT;
+            this.CrossSectionThickness = MIN_CROSS_SECTION_THICKNESS;
+            this.CrossSectionWidth = MIN_CROSS_SECTION_WIDTH;
+            this.DistanceAngleToHole = MIN_DISTANCE_ANGLE_TO_HOLE;
+            this.HoleDiameters = MIN_HOLE_DIAMETERS;
+            this.RadiusCrossTie = MIN_RADIUS_CROSS_TIE;
+            this.WaveguideLength = MIN_WAVEGUIDE_LENGTH;
         }
     }
 }

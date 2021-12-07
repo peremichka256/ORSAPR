@@ -22,22 +22,5 @@ namespace KompasPlugin
         {
             return (value >= min) && (value <= max);
         }
-
-        /// <summary>
-        /// Метод проверяющий соответствие разницы двух величин необходимой
-        /// </summary>
-        /// <param name="minuend">Уменьшаемое</param>
-        /// <param name="subtrahend">Вычитаемое</param>
-        /// <param name="difference">Разность</param>
-        /// <returns></returns>
-        static public bool IsStrictlyGreater(double minuend, double subtrahend, double difference)
-        {
-            return (minuend - subtrahend) == difference;
-        }
-
-        static public bool IsRatioCorrect(double multiplicand, double product, int multiplier)
-        {
-            return (multiplicand * multiplier) == product;
-        }
     }
 }

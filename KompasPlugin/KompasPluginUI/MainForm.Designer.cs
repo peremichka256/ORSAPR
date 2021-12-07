@@ -29,6 +29,7 @@ namespace KompasPlugin
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.label21 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
@@ -63,6 +64,7 @@ namespace KompasPlugin
             this.BuildButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.WaveguideParametersPictureBox = new System.Windows.Forms.PictureBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.WaveguideParametersPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -162,8 +164,8 @@ namespace KompasPlugin
             this.DistanceAngleToHoleTextBox.Name = "DistanceAngleToHoleTextBox";
             this.DistanceAngleToHoleTextBox.Size = new System.Drawing.Size(48, 20);
             this.DistanceAngleToHoleTextBox.TabIndex = 53;
-            this.DistanceAngleToHoleTextBox.Text = "20";
-            this.DistanceAngleToHoleTextBox.TextChanged += new System.EventHandler(this.DistanceAngleToHoleTextBox_TextChanged);
+            this.DistanceAngleToHoleTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.DistanceAngleToHoleTextBox_Validating);
+            this.DistanceAngleToHoleTextBox.Validated += new System.EventHandler(this.DistanceAngleToHoleTextBox_Validated);
             // 
             // CrossSectionHeightTextBox
             // 
@@ -171,8 +173,8 @@ namespace KompasPlugin
             this.CrossSectionHeightTextBox.Name = "CrossSectionHeightTextBox";
             this.CrossSectionHeightTextBox.Size = new System.Drawing.Size(48, 20);
             this.CrossSectionHeightTextBox.TabIndex = 52;
-            this.CrossSectionHeightTextBox.Text = "15";
-            this.CrossSectionHeightTextBox.TextChanged += new System.EventHandler(this.CrossSectionHeightTextBox_TextChanged);
+            this.CrossSectionHeightTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.CrossSectionHeightTextBox_Validating);
+            this.CrossSectionHeightTextBox.Validated += new System.EventHandler(this.CrossSectionHeightTextBox_Validated);
             // 
             // CrossSectionThicknessTextBox
             // 
@@ -180,8 +182,8 @@ namespace KompasPlugin
             this.CrossSectionThicknessTextBox.Name = "CrossSectionThicknessTextBox";
             this.CrossSectionThicknessTextBox.Size = new System.Drawing.Size(48, 20);
             this.CrossSectionThicknessTextBox.TabIndex = 51;
-            this.CrossSectionThicknessTextBox.Text = "5";
-            this.CrossSectionThicknessTextBox.TextChanged += new System.EventHandler(this.CrossSectionThicknessTextBox_TextChanged);
+            this.CrossSectionThicknessTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.CrossSectionThicknessTextBox_Validating);
+            this.CrossSectionThicknessTextBox.Validated += new System.EventHandler(this.CrossSectionThicknessTextBox_Validated);
             // 
             // CrossSectionWidthTextBox
             // 
@@ -189,8 +191,8 @@ namespace KompasPlugin
             this.CrossSectionWidthTextBox.Name = "CrossSectionWidthTextBox";
             this.CrossSectionWidthTextBox.Size = new System.Drawing.Size(48, 20);
             this.CrossSectionWidthTextBox.TabIndex = 50;
-            this.CrossSectionWidthTextBox.Text = "30";
-            this.CrossSectionWidthTextBox.TextChanged += new System.EventHandler(this.CrossSectionWidthTextBox_TextChanged);
+            this.CrossSectionWidthTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.CrossSectionWidthTextBox_Validating);
+            this.CrossSectionWidthTextBox.Validated += new System.EventHandler(this.CrossSectionWidthTextBox_Validated);
             // 
             // WaveguideLengthTextBox
             // 
@@ -198,8 +200,8 @@ namespace KompasPlugin
             this.WaveguideLengthTextBox.Name = "WaveguideLengthTextBox";
             this.WaveguideLengthTextBox.Size = new System.Drawing.Size(48, 20);
             this.WaveguideLengthTextBox.TabIndex = 49;
-            this.WaveguideLengthTextBox.Text = "300";
-            this.WaveguideLengthTextBox.TextChanged += new System.EventHandler(this.WaveguideLengthTextBox_TextChanged);
+            this.WaveguideLengthTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.WaveguideLengthTextBox_Validating);
+            this.WaveguideLengthTextBox.Validated += new System.EventHandler(this.WaveguideLengthTextBox_Validated);
             // 
             // AnchorageThicknessTextBox
             // 
@@ -207,8 +209,8 @@ namespace KompasPlugin
             this.AnchorageThicknessTextBox.Name = "AnchorageThicknessTextBox";
             this.AnchorageThicknessTextBox.Size = new System.Drawing.Size(48, 20);
             this.AnchorageThicknessTextBox.TabIndex = 48;
-            this.AnchorageThicknessTextBox.Text = "10";
-            this.AnchorageThicknessTextBox.TextChanged += new System.EventHandler(this.AnchorageThicknessTextBox_TextChanged);
+            this.AnchorageThicknessTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.AnchorageThicknessTextBox_Validating);
+            this.AnchorageThicknessTextBox.Validated += new System.EventHandler(this.AnchorageThicknessTextBox_Validated);
             // 
             // AnchorageWidthTextBox
             // 
@@ -216,8 +218,8 @@ namespace KompasPlugin
             this.AnchorageWidthTextBox.Name = "AnchorageWidthTextBox";
             this.AnchorageWidthTextBox.Size = new System.Drawing.Size(48, 20);
             this.AnchorageWidthTextBox.TabIndex = 47;
-            this.AnchorageWidthTextBox.Text = "80";
-            this.AnchorageWidthTextBox.TextChanged += new System.EventHandler(this.AnchorageWidthTextBox_TextChanged);
+            this.AnchorageWidthTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.AnchorageWidthTextBox_Validating);
+            this.AnchorageWidthTextBox.Validated += new System.EventHandler(this.AnchorageWidthTextBox_Validated);
             // 
             // AnchorageHeightTextBox
             // 
@@ -225,8 +227,8 @@ namespace KompasPlugin
             this.AnchorageHeightTextBox.Name = "AnchorageHeightTextBox";
             this.AnchorageHeightTextBox.Size = new System.Drawing.Size(48, 20);
             this.AnchorageHeightTextBox.TabIndex = 46;
-            this.AnchorageHeightTextBox.Text = "65";
-            this.AnchorageHeightTextBox.TextChanged += new System.EventHandler(this.AnchorageHeightTextBox_TextChanged);
+            this.AnchorageHeightTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.AnchorageHeightTextBox_Validating);
+            this.AnchorageHeightTextBox.Validated += new System.EventHandler(this.AnchorageHeightTextBox_Validated);
             // 
             // RadiusCrossTieTextBox
             // 
@@ -235,8 +237,8 @@ namespace KompasPlugin
             this.RadiusCrossTieTextBox.Name = "RadiusCrossTieTextBox";
             this.RadiusCrossTieTextBox.Size = new System.Drawing.Size(48, 20);
             this.RadiusCrossTieTextBox.TabIndex = 45;
-            this.RadiusCrossTieTextBox.Text = "1";
-            this.RadiusCrossTieTextBox.TextChanged += new System.EventHandler(this.RadiusCrossTieTextBox_TextChanged);
+            this.RadiusCrossTieTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.RadiusCrossTieTextBox_Validating);
+            this.RadiusCrossTieTextBox.Validated += new System.EventHandler(this.RadiusCrossTieTextBox_Validated);
             // 
             // HoleDiametersTextBox
             // 
@@ -245,8 +247,8 @@ namespace KompasPlugin
             this.HoleDiametersTextBox.Name = "HoleDiametersTextBox";
             this.HoleDiametersTextBox.Size = new System.Drawing.Size(48, 20);
             this.HoleDiametersTextBox.TabIndex = 44;
-            this.HoleDiametersTextBox.Text = "3.5";
-            this.HoleDiametersTextBox.TextChanged += new System.EventHandler(this.HoleDiametersTextBox_TextChanged);
+            this.HoleDiametersTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.HoleDiametersTextBox_Validating);
+            this.HoleDiametersTextBox.Validated += new System.EventHandler(this.HoleDiametersTextBox_Validated);
             // 
             // label11
             // 
@@ -407,6 +409,7 @@ namespace KompasPlugin
             this.Controls.Add(this.label1);
             this.Name = "MainForm";
             this.Text = "Построение волновода в КОМПАС-3D";
+            this.toolTip1.SetToolTip(this, "Ниггеры");
             ((System.ComponentModel.ISupportInitialize)(this.WaveguideParametersPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -448,6 +451,7 @@ namespace KompasPlugin
         private System.Windows.Forms.Button BuildButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox WaveguideParametersPictureBox;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
 
