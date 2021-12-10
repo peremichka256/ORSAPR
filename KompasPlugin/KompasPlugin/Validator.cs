@@ -12,7 +12,7 @@
         /// <param name="max">Максимум</param>
         /// <param name="value">Значение</param>
         /// <returns></returns>
-        static public bool IsValidateSize(double min, double max, double value)
+        public static bool IsValidateSize(double min, double max, double value)
         {
             return (value >= min) && (value <= max);
         }

@@ -12,6 +12,7 @@ namespace KompasPluginUnitTests
             return new WaveguideParameters();
         }
 
+        //TODO: Убрать дубли
         [TestCase(64.9, Description = "Высота меньше допустимой")]
         [TestCase(100.1, Description = "Высота больше допустимой")]
         [Test(Description = "Негативный тест на сеттер со значениями больше или меньше допустимых")]

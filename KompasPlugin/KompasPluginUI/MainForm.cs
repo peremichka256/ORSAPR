@@ -84,6 +84,7 @@ namespace KompasPlugin
             }
         }
 
+        //TODO: Убрать дубли
         private void HoleDiametersTextBox_Validated(object sender, EventArgs e)
         {
             SetValidatedStyle(holeDiametersTextBox);
@@ -103,6 +104,7 @@ namespace KompasPlugin
             }
         }
 
+        //TODO: Убрать дубли
         private void RadiusCrossTieTextBox_Validated(object sender, EventArgs e)
         {
             SetValidatedStyle(radiusCrossTieTextBox);
@@ -138,6 +140,7 @@ namespace KompasPlugin
             }
         }
 
+        //TODO: Убрать дубли
         private void AnchorageHeightTextBox_Validated(object sender, EventArgs e)
         {
             SetValidatedStyle(anchorageHeightTextBox);
@@ -174,6 +177,7 @@ namespace KompasPlugin
             }
         }
 
+        //TODO: Убрать дубли
         private void AnchorageWidthTextBox_Validated(object sender, EventArgs e)
         {
             SetValidatedStyle(anchorageWidthTextBox);
@@ -212,6 +216,7 @@ namespace KompasPlugin
             }
         }
 
+        //TODO: Убрать дубли
         private void WaveguideLengthTextBox_Validated(object sender, EventArgs e)
         {
             SetValidatedStyle(waveguideLengthTextBox);
@@ -247,6 +252,7 @@ namespace KompasPlugin
             }
         }
 
+        //TODO: Убрать дубли
         private void CrossSectionWidthTextBox_Validated(object sender, EventArgs e)
         {
             SetValidatedStyle(crossSectionWidthTextBox);
@@ -266,6 +272,7 @@ namespace KompasPlugin
             }
         }
 
+        //TODO: Убрать дубли
         private void CrossSectionThicknessTextBox_Validated(object sender, EventArgs e)
         {
             SetValidatedStyle(crossSectionThicknessTextBox);
@@ -301,11 +308,13 @@ namespace KompasPlugin
             }
         }
 
+        //TODO: Убрать дубли
         private void CrossSectionHeightTextBox_Validated(object sender, EventArgs e)
         {
             SetValidatedStyle(crossSectionHeightTextBox);
         }
 
+        //TODO: Убрать дубли
         private void DistanceAngleToHoleTextBox_Validating(object sender, CancelEventArgs e)
         {
             try
@@ -320,6 +329,7 @@ namespace KompasPlugin
             }
         }
 
+        //TODO: Убрать дубли
         private void DistanceAngleToHoleTextBox_Validated(object sender, EventArgs e)
         {
             SetValidatedStyle(distanceAngleToHoleTextBox);

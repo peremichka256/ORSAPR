@@ -105,6 +105,7 @@ namespace KompasPlugin
 
             set
             {
+                //TODO: Убрать дубли
                 if (Validator.IsValidateSize(MIN_ANCHORAGE_HEIGHT, 
                     MAX_ANCHORAGE_HEIGHT, value))
                 {
@@ -127,6 +128,7 @@ namespace KompasPlugin
 
             set
             {
+                //TODO: Убрать дубли
                 if (Validator.IsValidateSize(MIN_ANCHORAGE_THICKNESS,
                     MAX_ANCHORAGE_THICKNESS, value))
                 {
@@ -149,6 +151,7 @@ namespace KompasPlugin
 
             set
             {
+                //TODO: Убрать дубли
                 if (Validator.IsValidateSize(MIN_ANCHORAGE_WIDTH, 
                     MAX_ANCHORAGE_WIDTH, value))
                 {
@@ -171,6 +174,7 @@ namespace KompasPlugin
 
             set
             {
+                //TODO: Убрать дубли
                 if (Validator.IsValidateSize(MIN_CROSS_SECTION_HEIGHT,
                     MAX_CROSS_SECTION_HEIGHT, value))
                 {
@@ -193,6 +197,7 @@ namespace KompasPlugin
 
             set
             {
+                //TODO: Убрать дубли
                 if (Validator.IsValidateSize(MIN_CROSS_SECTION_THICKNESS,
                     MAX_CROSS_SECTION_THICKNESS, value))
                 {
@@ -215,6 +220,7 @@ namespace KompasPlugin
 
             set
             {
+                //TODO: Убрать дубли
                 if (Validator.IsValidateSize(MIN_CROSS_SECTION_WIDTH, 
                     MAX_CROSS_SECTION_WIDTH, value))
                 {
@@ -237,6 +243,7 @@ namespace KompasPlugin
 
             set
             {
+                //TODO: Убрать дубли
                 if (Validator.IsValidateSize(MIN_DISTANCE_ANGLE_TO_HOLE,
                     MAX_DISTANCE_ANGLE_TO_HOLE, value))
                 {
@@ -259,6 +266,7 @@ namespace KompasPlugin
 
             set
             {
+                //TODO: Убрать дубли
                 if (Validator.IsValidateSize(MIN_HOLE_DIAMETERS,
                     MAX_HOLE_DIAMETERS, value))
                 {
@@ -281,6 +289,7 @@ namespace KompasPlugin
 
             set
             {
+                //TODO: Убрать дубли
                 if (Validator.IsValidateSize(MIN_RADIUS_CROSS_TIE,
                     MAX_RADIUS_CROSS_TIE, value))
                 {
@@ -303,6 +312,7 @@ namespace KompasPlugin
 
             set
             {
+                //TODO: Убрать дубли
                 if (Validator.IsValidateSize(MIN_WAVEGUIDE_LENGTH,
                     MAX_WAVEGUIDE_LENGTH, value))
                 {
