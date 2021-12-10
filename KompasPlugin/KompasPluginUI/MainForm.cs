@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace KompasPlugin
@@ -13,12 +8,12 @@ namespace KompasPlugin
     public partial class MainForm : Form
     {
         /// <summary>
-        /// Объект класса билдера
+        /// Объект класса построителя
         /// </summary>
         private WaveguideBuilder _waveguideBuilder;
 
         /// <summary>
-        /// Объект класса параметра
+        /// Объект класса с параметрами
         /// </summary>
         private WaveguideParameters _waveguideParameters;
 
@@ -28,29 +23,26 @@ namespace KompasPlugin
             InitializeComponent();
             _waveguideParameters = new WaveguideParameters();
 
-            AnchorageHeightTextBox.Text = 
+            anchorageHeightTextBox.Text = 
                 _waveguideParameters.AnchorageHeight.ToString();
-            AnchorageWidthTextBox.Text = 
+            anchorageWidthTextBox.Text = 
                 _waveguideParameters.AnchorageWidth.ToString();
-            AnchorageThicknessTextBox.Text = 
+            anchorageThicknessTextBox.Text = 
                 _waveguideParameters.AnchorageThickness.ToString();
-            CrossSectionHeightTextBox.Text = 
+            crossSectionHeightTextBox.Text = 
                 _waveguideParameters.CrossSectionHeight.ToString();
-            CrossSectionThicknessTextBox.Text = 
+            crossSectionThicknessTextBox.Text = 
                 _waveguideParameters.CrossSectionThickness.ToString();
-            CrossSectionWidthTextBox.Text = 
+            crossSectionWidthTextBox.Text = 
                 _waveguideParameters.CrossSectionWidth.ToString();
-            DistanceAngleToHoleTextBox.Text = 
+            distanceAngleToHoleTextBox.Text = 
                 _waveguideParameters.DistanceAngleToHole.ToString();
-            HoleDiametersTextBox.Text = 
+            holeDiametersTextBox.Text = 
                 _waveguideParameters.HoleDiameters.ToString();
-            RadiusCrossTieTextBox.Text = 
+            radiusCrossTieTextBox.Text = 
                 _waveguideParameters.RadiusCrossTie.ToString(); 
-            WaveguideLengthTextBox.Text = 
+            waveguideLengthTextBox.Text = 
                 _waveguideParameters.WaveguideLength.ToString();
-
-            var kompas = new KompasConnector();
-            kompas.KompasConnect();
         }
 
         /// <summary>
@@ -71,7 +63,11 @@ namespace KompasPlugin
 
         private void BuildButton_Click(object sender, EventArgs e)
         {
-            _waveguideBuilder = new WaveguideBuilder(_waveguideParameters);
+            KompasConnector kompas = new KompasConnector();
+            kompas.Start();
+            kompas.CreateDocument3D();
+            _waveguideBuilder = new WaveguideBuilder(_waveguideParameters, kompas); 
+            _waveguideBuilder.BuildWaveguide(kompas.Part);
         }
 
         private void HoleDiametersTextBox_Validating(object sender, CancelEventArgs e)
@@ -79,18 +75,18 @@ namespace KompasPlugin
             try
             {
                 _waveguideParameters.HoleDiameters = 
-                    double.Parse(HoleDiametersTextBox.Text);
+                    double.Parse(holeDiametersTextBox.Text);
             }
             catch (Exception)
             {
-                SetValidatingStyle(HoleDiametersTextBox);
+                SetValidatingStyle(holeDiametersTextBox);
                 e.Cancel = true;
             }
         }
 
         private void HoleDiametersTextBox_Validated(object sender, EventArgs e)
         {
-            SetValidatedStyle(HoleDiametersTextBox);
+            SetValidatedStyle(holeDiametersTextBox);
         }
 
         private void RadiusCrossTieTextBox_Validating(object sender, CancelEventArgs e)
@@ -98,18 +94,18 @@ namespace KompasPlugin
             try
             {
                 _waveguideParameters.RadiusCrossTie = 
-                    double.Parse(RadiusCrossTieTextBox.Text);
+                    double.Parse(radiusCrossTieTextBox.Text);
             }
             catch (Exception)
             {
-                SetValidatingStyle(RadiusCrossTieTextBox);
+                SetValidatingStyle(radiusCrossTieTextBox);
                 e.Cancel = true;
             }
         }
 
         private void RadiusCrossTieTextBox_Validated(object sender, EventArgs e)
         {
-            SetValidatedStyle(RadiusCrossTieTextBox);
+            SetValidatedStyle(radiusCrossTieTextBox);
         }
 
         private void AnchorageHeightTextBox_Validating(object sender, CancelEventArgs e)
@@ -117,7 +113,7 @@ namespace KompasPlugin
             try
             {
                 _waveguideParameters.AnchorageHeight = 
-                    double.Parse(AnchorageHeightTextBox.Text);
+                    double.Parse(anchorageHeightTextBox.Text);
                 _waveguideParameters.CrossSectionHeight = 
                     _waveguideParameters.AnchorageHeight 
                     - WaveguideParameters.ANCHORAGE_CROSS_SECTION_DIFFERENCE;
@@ -128,23 +124,23 @@ namespace KompasPlugin
                     _waveguideParameters.CrossSectionWidth
                     + WaveguideParameters.ANCHORAGE_CROSS_SECTION_DIFFERENCE;
 
-                CrossSectionHeightTextBox.Text =
+                crossSectionHeightTextBox.Text =
                     _waveguideParameters.CrossSectionHeight.ToString();
-                CrossSectionWidthTextBox.Text =
+                crossSectionWidthTextBox.Text =
                     _waveguideParameters.CrossSectionWidth.ToString();
-                AnchorageWidthTextBox.Text =
+                anchorageWidthTextBox.Text =
                     _waveguideParameters.AnchorageWidth.ToString();
             }
             catch (Exception)
             {
-                SetValidatingStyle(AnchorageHeightTextBox);
+                SetValidatingStyle(anchorageHeightTextBox);
                 e.Cancel = true;
             }
         }
 
         private void AnchorageHeightTextBox_Validated(object sender, EventArgs e)
         {
-            SetValidatedStyle(AnchorageHeightTextBox);
+            SetValidatedStyle(anchorageHeightTextBox);
         }
 
         private void AnchorageWidthTextBox_Validating(object sender, CancelEventArgs e)
@@ -152,7 +148,7 @@ namespace KompasPlugin
             try
             {
                 _waveguideParameters.AnchorageWidth = 
-                    double.Parse(AnchorageWidthTextBox.Text);
+                    double.Parse(anchorageWidthTextBox.Text);
                 _waveguideParameters.CrossSectionWidth = 
                     _waveguideParameters.AnchorageWidth
                     - WaveguideParameters.ANCHORAGE_CROSS_SECTION_DIFFERENCE;
@@ -164,23 +160,23 @@ namespace KompasPlugin
                     + WaveguideParameters.ANCHORAGE_CROSS_SECTION_DIFFERENCE;
 
 
-                CrossSectionHeightTextBox.Text =
+                crossSectionHeightTextBox.Text =
                     _waveguideParameters.CrossSectionHeight.ToString();
-                CrossSectionWidthTextBox.Text =
+                crossSectionWidthTextBox.Text =
                     _waveguideParameters.CrossSectionWidth.ToString();
-                AnchorageHeightTextBox.Text =
+                anchorageHeightTextBox.Text =
                     _waveguideParameters.AnchorageHeight.ToString();
             }
             catch (Exception)
             {
-                SetValidatingStyle(AnchorageWidthTextBox);
+                SetValidatingStyle(anchorageWidthTextBox);
                 e.Cancel = true;
             }
         }
 
         private void AnchorageWidthTextBox_Validated(object sender, EventArgs e)
         {
-            SetValidatedStyle(AnchorageWidthTextBox);
+            SetValidatedStyle(anchorageWidthTextBox);
         }
 
         private void AnchorageThicknessTextBox_Validating(object sender, CancelEventArgs e)
@@ -188,18 +184,18 @@ namespace KompasPlugin
             try
             {
                 _waveguideParameters.AnchorageThickness = 
-                    double.Parse(AnchorageThicknessTextBox.Text);
+                    double.Parse(anchorageThicknessTextBox.Text);
             }
             catch (Exception)
             {
-                SetValidatingStyle(AnchorageThicknessTextBox);
+                SetValidatingStyle(anchorageThicknessTextBox);
                 e.Cancel = true;
             }
         }
 
         private void AnchorageThicknessTextBox_Validated(object sender, EventArgs e)
         {
-            SetValidatedStyle(HoleDiametersTextBox);
+            SetValidatedStyle(holeDiametersTextBox);
         }
 
         private void WaveguideLengthTextBox_Validating(object sender, CancelEventArgs e)
@@ -207,18 +203,18 @@ namespace KompasPlugin
             try
             {
                 _waveguideParameters.WaveguideLength = 
-                    double.Parse(WaveguideLengthTextBox.Text);
+                    double.Parse(waveguideLengthTextBox.Text);
             }
             catch (Exception)
             {
-                SetValidatingStyle(WaveguideLengthTextBox);
+                SetValidatingStyle(waveguideLengthTextBox);
                 e.Cancel = true;
             }
         }
 
         private void WaveguideLengthTextBox_Validated(object sender, EventArgs e)
         {
-            SetValidatedStyle(WaveguideLengthTextBox);
+            SetValidatedStyle(waveguideLengthTextBox);
         }
 
         private void CrossSectionWidthTextBox_Validating(object sender, CancelEventArgs e)
@@ -226,7 +222,7 @@ namespace KompasPlugin
             try
             {
                 _waveguideParameters.CrossSectionWidth = 
-                    double.Parse(CrossSectionWidthTextBox.Text);
+                    double.Parse(crossSectionWidthTextBox.Text);
                 _waveguideParameters.CrossSectionHeight = 
                     _waveguideParameters.CrossSectionWidth 
                     / WaveguideParameters.CROSS_SECTION_SIDE_MULTIPLIER;
@@ -237,23 +233,23 @@ namespace KompasPlugin
                     _waveguideParameters.CrossSectionHeight + 
                     WaveguideParameters.ANCHORAGE_CROSS_SECTION_DIFFERENCE;
 
-                CrossSectionHeightTextBox.Text = 
+                crossSectionHeightTextBox.Text = 
                     _waveguideParameters.CrossSectionHeight.ToString();
-                AnchorageHeightTextBox.Text = 
+                anchorageHeightTextBox.Text = 
                     _waveguideParameters.AnchorageHeight.ToString();
-                AnchorageWidthTextBox.Text =
+                anchorageWidthTextBox.Text =
                     _waveguideParameters.AnchorageWidth.ToString();
             }
             catch (Exception)
             {
-                SetValidatingStyle(CrossSectionWidthTextBox);
+                SetValidatingStyle(crossSectionWidthTextBox);
                 e.Cancel = true;
             }
         }
 
         private void CrossSectionWidthTextBox_Validated(object sender, EventArgs e)
         {
-            SetValidatedStyle(CrossSectionWidthTextBox);
+            SetValidatedStyle(crossSectionWidthTextBox);
         }
 
         private void CrossSectionThicknessTextBox_Validating(object sender, CancelEventArgs e)
@@ -261,18 +257,18 @@ namespace KompasPlugin
             try
             {
                 _waveguideParameters.CrossSectionThickness = 
-                    double.Parse(CrossSectionThicknessTextBox.Text);
+                    double.Parse(crossSectionThicknessTextBox.Text);
             }
             catch (Exception)
             {
-                SetValidatingStyle(CrossSectionThicknessTextBox);
+                SetValidatingStyle(crossSectionThicknessTextBox);
                 e.Cancel = true;
             }
         }
 
         private void CrossSectionThicknessTextBox_Validated(object sender, EventArgs e)
         {
-            SetValidatedStyle(CrossSectionThicknessTextBox);
+            SetValidatedStyle(crossSectionThicknessTextBox);
         }
 
         private void CrossSectionHeightTextBox_Validating(object sender, CancelEventArgs e)
@@ -280,7 +276,7 @@ namespace KompasPlugin
             try
             {
                 _waveguideParameters.CrossSectionHeight = 
-                    double.Parse(CrossSectionHeightTextBox.Text);
+                    double.Parse(crossSectionHeightTextBox.Text);
                 _waveguideParameters.CrossSectionWidth =
                     _waveguideParameters.CrossSectionHeight 
                     * WaveguideParameters.CROSS_SECTION_SIDE_MULTIPLIER;
@@ -291,23 +287,23 @@ namespace KompasPlugin
                     _waveguideParameters.CrossSectionHeight +
                     WaveguideParameters.ANCHORAGE_CROSS_SECTION_DIFFERENCE;
 
-                CrossSectionWidthTextBox.Text =
+                crossSectionWidthTextBox.Text =
                     _waveguideParameters.CrossSectionWidth.ToString();
-                AnchorageHeightTextBox.Text =
+                anchorageHeightTextBox.Text =
                     _waveguideParameters.AnchorageHeight.ToString();
-                AnchorageWidthTextBox.Text =
+                anchorageWidthTextBox.Text =
                     _waveguideParameters.AnchorageWidth.ToString();
             }
             catch (Exception)
             {
-                SetValidatingStyle(CrossSectionHeightTextBox);             
+                SetValidatingStyle(crossSectionHeightTextBox);             
                 e.Cancel = true;
             }
         }
 
         private void CrossSectionHeightTextBox_Validated(object sender, EventArgs e)
         {
-            SetValidatedStyle(CrossSectionHeightTextBox);
+            SetValidatedStyle(crossSectionHeightTextBox);
         }
 
         private void DistanceAngleToHoleTextBox_Validating(object sender, CancelEventArgs e)
@@ -315,18 +311,18 @@ namespace KompasPlugin
             try
             {
                 _waveguideParameters.DistanceAngleToHole = 
-                    double.Parse(DistanceAngleToHoleTextBox.Text);
+                    double.Parse(distanceAngleToHoleTextBox.Text);
             }
             catch (Exception)
             {
-                SetValidatingStyle(DistanceAngleToHoleTextBox);
+                SetValidatingStyle(distanceAngleToHoleTextBox);
                 e.Cancel = true;
             }
         }
 
         private void DistanceAngleToHoleTextBox_Validated(object sender, EventArgs e)
         {
-            SetValidatedStyle(DistanceAngleToHoleTextBox);
+            SetValidatedStyle(distanceAngleToHoleTextBox);
         }
     }
 }

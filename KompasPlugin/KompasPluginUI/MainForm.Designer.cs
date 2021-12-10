@@ -41,16 +41,16 @@ namespace KompasPlugin
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.DistanceAngleToHoleTextBox = new System.Windows.Forms.TextBox();
-            this.CrossSectionHeightTextBox = new System.Windows.Forms.TextBox();
-            this.CrossSectionThicknessTextBox = new System.Windows.Forms.TextBox();
-            this.CrossSectionWidthTextBox = new System.Windows.Forms.TextBox();
-            this.WaveguideLengthTextBox = new System.Windows.Forms.TextBox();
-            this.AnchorageThicknessTextBox = new System.Windows.Forms.TextBox();
-            this.AnchorageWidthTextBox = new System.Windows.Forms.TextBox();
-            this.AnchorageHeightTextBox = new System.Windows.Forms.TextBox();
-            this.RadiusCrossTieTextBox = new System.Windows.Forms.TextBox();
-            this.HoleDiametersTextBox = new System.Windows.Forms.TextBox();
+            this.distanceAngleToHoleTextBox = new System.Windows.Forms.TextBox();
+            this.crossSectionHeightTextBox = new System.Windows.Forms.TextBox();
+            this.crossSectionThicknessTextBox = new System.Windows.Forms.TextBox();
+            this.crossSectionWidthTextBox = new System.Windows.Forms.TextBox();
+            this.waveguideLengthTextBox = new System.Windows.Forms.TextBox();
+            this.anchorageThicknessTextBox = new System.Windows.Forms.TextBox();
+            this.anchorageWidthTextBox = new System.Windows.Forms.TextBox();
+            this.anchorageHeightTextBox = new System.Windows.Forms.TextBox();
+            this.radiusCrossTieTextBox = new System.Windows.Forms.TextBox();
+            this.holeDiametersTextBox = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -158,97 +158,97 @@ namespace KompasPlugin
             this.label12.TabIndex = 54;
             this.label12.Text = "от 3.5 до 4.8 мм";
             // 
-            // DistanceAngleToHoleTextBox
+            // distanceAngleToHoleTextBox
             // 
-            this.DistanceAngleToHoleTextBox.Location = new System.Drawing.Point(213, 256);
-            this.DistanceAngleToHoleTextBox.Name = "DistanceAngleToHoleTextBox";
-            this.DistanceAngleToHoleTextBox.Size = new System.Drawing.Size(48, 20);
-            this.DistanceAngleToHoleTextBox.TabIndex = 53;
-            this.DistanceAngleToHoleTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.DistanceAngleToHoleTextBox_Validating);
-            this.DistanceAngleToHoleTextBox.Validated += new System.EventHandler(this.DistanceAngleToHoleTextBox_Validated);
+            this.distanceAngleToHoleTextBox.Location = new System.Drawing.Point(213, 256);
+            this.distanceAngleToHoleTextBox.Name = "distanceAngleToHoleTextBox";
+            this.distanceAngleToHoleTextBox.Size = new System.Drawing.Size(48, 20);
+            this.distanceAngleToHoleTextBox.TabIndex = 53;
+            this.distanceAngleToHoleTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.DistanceAngleToHoleTextBox_Validating);
+            this.distanceAngleToHoleTextBox.Validated += new System.EventHandler(this.DistanceAngleToHoleTextBox_Validated);
             // 
-            // CrossSectionHeightTextBox
+            // crossSectionHeightTextBox
             // 
-            this.CrossSectionHeightTextBox.Location = new System.Drawing.Point(213, 206);
-            this.CrossSectionHeightTextBox.Name = "CrossSectionHeightTextBox";
-            this.CrossSectionHeightTextBox.Size = new System.Drawing.Size(48, 20);
-            this.CrossSectionHeightTextBox.TabIndex = 52;
-            this.CrossSectionHeightTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.CrossSectionHeightTextBox_Validating);
-            this.CrossSectionHeightTextBox.Validated += new System.EventHandler(this.CrossSectionHeightTextBox_Validated);
+            this.crossSectionHeightTextBox.Location = new System.Drawing.Point(213, 206);
+            this.crossSectionHeightTextBox.Name = "crossSectionHeightTextBox";
+            this.crossSectionHeightTextBox.Size = new System.Drawing.Size(48, 20);
+            this.crossSectionHeightTextBox.TabIndex = 52;
+            this.crossSectionHeightTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.CrossSectionHeightTextBox_Validating);
+            this.crossSectionHeightTextBox.Validated += new System.EventHandler(this.CrossSectionHeightTextBox_Validated);
             // 
-            // CrossSectionThicknessTextBox
+            // crossSectionThicknessTextBox
             // 
-            this.CrossSectionThicknessTextBox.Location = new System.Drawing.Point(213, 181);
-            this.CrossSectionThicknessTextBox.Name = "CrossSectionThicknessTextBox";
-            this.CrossSectionThicknessTextBox.Size = new System.Drawing.Size(48, 20);
-            this.CrossSectionThicknessTextBox.TabIndex = 51;
-            this.CrossSectionThicknessTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.CrossSectionThicknessTextBox_Validating);
-            this.CrossSectionThicknessTextBox.Validated += new System.EventHandler(this.CrossSectionThicknessTextBox_Validated);
+            this.crossSectionThicknessTextBox.Location = new System.Drawing.Point(213, 181);
+            this.crossSectionThicknessTextBox.Name = "crossSectionThicknessTextBox";
+            this.crossSectionThicknessTextBox.Size = new System.Drawing.Size(48, 20);
+            this.crossSectionThicknessTextBox.TabIndex = 51;
+            this.crossSectionThicknessTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.CrossSectionThicknessTextBox_Validating);
+            this.crossSectionThicknessTextBox.Validated += new System.EventHandler(this.CrossSectionThicknessTextBox_Validated);
             // 
-            // CrossSectionWidthTextBox
+            // crossSectionWidthTextBox
             // 
-            this.CrossSectionWidthTextBox.Location = new System.Drawing.Point(213, 156);
-            this.CrossSectionWidthTextBox.Name = "CrossSectionWidthTextBox";
-            this.CrossSectionWidthTextBox.Size = new System.Drawing.Size(48, 20);
-            this.CrossSectionWidthTextBox.TabIndex = 50;
-            this.CrossSectionWidthTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.CrossSectionWidthTextBox_Validating);
-            this.CrossSectionWidthTextBox.Validated += new System.EventHandler(this.CrossSectionWidthTextBox_Validated);
+            this.crossSectionWidthTextBox.Location = new System.Drawing.Point(213, 156);
+            this.crossSectionWidthTextBox.Name = "crossSectionWidthTextBox";
+            this.crossSectionWidthTextBox.Size = new System.Drawing.Size(48, 20);
+            this.crossSectionWidthTextBox.TabIndex = 50;
+            this.crossSectionWidthTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.CrossSectionWidthTextBox_Validating);
+            this.crossSectionWidthTextBox.Validated += new System.EventHandler(this.CrossSectionWidthTextBox_Validated);
             // 
-            // WaveguideLengthTextBox
+            // waveguideLengthTextBox
             // 
-            this.WaveguideLengthTextBox.Location = new System.Drawing.Point(213, 131);
-            this.WaveguideLengthTextBox.Name = "WaveguideLengthTextBox";
-            this.WaveguideLengthTextBox.Size = new System.Drawing.Size(48, 20);
-            this.WaveguideLengthTextBox.TabIndex = 49;
-            this.WaveguideLengthTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.WaveguideLengthTextBox_Validating);
-            this.WaveguideLengthTextBox.Validated += new System.EventHandler(this.WaveguideLengthTextBox_Validated);
+            this.waveguideLengthTextBox.Location = new System.Drawing.Point(213, 131);
+            this.waveguideLengthTextBox.Name = "waveguideLengthTextBox";
+            this.waveguideLengthTextBox.Size = new System.Drawing.Size(48, 20);
+            this.waveguideLengthTextBox.TabIndex = 49;
+            this.waveguideLengthTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.WaveguideLengthTextBox_Validating);
+            this.waveguideLengthTextBox.Validated += new System.EventHandler(this.WaveguideLengthTextBox_Validated);
             // 
-            // AnchorageThicknessTextBox
+            // anchorageThicknessTextBox
             // 
-            this.AnchorageThicknessTextBox.Location = new System.Drawing.Point(213, 106);
-            this.AnchorageThicknessTextBox.Name = "AnchorageThicknessTextBox";
-            this.AnchorageThicknessTextBox.Size = new System.Drawing.Size(48, 20);
-            this.AnchorageThicknessTextBox.TabIndex = 48;
-            this.AnchorageThicknessTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.AnchorageThicknessTextBox_Validating);
-            this.AnchorageThicknessTextBox.Validated += new System.EventHandler(this.AnchorageThicknessTextBox_Validated);
+            this.anchorageThicknessTextBox.Location = new System.Drawing.Point(213, 106);
+            this.anchorageThicknessTextBox.Name = "anchorageThicknessTextBox";
+            this.anchorageThicknessTextBox.Size = new System.Drawing.Size(48, 20);
+            this.anchorageThicknessTextBox.TabIndex = 48;
+            this.anchorageThicknessTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.AnchorageThicknessTextBox_Validating);
+            this.anchorageThicknessTextBox.Validated += new System.EventHandler(this.AnchorageThicknessTextBox_Validated);
             // 
-            // AnchorageWidthTextBox
+            // anchorageWidthTextBox
             // 
-            this.AnchorageWidthTextBox.Location = new System.Drawing.Point(213, 81);
-            this.AnchorageWidthTextBox.Name = "AnchorageWidthTextBox";
-            this.AnchorageWidthTextBox.Size = new System.Drawing.Size(48, 20);
-            this.AnchorageWidthTextBox.TabIndex = 47;
-            this.AnchorageWidthTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.AnchorageWidthTextBox_Validating);
-            this.AnchorageWidthTextBox.Validated += new System.EventHandler(this.AnchorageWidthTextBox_Validated);
+            this.anchorageWidthTextBox.Location = new System.Drawing.Point(213, 81);
+            this.anchorageWidthTextBox.Name = "anchorageWidthTextBox";
+            this.anchorageWidthTextBox.Size = new System.Drawing.Size(48, 20);
+            this.anchorageWidthTextBox.TabIndex = 47;
+            this.anchorageWidthTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.AnchorageWidthTextBox_Validating);
+            this.anchorageWidthTextBox.Validated += new System.EventHandler(this.AnchorageWidthTextBox_Validated);
             // 
-            // AnchorageHeightTextBox
+            // anchorageHeightTextBox
             // 
-            this.AnchorageHeightTextBox.Location = new System.Drawing.Point(213, 56);
-            this.AnchorageHeightTextBox.Name = "AnchorageHeightTextBox";
-            this.AnchorageHeightTextBox.Size = new System.Drawing.Size(48, 20);
-            this.AnchorageHeightTextBox.TabIndex = 46;
-            this.AnchorageHeightTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.AnchorageHeightTextBox_Validating);
-            this.AnchorageHeightTextBox.Validated += new System.EventHandler(this.AnchorageHeightTextBox_Validated);
+            this.anchorageHeightTextBox.Location = new System.Drawing.Point(213, 56);
+            this.anchorageHeightTextBox.Name = "anchorageHeightTextBox";
+            this.anchorageHeightTextBox.Size = new System.Drawing.Size(48, 20);
+            this.anchorageHeightTextBox.TabIndex = 46;
+            this.anchorageHeightTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.AnchorageHeightTextBox_Validating);
+            this.anchorageHeightTextBox.Validated += new System.EventHandler(this.AnchorageHeightTextBox_Validated);
             // 
-            // RadiusCrossTieTextBox
+            // radiusCrossTieTextBox
             // 
-            this.RadiusCrossTieTextBox.BackColor = System.Drawing.SystemColors.Window;
-            this.RadiusCrossTieTextBox.Location = new System.Drawing.Point(213, 31);
-            this.RadiusCrossTieTextBox.Name = "RadiusCrossTieTextBox";
-            this.RadiusCrossTieTextBox.Size = new System.Drawing.Size(48, 20);
-            this.RadiusCrossTieTextBox.TabIndex = 45;
-            this.RadiusCrossTieTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.RadiusCrossTieTextBox_Validating);
-            this.RadiusCrossTieTextBox.Validated += new System.EventHandler(this.RadiusCrossTieTextBox_Validated);
+            this.radiusCrossTieTextBox.BackColor = System.Drawing.SystemColors.Window;
+            this.radiusCrossTieTextBox.Location = new System.Drawing.Point(213, 31);
+            this.radiusCrossTieTextBox.Name = "radiusCrossTieTextBox";
+            this.radiusCrossTieTextBox.Size = new System.Drawing.Size(48, 20);
+            this.radiusCrossTieTextBox.TabIndex = 45;
+            this.radiusCrossTieTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.RadiusCrossTieTextBox_Validating);
+            this.radiusCrossTieTextBox.Validated += new System.EventHandler(this.RadiusCrossTieTextBox_Validated);
             // 
-            // HoleDiametersTextBox
+            // holeDiametersTextBox
             // 
-            this.HoleDiametersTextBox.BackColor = System.Drawing.SystemColors.Window;
-            this.HoleDiametersTextBox.Location = new System.Drawing.Point(213, 6);
-            this.HoleDiametersTextBox.Name = "HoleDiametersTextBox";
-            this.HoleDiametersTextBox.Size = new System.Drawing.Size(48, 20);
-            this.HoleDiametersTextBox.TabIndex = 44;
-            this.HoleDiametersTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.HoleDiametersTextBox_Validating);
-            this.HoleDiametersTextBox.Validated += new System.EventHandler(this.HoleDiametersTextBox_Validated);
+            this.holeDiametersTextBox.BackColor = System.Drawing.SystemColors.Window;
+            this.holeDiametersTextBox.Location = new System.Drawing.Point(213, 6);
+            this.holeDiametersTextBox.Name = "holeDiametersTextBox";
+            this.holeDiametersTextBox.Size = new System.Drawing.Size(48, 20);
+            this.holeDiametersTextBox.TabIndex = 44;
+            this.holeDiametersTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.HoleDiametersTextBox_Validating);
+            this.holeDiametersTextBox.Validated += new System.EventHandler(this.HoleDiametersTextBox_Validated);
             // 
             // label11
             // 
@@ -385,16 +385,16 @@ namespace KompasPlugin
             this.Controls.Add(this.label14);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label12);
-            this.Controls.Add(this.DistanceAngleToHoleTextBox);
-            this.Controls.Add(this.CrossSectionHeightTextBox);
-            this.Controls.Add(this.CrossSectionThicknessTextBox);
-            this.Controls.Add(this.CrossSectionWidthTextBox);
-            this.Controls.Add(this.WaveguideLengthTextBox);
-            this.Controls.Add(this.AnchorageThicknessTextBox);
-            this.Controls.Add(this.AnchorageWidthTextBox);
-            this.Controls.Add(this.AnchorageHeightTextBox);
-            this.Controls.Add(this.RadiusCrossTieTextBox);
-            this.Controls.Add(this.HoleDiametersTextBox);
+            this.Controls.Add(this.distanceAngleToHoleTextBox);
+            this.Controls.Add(this.crossSectionHeightTextBox);
+            this.Controls.Add(this.crossSectionThicknessTextBox);
+            this.Controls.Add(this.crossSectionWidthTextBox);
+            this.Controls.Add(this.waveguideLengthTextBox);
+            this.Controls.Add(this.anchorageThicknessTextBox);
+            this.Controls.Add(this.anchorageWidthTextBox);
+            this.Controls.Add(this.anchorageHeightTextBox);
+            this.Controls.Add(this.radiusCrossTieTextBox);
+            this.Controls.Add(this.holeDiametersTextBox);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
@@ -409,7 +409,6 @@ namespace KompasPlugin
             this.Controls.Add(this.label1);
             this.Name = "MainForm";
             this.Text = "Построение волновода в КОМПАС-3D";
-            this.toolTip1.SetToolTip(this, "Ниггеры");
             ((System.ComponentModel.ISupportInitialize)(this.WaveguideParametersPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -428,16 +427,16 @@ namespace KompasPlugin
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox DistanceAngleToHoleTextBox;
-        private System.Windows.Forms.TextBox CrossSectionHeightTextBox;
-        private System.Windows.Forms.TextBox CrossSectionThicknessTextBox;
-        private System.Windows.Forms.TextBox CrossSectionWidthTextBox;
-        private System.Windows.Forms.TextBox WaveguideLengthTextBox;
-        private System.Windows.Forms.TextBox AnchorageThicknessTextBox;
-        private System.Windows.Forms.TextBox AnchorageWidthTextBox;
-        private System.Windows.Forms.TextBox AnchorageHeightTextBox;
-        private System.Windows.Forms.TextBox RadiusCrossTieTextBox;
-        private System.Windows.Forms.TextBox HoleDiametersTextBox;
+        private System.Windows.Forms.TextBox distanceAngleToHoleTextBox;
+        private System.Windows.Forms.TextBox crossSectionHeightTextBox;
+        private System.Windows.Forms.TextBox crossSectionThicknessTextBox;
+        private System.Windows.Forms.TextBox crossSectionWidthTextBox;
+        private System.Windows.Forms.TextBox waveguideLengthTextBox;
+        private System.Windows.Forms.TextBox anchorageThicknessTextBox;
+        private System.Windows.Forms.TextBox anchorageWidthTextBox;
+        private System.Windows.Forms.TextBox anchorageHeightTextBox;
+        private System.Windows.Forms.TextBox radiusCrossTieTextBox;
+        private System.Windows.Forms.TextBox holeDiametersTextBox;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KompasPlugin
 {
@@ -109,7 +105,8 @@ namespace KompasPlugin
 
             set
             {
-                if (Validator.IsValidateSize(MIN_ANCHORAGE_HEIGHT, MAX_ANCHORAGE_HEIGHT, value))
+                if (Validator.IsValidateSize(MIN_ANCHORAGE_HEIGHT, 
+                    MAX_ANCHORAGE_HEIGHT, value))
                 {
                     _anchorageHeight = value;
                 }
@@ -152,7 +149,8 @@ namespace KompasPlugin
 
             set
             {
-                if (Validator.IsValidateSize(MIN_ANCHORAGE_WIDTH, MAX_ANCHORAGE_WIDTH, value))
+                if (Validator.IsValidateSize(MIN_ANCHORAGE_WIDTH, 
+                    MAX_ANCHORAGE_WIDTH, value))
                 {
                     _anchorageWidth = value;
                 }
@@ -217,7 +215,8 @@ namespace KompasPlugin
 
             set
             {
-                if (Validator.IsValidateSize(MIN_CROSS_SECTION_WIDTH, MAX_CROSS_SECTION_WIDTH, value))
+                if (Validator.IsValidateSize(MIN_CROSS_SECTION_WIDTH, 
+                    MAX_CROSS_SECTION_WIDTH, value))
                 {
                     _crossSectionWidth = value;
                 }
@@ -315,37 +314,6 @@ namespace KompasPlugin
                         ("Waveguide length should be not less than 1 and no more 7");
                 }
             }
-        }
-
-        /// <summary>
-        /// Конструктор класса
-        /// </summary>
-        /// <param name="anchorageHeight">Высота крепления</param>
-        /// <param name="anchorageThickness">Толщина крепления</param>
-        /// <param name="anchorageWidth">Ширина крепления</param>
-        /// <param name="crossSectionHeight">Высота сечения</param>
-        /// <param name="crossSectionThickness">Толщина стенок сечения</param>
-        /// <param name="crossSectionWidth">Ширина сечения</param>
-        /// <param name="distanceAngleToHole">Расстояние от угла сечения до отверстий</param>
-        /// <param name="holeDiameters">Диаметр отверстий</param>
-        /// <param name="radiusCrossTie">Радиус фаски</param>
-        /// <param name="waveguideLength">Длина волновода</param>
-        public WaveguideParameters(double anchorageHeight, double anchorageThickness,
-            double anchorageWidth, double crossSectionHeight,
-            double crossSectionThickness, double crossSectionWidth,
-            double distanceAngleToHole, double holeDiameters,
-            double radiusCrossTie, double waveguideLength)
-        {
-            this.CrossSectionHeight = crossSectionHeight;
-            this.CrossSectionThickness = crossSectionThickness;
-            this.CrossSectionWidth = crossSectionWidth;
-            this.AnchorageHeight = anchorageHeight;
-            this.AnchorageThickness = anchorageThickness;
-            this.AnchorageWidth = anchorageWidth;
-            this.DistanceAngleToHole = distanceAngleToHole;
-            this.HoleDiameters = holeDiameters;
-            this.RadiusCrossTie = radiusCrossTie;
-            this.WaveguideLength = waveguideLength;
         }
 
         /// <summary>

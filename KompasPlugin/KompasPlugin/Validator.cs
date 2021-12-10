@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace KompasPlugin
+﻿namespace KompasPlugin
 {
     /// <summary>
     /// Статический класс проверки правильности значения параметра
@@ -14,7 +8,7 @@ namespace KompasPlugin
         /// <summary>
         /// Метод сравнивающий значение с допустимым минимумом и максимумом
         /// </summary>
-        /// <param name="min">Минимм</param>
+        /// <param name="min">Минимум</param>
         /// <param name="max">Максимум</param>
         /// <param name="value">Значение</param>
         /// <returns></returns>
