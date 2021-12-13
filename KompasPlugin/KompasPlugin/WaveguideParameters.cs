@@ -10,52 +10,72 @@ namespace KompasPlugin
         /// <summary>
         /// Высота креплений
         /// </summary>
-        private double _anchorageHeight;
+        private Parameter<double> _anchorageHeight =
+            new Parameter<double>("Anchorage height",
+                MAX_ANCHORAGE_HEIGHT, MIN_ANCHORAGE_HEIGHT);
 
         /// <summary>
         /// Толщина креплений
         /// </summary>
-        private double _anchorageThickness;
+        private Parameter<double> _anchorageThickness =
+            new Parameter<double>("Anchorage thickness",
+                MAX_ANCHORAGE_THICKNESS, MIN_ANCHORAGE_THICKNESS);
 
         /// <summary>
         /// Ширина креплений
         /// </summary>
-        private double _anchorageWidth;
+        private Parameter<double> _anchorageWidth =
+            new Parameter<double>("Anchorage width",
+                MAX_ANCHORAGE_WIDTH, MIN_ANCHORAGE_WIDTH);
 
         /// <summary>
         /// Высота сечения
         /// </summary>
-        private double _crossSectionHeight;
+        private Parameter<double> _crossSectionHeight =
+            new Parameter<double>("Cross section height",
+                MAX_CROSS_SECTION_HEIGHT, MIN_CROSS_SECTION_HEIGHT);
 
         /// <summary>
         /// Толщина стенок сечения
         /// </summary>
-        private double _crossSectionThickness;
+        private Parameter<double> _crossSectionThickness =
+            new Parameter<double>("Cross section thickness",
+                MAX_CROSS_SECTION_THICKNESS, MIN_CROSS_SECTION_THICKNESS);
 
         /// <summary>
         /// Ширина сечения
         /// </summary>
-        private double _crossSectionWidth;
+        private Parameter<double> _crossSectionWidth =
+            new Parameter<double>("Cross section width",
+                MAX_CROSS_SECTION_WIDTH, MIN_CROSS_SECTION_WIDTH);
 
         /// <summary>
         /// Расстояние от угла сечения до отверстия в креплении
         /// </summary>
-        private double _distanceAngleToHole;
+        private Parameter<double> _distanceAngleToHole =
+            new Parameter<double>("Distance angle to hole",
+                MAX_DISTANCE_ANGLE_TO_HOLE, MIN_DISTANCE_ANGLE_TO_HOLE);
 
         /// <summary>
         /// Диаметр отверстий в креплениях
         /// </summary>
-        private double _holeDiameters;
+        private Parameter<double> _holeDiameters =
+            new Parameter<double>("Hole diameters",
+                MAX_HOLE_DIAMETERS, MIN_HOLE_DIAMETERS);
 
         /// <summary>
         /// Радиус фаски креплений
         /// </summary>
-        private double _radiusCrossTie;
+        private Parameter<double> _radiusCrossTie =
+            new Parameter<double>("Radius cross tie",
+                MAX_RADIUS_CROSS_TIE, MIN_RADIUS_CROSS_TIE);
 
         /// <summary>
         /// Длина волновода
         /// </summary>
-        private double _waveguideLength;
+        private Parameter<double> _waveguideLength =
+            new Parameter<double>("waveguide lengt",
+                MAX_WAVEGUIDE_LENGTH, MIN_WAVEGUIDE_LENGTH);
 
         /// <summary>
         /// Конастанты минимальных и максимальных значений параметров в миллиметрах
@@ -101,21 +121,12 @@ namespace KompasPlugin
         /// </summary>
         public double AnchorageHeight
         {
-            get { return _anchorageHeight; }
+            get => _anchorageHeight.Value;
 
             set
             {
                 //TODO: Убрать дубли
-                if (Validator.IsValidateSize(MIN_ANCHORAGE_HEIGHT, 
-                    MAX_ANCHORAGE_HEIGHT, value))
-                {
-                    _anchorageHeight = value;
-                }
-                else
-                {
-                    throw new Exception
-                        ("Anchorage height should be not less than 65 and no more 100");
-                }
+                _anchorageHeight.Value = value;
             }
         }
 
@@ -124,21 +135,12 @@ namespace KompasPlugin
         /// </summary>
         public double AnchorageThickness
         {
-            get { return _anchorageThickness; }
+            get => _anchorageThickness.Value; 
 
             set
             {
                 //TODO: Убрать дубли
-                if (Validator.IsValidateSize(MIN_ANCHORAGE_THICKNESS,
-                    MAX_ANCHORAGE_THICKNESS, value))
-                {
-                    _anchorageThickness = value;
-                }
-                else
-                {
-                    throw new Exception
-                        ("Anchorage thickness should be not less than 10 and no more 20");
-                }
+                _anchorageThickness.Value = value;
             }
         }
 
@@ -147,21 +149,12 @@ namespace KompasPlugin
         /// </summary>
         public double AnchorageWidth
         {
-            get { return _anchorageWidth; }
+            get => _anchorageWidth.Value;
 
             set
             {
                 //TODO: Убрать дубли
-                if (Validator.IsValidateSize(MIN_ANCHORAGE_WIDTH, 
-                    MAX_ANCHORAGE_WIDTH, value))
-                {
-                    _anchorageWidth = value;
-                }
-                else
-                {
-                    throw new Exception
-                        ("Anchorage width should be not less than 60 and no more 150");
-                }
+                _anchorageWidth.Value = value;
             }
         }
 
@@ -170,21 +163,12 @@ namespace KompasPlugin
         /// </summary>
         public double CrossSectionHeight
         {
-            get { return _crossSectionHeight; }
+            get => _crossSectionHeight.Value; 
 
             set
             {
                 //TODO: Убрать дубли
-                if (Validator.IsValidateSize(MIN_CROSS_SECTION_HEIGHT,
-                    MAX_CROSS_SECTION_HEIGHT, value))
-                {
-                    _crossSectionHeight = value;
-                }
-                else
-                {
-                    throw new Exception
-                        ("Cross section height should be not less than 15 and no more 50");
-                }
+                _crossSectionHeight.Value = value;
             }
         }
 
@@ -193,21 +177,12 @@ namespace KompasPlugin
         /// </summary>
         public double CrossSectionThickness
         {
-            get { return _crossSectionThickness; }
+            get => _crossSectionThickness.Value;
 
             set
             {
                 //TODO: Убрать дубли
-                if (Validator.IsValidateSize(MIN_CROSS_SECTION_THICKNESS,
-                    MAX_CROSS_SECTION_THICKNESS, value))
-                {
-                    _crossSectionThickness = value;
-                }
-                else
-                {
-                    throw new Exception
-                        ("Cross section thickness should be not less than 5 and no more 10");
-                }
+                _crossSectionThickness.Value = value;
             }
         }
 
@@ -216,21 +191,12 @@ namespace KompasPlugin
         /// </summary>
         public double CrossSectionWidth
         {
-            get { return _crossSectionWidth; }
+            get => _crossSectionWidth.Value;
 
             set
             {
                 //TODO: Убрать дубли
-                if (Validator.IsValidateSize(MIN_CROSS_SECTION_WIDTH, 
-                    MAX_CROSS_SECTION_WIDTH, value))
-                {
-                    _crossSectionWidth = value;
-                }
-                else
-                {
-                    throw new Exception
-                        ("Cross section width should be not less than 30 and no more 100");
-                }
+                _crossSectionWidth.Value = value;
             }
         }
 
@@ -239,21 +205,12 @@ namespace KompasPlugin
         /// </summary>
         public double DistanceAngleToHole
         {
-            get { return _distanceAngleToHole; }
+            get => _distanceAngleToHole.Value;
 
             set
             {
                 //TODO: Убрать дубли
-                if (Validator.IsValidateSize(MIN_DISTANCE_ANGLE_TO_HOLE,
-                    MAX_DISTANCE_ANGLE_TO_HOLE, value))
-                {
-                    _distanceAngleToHole = value;
-                }
-                else
-                {
-                    throw new Exception
-                        ("Distance angle to hole should be not less than 20 and no more 50");
-                }
+                _distanceAngleToHole.Value = value;
             }
         }
 
@@ -262,21 +219,12 @@ namespace KompasPlugin
         /// </summary>
         public double HoleDiameters
         {
-            get { return _holeDiameters; }
+            get => _holeDiameters.Value;
 
             set
             {
                 //TODO: Убрать дубли
-                if (Validator.IsValidateSize(MIN_HOLE_DIAMETERS,
-                    MAX_HOLE_DIAMETERS, value))
-                {
-                    _holeDiameters = value;
-                }
-                else
-                {
-                    throw new Exception
-                        ("Hole diameters should be not less than 3.5 and no more 4.8");
-                }
+                _holeDiameters.Value = value;
             }
         }
 
@@ -285,21 +233,12 @@ namespace KompasPlugin
         /// </summary>
         public double RadiusCrossTie
         {
-            get { return _radiusCrossTie; }
+            get => _radiusCrossTie.Value;
 
             set
             {
                 //TODO: Убрать дубли
-                if (Validator.IsValidateSize(MIN_RADIUS_CROSS_TIE,
-                    MAX_RADIUS_CROSS_TIE, value))
-                {
-                    _radiusCrossTie = value;
-                }
-                else
-                {
-                    throw new Exception
-                        ("Radius cross tie should be not less than 1 and no more 7");
-                }
+                _radiusCrossTie.Value = value;
             }
         }
 
@@ -308,21 +247,12 @@ namespace KompasPlugin
         /// </summary>
         public double WaveguideLength
         {
-            get { return _waveguideLength; }
+            get => _waveguideLength.Value;
 
             set
             {
                 //TODO: Убрать дубли
-                if (Validator.IsValidateSize(MIN_WAVEGUIDE_LENGTH,
-                    MAX_WAVEGUIDE_LENGTH, value))
-                {
-                    _waveguideLength = value;
-                }
-                else
-                {
-                    throw new Exception
-                        ("Waveguide length should be not less than 1 and no more 7");
-                }
+                _waveguideLength.Value = value;
             }
         }
 

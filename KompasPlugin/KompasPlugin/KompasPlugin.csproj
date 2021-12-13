@@ -42,8 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="KompasConnector.cs" />
+    <Compile Include="Parameter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Validator.cs" />
     <Compile Include="WaveguideBuilder.cs" />
     <Compile Include="WaveguideParameters.cs" />
   </ItemGroup>

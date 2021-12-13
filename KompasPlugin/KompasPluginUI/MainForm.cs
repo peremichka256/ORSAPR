@@ -43,6 +43,9 @@ namespace KompasPlugin
                 _waveguideParameters.RadiusCrossTie.ToString(); 
             waveguideLengthTextBox.Text = 
                 _waveguideParameters.WaveguideLength.ToString();
+
+            ParameterTextboxValidating(holeDiametersTextBox, 
+                _waveguideParameters.HoleDiameters, new CancelEventArgs());
         }
 
         /// <summary>
@@ -68,6 +71,19 @@ namespace KompasPlugin
             kompas.CreateDocument3D();
             _waveguideBuilder = new WaveguideBuilder(_waveguideParameters, kompas); 
             _waveguideBuilder.BuildWaveguide(kompas.Part);
+        }
+
+        private void ParameterTextboxValidating(TextBox sender, double parameter, CancelEventArgs e)
+        {
+            try
+            {
+                parameter = double.Parse(sender.Text);
+            }
+            catch (Exception)
+            {
+                SetValidatingStyle(sender);
+                e.Cancel = true;
+            }
         }
 
         private void HoleDiametersTextBox_Validating(object sender, CancelEventArgs e)
