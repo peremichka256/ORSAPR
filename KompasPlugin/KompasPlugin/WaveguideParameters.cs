@@ -78,7 +78,7 @@ namespace KompasPlugin
                 MAX_WAVEGUIDE_LENGTH, MIN_WAVEGUIDE_LENGTH);
 
         /// <summary>
-        /// Конастанты минимальных и максимальных значений параметров в миллиметрах
+        /// Конастанты минимальных и максимальных значений параметров в мм
         /// </summary>
         public const double MIN_ANCHORAGE_HEIGHT = 65.0;
         public const double MAX_ANCHORAGE_HEIGHT = 100.0;
@@ -201,7 +201,7 @@ namespace KompasPlugin
         }
 
         /// <summary>
-        /// Задаёт или возвращает расстояние от угла сечения до отверстий в креплений
+        /// Задаёт или возвращает расстояние от угла сечения до отверстий
         /// </summary>
         public double DistanceAngleToHole
         {

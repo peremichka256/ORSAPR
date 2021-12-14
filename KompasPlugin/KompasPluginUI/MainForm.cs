@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
 namespace KompasPlugin
 {
+    /// <summary>
+    /// Класс хранящий и обрабатывающий пользовательский интерфейс плагина
+    /// </summary>
     public partial class MainForm : Form
     {
         /// <summary>
@@ -15,55 +19,90 @@ namespace KompasPlugin
         /// <summary>
         /// Объект класса с параметрами
         /// </summary>
-        private WaveguideParameters _waveguideParameters;
+        private WaveguideParameters _waveguideParameters = new WaveguideParameters();
 
-
+        /// <summary>
+        /// Конструктор главной формы с необходимыми инициализациями
+        /// </summary>
         public MainForm()
         {
             InitializeComponent();
-            _waveguideParameters = new WaveguideParameters();
 
-            anchorageHeightTextBox.Text = 
-                _waveguideParameters.AnchorageHeight.ToString();
-            anchorageWidthTextBox.Text = 
-                _waveguideParameters.AnchorageWidth.ToString();
-            anchorageThicknessTextBox.Text = 
-                _waveguideParameters.AnchorageThickness.ToString();
-            crossSectionHeightTextBox.Text = 
-                _waveguideParameters.CrossSectionHeight.ToString();
-            crossSectionThicknessTextBox.Text = 
-                _waveguideParameters.CrossSectionThickness.ToString();
-            crossSectionWidthTextBox.Text = 
-                _waveguideParameters.CrossSectionWidth.ToString();
-            distanceAngleToHoleTextBox.Text = 
-                _waveguideParameters.DistanceAngleToHole.ToString();
-            holeDiametersTextBox.Text = 
-                _waveguideParameters.HoleDiameters.ToString();
-            radiusCrossTieTextBox.Text = 
-                _waveguideParameters.RadiusCrossTie.ToString(); 
-            waveguideLengthTextBox.Text = 
-                _waveguideParameters.WaveguideLength.ToString();
+            List<TextBox> textBoxes = new List<TextBox>
+            {
+                anchorageHeightTextBox,
+                anchorageThicknessTextBox,
+                anchorageWidthTextBox,
+                crossSectionHeightTextBox,
+                crossSectionThicknessTextBox,
+                crossSectionWidthTextBox,
+                distanceAngleToHoleTextBox,
+                holeDiametersTextBox,
+                radiusCrossTieTextBox,
+                waveguideLengthTextBox
+            };
+            //Важно точное соотношение порядка текстбоксов и параметров
+            //валидируемых в этих текстбоксах
+            List<double> parameters = new List<double>
+            {
+                _waveguideParameters.AnchorageHeight,
+                _waveguideParameters.AnchorageThickness,
+                _waveguideParameters.AnchorageWidth,
+                _waveguideParameters.CrossSectionHeight,
+                _waveguideParameters.CrossSectionThickness,
+                _waveguideParameters.CrossSectionWidth,
+                _waveguideParameters.DistanceAngleToHole,
+                _waveguideParameters.HoleDiameters,
+                _waveguideParameters.RadiusCrossTie,
+                _waveguideParameters.WaveguideLength
+            };
 
-            ParameterTextboxValidating(holeDiametersTextBox, 
-                _waveguideParameters.HoleDiameters, new CancelEventArgs());
-        }
-
-        /// <summary>
-        /// Устанавливает стиль для неправильного проверяемого значения
-        /// </summary>
-        private void SetValidatingStyle(TextBox textBox)
-        {
-            textBox.BackColor = Color.LightSalmon;
+            //Занесения в текстбоксы дефолтных значений
+            //и задание поведения проверенного текстбокса
+            for (int i = 0; i < textBoxes.Count; i++)
+            {
+                textBoxes[i].Text = parameters[i].ToString();
+                textBoxes[i].Validated 
+                    += new EventHandler(TextBox_Validated);
+            }
         }
 
         /// <summary>
         /// Устанавливает стиль для проверенного значения
         /// </summary>
-        private void SetValidatedStyle(TextBox textBox)
+        /// <param name="sender">Текстбокс</param>
+        private void TextBox_Validated(object sender, EventArgs e)
         {
-            textBox.BackColor = Color.White;
+            if (sender is TextBox textBox)
+            {
+                textBox.BackColor = Color.White;
+            }
+            else
+            {
+                return;
+            }
         }
 
+        /// <summary>
+        /// Устанавливает стиль для значения непрошедшего проверку 
+        /// </summary>
+        /// <param name="sender">Текстбокс</param>
+        private void TextBox_ValidatingFail(object sender, CancelEventArgs e)
+        {
+            if (sender is TextBox textBox)
+            {
+                textBox.BackColor = Color.LightSalmon;
+                e.Cancel = true;
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        /// <summary>
+        /// Обработчик нажания кнопки "Построить"
+        /// </summary>
         private void BuildButton_Click(object sender, EventArgs e)
         {
             KompasConnector kompas = new KompasConnector();
@@ -73,19 +112,9 @@ namespace KompasPlugin
             _waveguideBuilder.BuildWaveguide(kompas.Part);
         }
 
-        private void ParameterTextboxValidating(TextBox sender, double parameter, CancelEventArgs e)
-        {
-            try
-            {
-                parameter = double.Parse(sender.Text);
-            }
-            catch (Exception)
-            {
-                SetValidatingStyle(sender);
-                e.Cancel = true;
-            }
-        }
-
+        /// <summary>
+        /// Валидация текстбокса с диаметром отверстий
+        /// </summary>
         private void HoleDiametersTextBox_Validating(object sender, CancelEventArgs e)
         {
             try
@@ -95,17 +124,14 @@ namespace KompasPlugin
             }
             catch (Exception)
             {
-                SetValidatingStyle(holeDiametersTextBox);
-                e.Cancel = true;
+                TextBox_ValidatingFail(holeDiametersTextBox, e);
             }
         }
 
         //TODO: Убрать дубли
-        private void HoleDiametersTextBox_Validated(object sender, EventArgs e)
-        {
-            SetValidatedStyle(holeDiametersTextBox);
-        }
-
+        /// <summary>
+        /// Валидация текстбокса с радиусом фаски
+        /// </summary>
         private void RadiusCrossTieTextBox_Validating(object sender, CancelEventArgs e)
         {
             try
@@ -115,17 +141,14 @@ namespace KompasPlugin
             }
             catch (Exception)
             {
-                SetValidatingStyle(radiusCrossTieTextBox);
-                e.Cancel = true;
+                TextBox_ValidatingFail(radiusCrossTieTextBox, e);
             }
         }
 
         //TODO: Убрать дубли
-        private void RadiusCrossTieTextBox_Validated(object sender, EventArgs e)
-        {
-            SetValidatedStyle(radiusCrossTieTextBox);
-        }
-
+        /// <summary>
+        /// Валидация текстбокса с высотой креплений
+        /// </summary>
         private void AnchorageHeightTextBox_Validating(object sender, CancelEventArgs e)
         {
             try
@@ -151,17 +174,14 @@ namespace KompasPlugin
             }
             catch (Exception)
             {
-                SetValidatingStyle(anchorageHeightTextBox);
-                e.Cancel = true;
+                TextBox_ValidatingFail(anchorageHeightTextBox, e);
             }
         }
 
         //TODO: Убрать дубли
-        private void AnchorageHeightTextBox_Validated(object sender, EventArgs e)
-        {
-            SetValidatedStyle(anchorageHeightTextBox);
-        }
-
+        /// <summary>
+        /// Валидация текстбокса с шириной креплений
+        /// </summary>
         private void AnchorageWidthTextBox_Validating(object sender, CancelEventArgs e)
         {
             try
@@ -188,17 +208,14 @@ namespace KompasPlugin
             }
             catch (Exception)
             {
-                SetValidatingStyle(anchorageWidthTextBox);
-                e.Cancel = true;
+                TextBox_ValidatingFail(anchorageWidthTextBox, e);
             }
         }
 
         //TODO: Убрать дубли
-        private void AnchorageWidthTextBox_Validated(object sender, EventArgs e)
-        {
-            SetValidatedStyle(anchorageWidthTextBox);
-        }
-
+        /// <summary>
+        /// Валидация текстбокса с толщиной креплений
+        /// </summary>
         private void AnchorageThicknessTextBox_Validating(object sender, CancelEventArgs e)
         {
             try
@@ -208,16 +225,14 @@ namespace KompasPlugin
             }
             catch (Exception)
             {
-                SetValidatingStyle(anchorageThicknessTextBox);
-                e.Cancel = true;
+                TextBox_ValidatingFail(anchorageThicknessTextBox, e);
             }
         }
 
-        private void AnchorageThicknessTextBox_Validated(object sender, EventArgs e)
-        {
-            SetValidatedStyle(holeDiametersTextBox);
-        }
 
+        /// <summary>
+        /// Валидация текстбокса с длиной волновода
+        /// </summary>
         private void WaveguideLengthTextBox_Validating(object sender, CancelEventArgs e)
         {
             try
@@ -227,17 +242,14 @@ namespace KompasPlugin
             }
             catch (Exception)
             {
-                SetValidatingStyle(waveguideLengthTextBox);
-                e.Cancel = true;
+                TextBox_ValidatingFail(waveguideLengthTextBox, e);
             }
         }
 
         //TODO: Убрать дубли
-        private void WaveguideLengthTextBox_Validated(object sender, EventArgs e)
-        {
-            SetValidatedStyle(waveguideLengthTextBox);
-        }
-
+        /// <summary>
+        /// Валидация текстбокса с шириной сечения
+        /// </summary>
         private void CrossSectionWidthTextBox_Validating(object sender, CancelEventArgs e)
         {
             try
@@ -263,17 +275,14 @@ namespace KompasPlugin
             }
             catch (Exception)
             {
-                SetValidatingStyle(crossSectionWidthTextBox);
-                e.Cancel = true;
+                TextBox_ValidatingFail(crossSectionWidthTextBox, e);
             }
         }
 
         //TODO: Убрать дубли
-        private void CrossSectionWidthTextBox_Validated(object sender, EventArgs e)
-        {
-            SetValidatedStyle(crossSectionWidthTextBox);
-        }
-
+        /// <summary>
+        /// Валидация текстбокса с толщиной сечения
+        /// </summary>
         private void CrossSectionThicknessTextBox_Validating(object sender, CancelEventArgs e)
         {
             try
@@ -283,17 +292,14 @@ namespace KompasPlugin
             }
             catch (Exception)
             {
-                SetValidatingStyle(crossSectionThicknessTextBox);
-                e.Cancel = true;
+                TextBox_ValidatingFail(crossSectionThicknessTextBox, e);
             }
         }
 
         //TODO: Убрать дубли
-        private void CrossSectionThicknessTextBox_Validated(object sender, EventArgs e)
-        {
-            SetValidatedStyle(crossSectionThicknessTextBox);
-        }
-
+        /// <summary>
+        /// Валидация текстбокса с высотой сечения
+        /// </summary>
         private void CrossSectionHeightTextBox_Validating(object sender, CancelEventArgs e)
         {
             try
@@ -319,18 +325,15 @@ namespace KompasPlugin
             }
             catch (Exception)
             {
-                SetValidatingStyle(crossSectionHeightTextBox);             
-                e.Cancel = true;
+                TextBox_ValidatingFail(crossSectionHeightTextBox, e);
             }
         }
 
         //TODO: Убрать дубли
-        private void CrossSectionHeightTextBox_Validated(object sender, EventArgs e)
-        {
-            SetValidatedStyle(crossSectionHeightTextBox);
-        }
-
         //TODO: Убрать дубли
+        /// <summary>
+        /// Валидация текстбокса с расстоянием от угла до отверстия
+        /// </summary>
         private void DistanceAngleToHoleTextBox_Validating(object sender, CancelEventArgs e)
         {
             try
@@ -340,15 +343,9 @@ namespace KompasPlugin
             }
             catch (Exception)
             {
-                SetValidatingStyle(distanceAngleToHoleTextBox);
-                e.Cancel = true;
+                TextBox_ValidatingFail(distanceAngleToHoleTextBox, e);
             }
         }
-
         //TODO: Убрать дубли
-        private void DistanceAngleToHoleTextBox_Validated(object sender, EventArgs e)
-        {
-            SetValidatedStyle(distanceAngleToHoleTextBox);
-        }
     }
 }

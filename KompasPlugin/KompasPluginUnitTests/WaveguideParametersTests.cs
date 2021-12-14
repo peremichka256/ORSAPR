@@ -7,139 +7,160 @@ namespace KompasPluginUnitTests
     [TestFixture]
     public class WaveguideParametersTests
     {
-        public WaveguideParameters InitTestWaveguideParameters()
-        {
-            return new WaveguideParameters();
-        }
+        /// <summary>
+        /// Объект класса с параметрами для тестов
+        /// </summary>
+        private WaveguideParameters _testWaveguideParameters 
+            = new WaveguideParameters();
 
         //TODO: Убрать дубли
-        [TestCase(64.9, Description = "Высота меньше допустимой")]
-        [TestCase(100.1, Description = "Высота больше допустимой")]
-        [Test(Description = "Негативный тест на сеттер со значениями больше или меньше допустимых")]
+        [TestCase(WaveguideParameters.MIN_ANCHORAGE_HEIGHT - 0.1,
+            Description = "Высота меньше допустимой")]
+        [TestCase(WaveguideParameters.MAX_ANCHORAGE_HEIGHT + 0.1,
+            Description = "Высота больше допустимой")]
+        [Test(Description = "Негативный тест на сеттер высоты крепления")]
         public void TestAnchorageHeightSet_HeightUncorrect(double wrongAnchorageHeight)
         {
-            var testWaveguideParameters = InitTestWaveguideParameters();
-
             Assert.Throws<Exception>(() =>
-                { testWaveguideParameters.AnchorageHeight = wrongAnchorageHeight; },
-                "Возникает, если высота крепления больше 100 или меньше 65");
+                { _testWaveguideParameters.AnchorageHeight = wrongAnchorageHeight; },
+                "Возникает, если высота крепления больше"
+                + $" {WaveguideParameters.MAX_ANCHORAGE_HEIGHT} или меньше"
+                + $" {WaveguideParameters.MIN_ANCHORAGE_HEIGHT}");
         }
 
-        [TestCase(9.9, Description = "Толщина меньше допустимой")]
-        [TestCase(20.1, Description = "Толщина больше допустимой")]
-        [Test(Description = "Негативный тест на сеттер со значениями больше или меньше допустимых")]
+        [TestCase(WaveguideParameters.MIN_ANCHORAGE_THICKNESS - 0.1,
+            Description = "Толщина меньше допустимой")]
+        [TestCase(WaveguideParameters.MAX_ANCHORAGE_THICKNESS + 0.1,
+            Description = "Толщина больше допустимой")]
+        [Test(Description = "Негативный тест на сеттер толщины крепления")]
         public void TestAnchorageWidthSet_ThicknessUncorrect(double wrongAnchorageThickness)
         {
-            var testWaveguideParameters = InitTestWaveguideParameters();
-
             Assert.Throws<Exception>(() =>
-                { testWaveguideParameters.AnchorageThickness = 
+                { _testWaveguideParameters.AnchorageThickness = 
                     wrongAnchorageThickness; },
-                "Возникает, если толщина крепления больше 20 или меньше 10");
+                "Возникает, если толщина крепления больше"
+                + $" {WaveguideParameters.MAX_ANCHORAGE_THICKNESS} или меньше "
+                + $" {WaveguideParameters.MIN_ANCHORAGE_THICKNESS}");
         }
 
-        [TestCase(79.9, Description = "Ширина меньше допустимой")]
-        [TestCase(150.1, Description = "Ширина больше допустимой")]
-        [Test(Description = "Негативный тест на сеттер со значениями больше или меньше допустимых")]
+        [TestCase(WaveguideParameters.MIN_ANCHORAGE_WIDTH - 0.1,
+            Description = "Ширина меньше допустимой")]
+        [TestCase(WaveguideParameters.MAX_ANCHORAGE_WIDTH + 0.1,
+            Description = "Ширина больше допустимой")]
+        [Test(Description = "Негативный тест на сеттер ширины креплений")]
         public void TestAnchorageWidthSet_WidthUncorrect(double wrongAnchorageWidth)
         {
-            var testWaveguideParameters = InitTestWaveguideParameters();
-
             Assert.Throws<Exception>(() =>
-                { testWaveguideParameters.AnchorageWidth =
+                { _testWaveguideParameters.AnchorageWidth =
                     wrongAnchorageWidth; },
-                "Возникает, если ширина крепления больше 150 или меньше 80");
+                "Возникает, если ширина крепления больше"
+                + $" {WaveguideParameters.MAX_ANCHORAGE_WIDTH} или меньше"
+                + $" {WaveguideParameters.MIN_ANCHORAGE_WIDTH}");
         }
 
-        [TestCase(14.9, Description = "Высота меньше допустимой")]
-        [TestCase(50.1, Description = "Высота больше допустимой")]
-        [Test(Description = "Негативный тест на сеттер со значениями больше или меньше допустимых")]
+        [TestCase(WaveguideParameters.MIN_CROSS_SECTION_HEIGHT - 0.1,
+            Description = "Высота меньше допустимой")]
+        [TestCase(WaveguideParameters.MAX_CROSS_SECTION_HEIGHT + 0.1,
+            Description = "Высота больше допустимой")]
+        [Test(Description = "Негативный тест на сеттер высоты сечения")]
         public void TestCrossSectionHeightSet_HeightUncorrect(double wrongCrossSectionHeight)
         {
-            var testWaveguideParameters = InitTestWaveguideParameters();
-
             Assert.Throws<Exception>(() =>
-                { testWaveguideParameters.CrossSectionHeight = 
+                { _testWaveguideParameters.CrossSectionHeight = 
                     wrongCrossSectionHeight; },
-                "Возникает, если высота сечения больше 50 или меньше 15");
+                "Возникает, если высота сечения больше" 
+                + $" {WaveguideParameters.MAX_CROSS_SECTION_HEIGHT} или меньше" 
+                + $" {WaveguideParameters.MIN_CROSS_SECTION_HEIGHT}");
         }
 
-        [TestCase(4.9, Description = "Толщина меньше допустимой")]
-        [TestCase(10.1, Description = "Толщина больше допустимой")]
-        [Test(Description = "Негативный тест на сеттер со значениями больше или меньше допустимых")]
+        [TestCase(WaveguideParameters.MIN_CROSS_SECTION_THICKNESS - 0.1,
+            Description = "Толщина меньше допустимой")]
+        [TestCase(WaveguideParameters.MAX_CROSS_SECTION_THICKNESS + 0.1,
+            Description = "Толщина больше допустимой")]
+        [Test(Description = "Негативный тест на сеттер толщины сечения")]
         public void TestCrossSectionThicknessSet_ThicknessUncorrect(double wrongCrossSectionThickness)
         {
-            var testWaveguideParameters = InitTestWaveguideParameters();
-
             Assert.Throws<Exception>(() =>
-                { testWaveguideParameters.CrossSectionThickness = 
+                { _testWaveguideParameters.CrossSectionThickness = 
                     wrongCrossSectionThickness; },
-                "Возникает, если Толщина сечения больше 10 или меньше 5");
+                "Возникает, если Толщина сечения больше" 
+                + $" {WaveguideParameters.MAX_CROSS_SECTION_THICKNESS} или меньше" 
+                + $" {WaveguideParameters.MIN_CROSS_SECTION_THICKNESS}");
         }
 
-        [TestCase(29.9, Description = "Ширина меньше допустимой")]
-        [TestCase(100.1, Description = "Ширина больше допустимой")]
-        [Test(Description = "Негативный тест на сеттер со значениями больше или меньше допустимых")]
+        [TestCase(WaveguideParameters.MIN_CROSS_SECTION_WIDTH - 0.1,
+            Description = "Ширина меньше допустимой")]
+        [TestCase(WaveguideParameters.MAX_CROSS_SECTION_WIDTH + 0.1,
+            Description = "Ширина больше допустимой")]
+        [Test(Description = "Негативный тест на сеттер ширины сечения")]
         public void TestCrossSectionWidthSet_WidthUncorrect(double wrongCrossSectionWidth)
         {
-            var testWaveguideParameters = InitTestWaveguideParameters();
-
             Assert.Throws<Exception>(() =>
-                { testWaveguideParameters.CrossSectionWidth = 
+                { _testWaveguideParameters.CrossSectionWidth = 
                     wrongCrossSectionWidth; },
-                "Возникает, если ширина сечения больше 100 или меньше 30");
+                "Возникает, если ширина сечения больше" 
+                + $" {WaveguideParameters.MAX_CROSS_SECTION_WIDTH} или меньше" 
+                + $" {WaveguideParameters.MIN_CROSS_SECTION_WIDTH}");
         }
 
-        [TestCase(19.9, Description = "Расстояние меньше допустимого")]
-        [TestCase(50.1, Description = "Расстояние больше допустимого")]
-        [Test(Description = "Негативный тест на сеттер со значениями больше или меньше допустимых")]
+        [TestCase(WaveguideParameters.MIN_DISTANCE_ANGLE_TO_HOLE - 0.1,
+            Description = "Расстояние меньше допустимого")]
+        [TestCase(WaveguideParameters.MAX_DISTANCE_ANGLE_TO_HOLE + 0.1,
+            Description = "Расстояние больше допустимого")]
+        [Test(Description = "Негативный тест на сеттер расстояния между углом и отверстием")]
         public void TestDistanceAngleToHoleSet_DistanceUncorrect(double wrongDistanceAngleToHole)
         {
-            var testWaveguideParameters = InitTestWaveguideParameters();
-
             Assert.Throws<Exception>(() =>
-                { testWaveguideParameters.DistanceAngleToHole = 
+                { _testWaveguideParameters.DistanceAngleToHole = 
                     wrongDistanceAngleToHole; },
-                "Возникает, если расстояние от угла сечения до отверстия больше 50 или меньше 20");
+                "Возникает, если расстояние от угла сечения до отверстия больше" 
+                + $" {WaveguideParameters.MAX_DISTANCE_ANGLE_TO_HOLE} или меньше" 
+                + $" {WaveguideParameters.MIN_DISTANCE_ANGLE_TO_HOLE}");
         }
 
-        [TestCase(3.4, Description = "Диаметр меньше допустимого")]
-        [TestCase(4.9, Description = "Диаметр больше допустимого")]
-        [Test(Description = "Негативный тест на сеттер со значениями больше или меньше допустимых")]
+        [TestCase(WaveguideParameters.MIN_HOLE_DIAMETERS - 0.1,
+            Description = "Диаметр меньше допустимого")]
+        [TestCase(WaveguideParameters.MAX_HOLE_DIAMETERS + 0.1,
+            Description = "Диаметр больше допустимого")]
+        [Test(Description = "Негативный тест на сеттер диаметра отверстий")]
         public void TestHoleDiametersSet_DiametersUncorrect(double wrongHoleDiameters)
         {
-            var testWaveguideParameters = InitTestWaveguideParameters();
-
             Assert.Throws<Exception>(() =>
-                { testWaveguideParameters.HoleDiameters = 
+                { _testWaveguideParameters.HoleDiameters = 
                     wrongHoleDiameters; },
-                "Возникает, если диаметр отверстий больше 4.8 или меньше 3.5");
+                "Возникает, если диаметр отверстий больше"
+                + $" {WaveguideParameters.MAX_HOLE_DIAMETERS} или меньше"
+                + $" {WaveguideParameters.MIN_HOLE_DIAMETERS}");
         }
 
-        [TestCase(0.9, Description = "Радиус меньше допустимого")]
-        [TestCase(7.1, Description = "Радиус больше допустимого")]
-        [Test(Description = "Негативный тест на сеттер со значениями больше или меньше допустимых")]
+        [TestCase(WaveguideParameters.MIN_RADIUS_CROSS_TIE - 0.1,
+            Description = "Радиус меньше допустимого")]
+        [TestCase(WaveguideParameters.MAX_RADIUS_CROSS_TIE + 0.1,
+            Description = "Радиус больше допустимого")]
+        [Test(Description = "Негативный тест на сеттер радиуса фаски")]
         public void TestRadiusCrossTieSet_RadiusUncorrect(double wrongRadiusCrossTie)
         {
-            var testWaveguideParameters = InitTestWaveguideParameters();
-
             Assert.Throws<Exception>(() =>
-                { testWaveguideParameters.RadiusCrossTie = 
+                { _testWaveguideParameters.RadiusCrossTie = 
                     wrongRadiusCrossTie; },
-                "Возникает, если радиус фаски больше 7 или меньше 1");
+                "Возникает, если радиус фаски больше"
+                + $" {WaveguideParameters.MAX_RADIUS_CROSS_TIE} или меньше"
+                + $" {WaveguideParameters.MIN_RADIUS_CROSS_TIE}");
         }
 
-        [TestCase(299.9, Description = "Длина меньше допустимого")]
-        [TestCase(1000.1, Description = "Длина больше допустимого")]
+        [TestCase(WaveguideParameters.MIN_WAVEGUIDE_LENGTH - 0.1,
+            Description = "Длина меньше допустимого")]
+        [TestCase(WaveguideParameters.MAX_WAVEGUIDE_LENGTH + 0.1,
+            Description = "Длина больше допустимого")]
         [Test(Description = "Негативный тест на сеттер со значениями больше или меньше допустимых")]
         public void TestWaveguideLengthSet_LengthUncorrect(double wrongWaveguideLength)
         {
-            var testWaveguideParameters = InitTestWaveguideParameters();
-
             Assert.Throws<Exception>(() =>
-                { testWaveguideParameters.WaveguideLength = 
+                { _testWaveguideParameters.WaveguideLength = 
                     wrongWaveguideLength; },
-                "Возникает, если длина волновода больше 1000 или меньше 300");
+                "Возникает, если длина волновода больше"
+                + $" {WaveguideParameters.MAX_WAVEGUIDE_LENGTH} или меньше"
+                + $" {WaveguideParameters.MIN_WAVEGUIDE_LENGTH}");
         }
     }
 }
