@@ -11,7 +11,6 @@ namespace KompasPlugin
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class Parameter<T> where T : struct
-
     {
         /// <summary>
         /// Минимальное значение параметра
