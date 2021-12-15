@@ -41,8 +41,8 @@ namespace KompasPlugin
             double width, double distanceAngleToHole, 
             double holeDiameters, double radiusCrossTie)
         {
-            var sketchDef = CreateSketch(Obj3dType.o3d_planeXOZ);
-            var doc2d = (ksDocument2D)sketchDef.BeginEdit();
+            var sketch = CreateSketch(Obj3dType.o3d_planeXOZ);
+            var doc2d = (ksDocument2D)sketch.BeginEdit();
             //Создание внтуреннего контура
             doc2d.ksRectangle(DrawRectangle(
                 WaveguideParameters.ANCHORAGE_CROSS_SECTION_DIFFERENCE / 2,
@@ -63,8 +63,8 @@ namespace KompasPlugin
             
             //Создание отверстий
             //Выдавливание крепления
-            sketchDef.EndEdit();
-            СreateExtrusion(sketchDef, thickness);
+            sketch.EndEdit();
+            СreateExtrusion(sketch, thickness);
         }
 
         /// <summary>
@@ -73,8 +73,8 @@ namespace KompasPlugin
         private void BuildCrossSection(double height, double thickness,
             double width, double length)
         {
-            var sketchDef = CreateSketch(Obj3dType.o3d_planeXOZ);
-            var doc2d = (ksDocument2D)sketchDef.BeginEdit();
+            var sketch = CreateSketch(Obj3dType.o3d_planeXOZ);
+            var doc2d = (ksDocument2D)sketch.BeginEdit();
             //Создание внтуреннего контура
             doc2d.ksRectangle(DrawRectangle(WaveguideParameters.
                 ANCHORAGE_CROSS_SECTION_DIFFERENCE / 2, WaveguideParameters.
@@ -85,8 +85,8 @@ namespace KompasPlugin
                 WaveguideParameters.ANCHORAGE_CROSS_SECTION_DIFFERENCE / 2 - thickness,
                 height + thickness * 2, width + thickness * 2), 0);
             //Выдавливание сечения
-            sketchDef.EndEdit();
-            СreateExtrusion(sketchDef, length / 2);
+            sketch.EndEdit();
+            СreateExtrusion(sketch, length / 2);
         }
 
         /// <summary>
@@ -106,6 +106,7 @@ namespace KompasPlugin
                 _parameters.CrossSectionThickness,
                 _parameters.CrossSectionWidth,
                 _parameters.WaveguideLength);
+            //Отражение половины волновода
         }
 
         /// <summary>
@@ -119,6 +120,12 @@ namespace KompasPlugin
             _connector = connector;
         }
 
+        /// <summary>
+        /// Метод создающий эскиз
+        /// </summary>
+        /// <param name="planeType"></param>
+        /// <param name="offsetPlane"></param>
+        /// <returns></returns>
         private ksSketchDefinition CreateSketch(Obj3dType planeType
                 = Obj3dType.o3d_planeXOY,
             ksPlaneOffsetDefinition offsetPlane = null)
@@ -144,7 +151,12 @@ namespace KompasPlugin
             return ksSketch;
         }
 
-        private void СreateExtrusion(ksSketchDefinition sketchDef,
+        /// <summary>
+        /// Метод осущетсвляющий выдавливание
+        /// </summary>
+        /// <param name="sketch">Эскиз</param>
+        /// <param name="depth">Расстояние выдавливания</param>
+        private void СreateExtrusion(ksSketchDefinition sketch,
             double depth, bool side = true)
         {
             ksObj3dTypeEnum type = ksObj3dTypeEnum.o3d_bossExtrusion;
@@ -157,7 +169,7 @@ namespace KompasPlugin
             extrusionDef.directionType = side ?
                 (short)Direction_Type.dtNormal :
                 (short)Direction_Type.dtReverse;
-            extrusionDef.SetSketch(sketchDef);
+            extrusionDef.SetSketch(sketch);
 
             extrusionEntity.Create();
         }
