@@ -12,9 +12,20 @@ namespace KompasPlugin
     /// </summary>
     public class KompasConnector
     {
+        /// <summary>
+        /// Объект КОМПАС-3D
+        /// </summary>
         private KompasObject _object;
 
+        /// <summary>
+        /// Часть документа
+        /// </summary>
         private ksPart _part;
+
+        public KompasObject Object
+        {
+            get => _object;
+        }
 
         public ksPart Part
         {

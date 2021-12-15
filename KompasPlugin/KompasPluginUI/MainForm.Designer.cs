@@ -75,7 +75,7 @@ namespace KompasPlugin
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(82, 13);
             this.label21.TabIndex = 63;
-            this.label21.Text = "от 20 до 50 мм";
+            this.label21.Text = "от 20 до 25 мм";
             // 
             // label20
             // 

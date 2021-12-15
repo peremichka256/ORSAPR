@@ -106,10 +106,8 @@ namespace KompasPlugin
         private void BuildButton_Click(object sender, EventArgs e)
         {
             KompasConnector kompas = new KompasConnector();
-            kompas.Start();
-            kompas.CreateDocument3D();
-            _waveguideBuilder = new WaveguideBuilder(_waveguideParameters, kompas); 
-            _waveguideBuilder.BuildWaveguide(kompas.Part);
+            _waveguideBuilder = new WaveguideBuilder(_waveguideParameters, kompas);
+            _waveguideBuilder.BuildWaveguide();
         }
 
         /// <summary>
@@ -124,7 +122,7 @@ namespace KompasPlugin
             }
             catch (Exception)
             {
-                TextBox_ValidatingFail(holeDiametersTextBox, e);
+                TextBox_ValidatingFail(sender, e);
             }
         }
 
@@ -141,7 +139,7 @@ namespace KompasPlugin
             }
             catch (Exception)
             {
-                TextBox_ValidatingFail(radiusCrossTieTextBox, e);
+                TextBox_ValidatingFail(sender, e);
             }
         }
 
@@ -174,7 +172,7 @@ namespace KompasPlugin
             }
             catch (Exception)
             {
-                TextBox_ValidatingFail(anchorageHeightTextBox, e);
+                TextBox_ValidatingFail(sender, e);
             }
         }
 
@@ -208,7 +206,7 @@ namespace KompasPlugin
             }
             catch (Exception)
             {
-                TextBox_ValidatingFail(anchorageWidthTextBox, e);
+                TextBox_ValidatingFail(sender, e);
             }
         }
 
@@ -225,7 +223,7 @@ namespace KompasPlugin
             }
             catch (Exception)
             {
-                TextBox_ValidatingFail(anchorageThicknessTextBox, e);
+                TextBox_ValidatingFail(sender, e);
             }
         }
 
@@ -242,7 +240,7 @@ namespace KompasPlugin
             }
             catch (Exception)
             {
-                TextBox_ValidatingFail(waveguideLengthTextBox, e);
+                TextBox_ValidatingFail(sender, e);
             }
         }
 
@@ -275,7 +273,7 @@ namespace KompasPlugin
             }
             catch (Exception)
             {
-                TextBox_ValidatingFail(crossSectionWidthTextBox, e);
+                TextBox_ValidatingFail(sender, e);
             }
         }
 
@@ -292,7 +290,7 @@ namespace KompasPlugin
             }
             catch (Exception)
             {
-                TextBox_ValidatingFail(crossSectionThicknessTextBox, e);
+                TextBox_ValidatingFail(sender, e);
             }
         }
 
@@ -325,7 +323,7 @@ namespace KompasPlugin
             }
             catch (Exception)
             {
-                TextBox_ValidatingFail(crossSectionHeightTextBox, e);
+                TextBox_ValidatingFail(sender, e);
             }
         }
 
@@ -343,7 +341,7 @@ namespace KompasPlugin
             }
             catch (Exception)
             {
-                TextBox_ValidatingFail(distanceAngleToHoleTextBox, e);
+                TextBox_ValidatingFail(sender, e);
             }
         }
         //TODO: Убрать дубли

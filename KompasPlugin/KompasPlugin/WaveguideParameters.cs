@@ -74,7 +74,7 @@ namespace KompasPlugin
         /// Длина волновода
         /// </summary>
         private Parameter<double> _waveguideLength =
-            new Parameter<double>("waveguide lengt",
+            new Parameter<double>("Waveguide lenght",
                 MAX_WAVEGUIDE_LENGTH, MIN_WAVEGUIDE_LENGTH);
 
         /// <summary>
@@ -99,7 +99,7 @@ namespace KompasPlugin
         public const double MAX_CROSS_SECTION_WIDTH = 100.0;
 
         public const double MIN_DISTANCE_ANGLE_TO_HOLE = 20.0;
-        public const double MAX_DISTANCE_ANGLE_TO_HOLE = 50.0;
+        public const double MAX_DISTANCE_ANGLE_TO_HOLE = 25.0;
 
         public const double MIN_HOLE_DIAMETERS = 3.5;
         public const double MAX_HOLE_DIAMETERS = 4.8;
