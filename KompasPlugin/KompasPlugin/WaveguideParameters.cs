@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace KompasPlugin
+﻿namespace KompasPlugin
 {
     /// <summary>
     /// Класс хранящий параметры волновода

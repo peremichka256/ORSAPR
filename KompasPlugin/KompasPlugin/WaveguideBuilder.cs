@@ -37,7 +37,7 @@ namespace KompasPlugin
         /// <summary>
         /// Метод построения крепления
         /// </summary>
-        private void BuildAnchorage(double height, double thickness,
+        private void BuildAnchorage(double x, double y, double height, double thickness,
             double width, double distanceAngleToHole, 
             double holeDiameters, double radiusCrossTie)
         {
@@ -50,21 +50,19 @@ namespace KompasPlugin
                 height - WaveguideParameters.ANCHORAGE_CROSS_SECTION_DIFFERENCE,
                 width - WaveguideParameters.ANCHORAGE_CROSS_SECTION_DIFFERENCE), 0);
             //Создание внешнего контура
-            var externalRectangleParam = DrawRectangle(0,0, height, width);
-            //Скругление крепления
-            var crossTiePar = (ksCornerParam)_connector.Object.GetParamStruct
-                ((short)StructType2DEnum.ko_CornerParam);
-            crossTiePar.fillet = true;
-            crossTiePar.index = 1;
-            crossTiePar.l1 = radiusCrossTie;
-            crossTiePar.Init();
-            externalRectangleParam.SetPCorner(crossTiePar);
+            var externalRectangleParam = DrawRectangle(x,y, height, width);
             doc2d.ksRectangle(externalRectangleParam, 0);
             
             //Создание отверстий
             //Выдавливание крепления
             sketch.EndEdit();
             СreateExtrusion(sketch, thickness);
+
+            //Скругление крепления
+            CreateFillet(radiusCrossTie, x, y + thickness / 2, 0);
+            CreateFillet(radiusCrossTie, width, y + thickness / 2, 0);
+            CreateFillet(radiusCrossTie, x, y + thickness / 2, -height);
+            CreateFillet(radiusCrossTie, width, y + thickness / 2, -height);
         }
 
         /// <summary>
@@ -86,17 +84,18 @@ namespace KompasPlugin
                 height + thickness * 2, width + thickness * 2), 0);
             //Выдавливание сечения
             sketch.EndEdit();
-            СreateExtrusion(sketch, length / 2);
+            СreateExtrusion(sketch, length);
         }
 
         /// <summary>
-        /// Метод собирающий сечение и крепление в единый волновод путем отражения
+        /// Метод собирающий сечение и крепления в волновод
         /// </summary>
         public void BuildWaveguide()
         {
             _connector.Start();
             _connector.CreateDocument3D();
-            BuildAnchorage(_parameters.AnchorageHeight,
+            //Построение одного крепления
+            BuildAnchorage(0, 0, _parameters.AnchorageHeight,
                 _parameters.AnchorageThickness,
                 _parameters.AnchorageWidth,
                 _parameters.DistanceAngleToHole,
@@ -105,8 +104,16 @@ namespace KompasPlugin
             BuildCrossSection(_parameters.CrossSectionHeight,
                 _parameters.CrossSectionThickness,
                 _parameters.CrossSectionWidth,
-                _parameters.WaveguideLength);
-            //Отражение половины волновода
+                _parameters.WaveguideLength - _parameters.AnchorageThickness);
+            //Построение второго крепления
+            //BuildAnchorage(0,
+            //    _parameters.WaveguideLength - _parameters.AnchorageThickness,
+            //    _parameters.AnchorageHeight,
+            //    _parameters.AnchorageThickness,
+            //    _parameters.AnchorageWidth,
+            //    _parameters.DistanceAngleToHole,
+            //    _parameters.HoleDiameters,
+            //    _parameters.RadiusCrossTie);
         }
 
         /// <summary>
@@ -126,8 +133,7 @@ namespace KompasPlugin
         /// <param name="planeType"></param>
         /// <param name="offsetPlane"></param>
         /// <returns></returns>
-        private ksSketchDefinition CreateSketch(Obj3dType planeType
-                = Obj3dType.o3d_planeXOY,
+        private ksSketchDefinition CreateSketch(Obj3dType planeType,
             ksPlaneOffsetDefinition offsetPlane = null)
         {
             var plane =
@@ -142,7 +148,6 @@ namespace KompasPlugin
             {
                 ksSketch.SetPlane(offsetPlane);
                 sketch.Create();
-
                 return ksSketch;
             }
 
@@ -182,7 +187,7 @@ namespace KompasPlugin
         /// <param name="height">Высота</param>
         /// <param name="width">Ширина</param>
         /// <returns>Переменная с параметрами прямоугольника</returns>
-        ksRectangleParam DrawRectangle(double x, double y,
+        private ksRectangleParam DrawRectangle(double x, double y,
             double height, double width)
         {
             var rectangleParam =
@@ -194,6 +199,24 @@ namespace KompasPlugin
             rectangleParam.width = width;
             rectangleParam.style = MainLineStyle;
             return rectangleParam;
+        }
+
+        private void CreateFillet(double radiusCrossTie, double x, double y, double z)
+        {
+            var filletEntity = (ksEntity)_connector
+                .Part.NewEntity((short)Obj3dType.o3d_fillet);
+            var filletDefinition = (ksFilletDefinition)filletEntity.GetDefinition();
+            //Радиус
+            filletDefinition.radius = radiusCrossTie;
+            //True - скругление, false - фаска
+            filletDefinition.tangent = true;
+            ksEntityCollection iArray = filletDefinition.array();
+            ksEntityCollection iCollection = _connector.Part.EntityCollection((short)Obj3dType.o3d_edge);
+            //Выбор точки на грани
+            iCollection.SelectByPoint(x, y, z);
+            var iEdge = iCollection.Last();
+            iArray.Add(iEdge);
+            filletEntity.Create();
         }
     }
 }
