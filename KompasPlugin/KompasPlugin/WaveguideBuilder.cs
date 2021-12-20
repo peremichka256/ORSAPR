@@ -59,7 +59,8 @@ namespace KompasPlugin
             BuildCrossSection(_parameters.CrossSectionHeight,
                 _parameters.CrossSectionThickness,
                 _parameters.CrossSectionWidth,
-                _parameters.WaveguideLength - _parameters.AnchorageThickness);
+                _parameters.WaveguideLength - _parameters.AnchorageThickness,
+                null);
 
             //Смещени плоскости для построения второго крепления
             var offsetEntity = (ksEntity) _connector
@@ -106,12 +107,12 @@ namespace KompasPlugin
         /// <param name="width">Ширина</param>
         /// <param name="distanceAngleToHole">Расстояие от угла</param>
         /// <param name="holeDiameters">Диаметр отверстия</param>
-        /// <param name="offset">Смещение плоскости</param>
+        /// <param name="offsetPlane">Смещение плоскости</param>
         private void BuildAnchorage(double height, double thickness,
             double width, double distanceAngleToHole,
-            double holeDiameters, ksEntity offset)
+            double holeDiameters, ksEntity offsetPlane)
         {
-            var sketch = CreateSketch(Obj3dType.o3d_planeXOZ, offset);
+            var sketch = CreateSketch(Obj3dType.o3d_planeXOZ, offsetPlane);
             var doc2d = (ksDocument2D)sketch.BeginEdit();
             var pointCrossSectionAngle =
                 WaveguideParameters.ANCHORAGE_CROSS_SECTION_DIFFERENCE / 2;
@@ -171,9 +172,9 @@ namespace KompasPlugin
         /// <param name="width">Ширина</param>
         /// <param name="length">Длина</param>
         private void BuildCrossSection(double height, double thickness,
-            double width, double length)
+            double width, double length, ksEntity turnPlane)
         {
-            var sketch = CreateSketch(Obj3dType.o3d_planeXOZ, null);
+            var sketch = CreateSketch(Obj3dType.o3d_planeXOZ, turnPlane);
             var doc2d = (ksDocument2D)sketch.BeginEdit();
 
             //Создание внтуреннего контура
@@ -204,8 +205,8 @@ namespace KompasPlugin
         private ksSketchDefinition CreateSketch(Obj3dType planeType,
             ksEntity offsetPlane)
         {
-            var plane =
-                (ksEntity)_connector.Part.GetDefaultEntity((short)planeType);
+            var plane = (ksEntity)_connector
+                .Part.GetDefaultEntity((short)planeType);
 
             var sketch = (ksEntity)_connector.Part.
                 NewEntity((short)Obj3dType.o3d_sketch);

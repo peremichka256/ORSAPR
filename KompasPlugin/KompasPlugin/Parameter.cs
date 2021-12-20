@@ -39,9 +39,11 @@ namespace KompasPlugin
 
             set
             {
-                if (string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace(value))
+                if (string.IsNullOrEmpty(value) 
+                    || string.IsNullOrWhiteSpace(value))
                 {
-                    throw new Exception("Name can't be null, empty or blank.");
+                    throw new Exception("Name can't be null," 
+                                        + " empty or blank.");
                 }
                 else
                 {
@@ -72,7 +74,9 @@ namespace KompasPlugin
 
             set
             {
-                var comparerResult = Comparer<T>.Default.Compare(_min, value);
+                var comparerResult = Comparer<T>.Default
+                    .Compare(_min, value);
+
                 if (comparerResult >= 0)
                 {
                     throw new Exception("Maximum should be "
