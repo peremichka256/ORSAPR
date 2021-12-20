@@ -1,7 +1,5 @@
 ﻿using System;
 using Kompas6API5;
-using KompasAPI7;
-using Kompas6Constants;
 using Kompas6Constants3D;
 using System.Runtime.InteropServices;
 

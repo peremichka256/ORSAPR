@@ -75,6 +75,7 @@ namespace KompasPlugin
         {
             if (sender is TextBox textBox)
             {
+                BuildButton.Enabled = true;
                 textBox.BackColor = Color.White;
             }
             else
@@ -91,6 +92,7 @@ namespace KompasPlugin
         {
             if (sender is TextBox textBox)
             {
+                BuildButton.Enabled = false;
                 textBox.BackColor = Color.LightSalmon;
                 e.Cancel = true;
             }

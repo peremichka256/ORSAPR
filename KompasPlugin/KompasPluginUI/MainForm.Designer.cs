@@ -397,6 +397,8 @@ namespace KompasPlugin
             this.Controls.Add(this.label2);
             this.Controls.Add(this.BuildButton);
             this.Controls.Add(this.label1);
+            this.MaximumSize = new System.Drawing.Size(553, 354);
+            this.MinimumSize = new System.Drawing.Size(553, 354);
             this.Name = "MainForm";
             this.Text = "Построение волновода в КОМПАС-3D";
             ((System.ComponentModel.ISupportInitialize)(this.WaveguideParametersPictureBox)).EndInit();

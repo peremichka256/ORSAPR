@@ -54,7 +54,7 @@ namespace KompasPlugin
                 _parameters.AnchorageWidth,
                 _parameters.AnchorageThickness / 2,
                 -_parameters.AnchorageHeight);
-
+            
             //Построение сечения
             BuildCrossSection(_parameters.CrossSectionHeight,
                 _parameters.CrossSectionThickness,
@@ -62,12 +62,12 @@ namespace KompasPlugin
                 _parameters.WaveguideLength - _parameters.AnchorageThickness);
 
             //Смещени плоскости для построения второго крепления
-            var offsetEntity = (ksEntity)_connector
-                .Part.NewEntity((short)Obj3dType.o3d_planeOffset);
-            var offsetDefinition = (ksPlaneOffsetDefinition)offsetEntity
+            var offsetEntity = (ksEntity) _connector
+                .Part.NewEntity((short) Obj3dType.o3d_planeOffset);
+            var offsetDefinition = (ksPlaneOffsetDefinition) offsetEntity
                 .GetDefinition();
-            offsetDefinition.SetPlane((ksEntity)_connector
-                .Part.NewEntity((short)Obj3dType.o3d_planeXOZ));
+            offsetDefinition.SetPlane((ksEntity) _connector
+                .Part.NewEntity((short) Obj3dType.o3d_planeXOZ));
             offsetDefinition.offset = _parameters.WaveguideLength
                                       - _parameters.AnchorageThickness;
             offsetEntity.Create();
