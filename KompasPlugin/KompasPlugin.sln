@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{C67D
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "KompasAPI", "KompasAPI\KompasAPI.vcxproj", "{4202A733-70B6-4226-8880-9F28B174E0DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KompasPlugin.UnitTests", "KompasPlugin.UnitTests\KompasPlugin.UnitTests.csproj", "{1D1EA14A-295D-41D8-9B8F-B357DE1CEA2E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KompasPlugin.UnitTests", "KompasPlugin.UnitTests\KompasPlugin.UnitTests.csproj", "{1D1EA14A-295D-41D8-9B8F-B357DE1CEA2E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -172,9 +172,9 @@ namespace KompasPlugin
         /// <param name="width">Ширина</param>
         /// <param name="length">Длина</param>
         private void BuildCrossSection(double height, double thickness,
-            double width, double length, ksEntity turnPlane)
+            double width, double length, ksEntity offsetPlane)
         {
-            var sketch = CreateSketch(Obj3dType.o3d_planeXOZ, turnPlane);
+            var sketch = CreateSketch(Obj3dType.o3d_planeXOZ, offsetPlane);
             var doc2d = (ksDocument2D)sketch.BeginEdit();
 
             //Создание внтуреннего контура
@@ -270,12 +270,12 @@ namespace KompasPlugin
         }
 
         /// <summary>
-        /// Создания фаски
+        /// Создания фаски на выбранной грани
         /// </summary>
         /// <param name="radiusCrossTie">Радиус</param>
-        /// <param name="x">X</param>
-        /// <param name="y">Y</param>
-        /// <param name="z">Z</param>
+        /// <param name="x">X-координата точки на грани</param>
+        /// <param name="y">Y-координата точки на грани</param>
+        /// <param name="z">Z-координата точки на грани</param>
         private void CreateFillet(double radiusCrossTie, double x,
             double y, double z)
         {
