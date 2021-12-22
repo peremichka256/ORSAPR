@@ -107,15 +107,17 @@ namespace KompasPlugin
         /// </summary>
         private void BuildButton_Click(object sender, EventArgs e)
         {
-            KompasConnector kompas = new KompasConnector();
-            _waveguideBuilder = new WaveguideBuilder(_waveguideParameters, kompas);
+            KompasConnector connector = new KompasConnector();
+            _waveguideBuilder = 
+                new WaveguideBuilder(_waveguideParameters, connector);
             _waveguideBuilder.BuildWaveguide();
         }
 
         /// <summary>
         /// Валидация текстбокса с диаметром отверстий
         /// </summary>
-        private void HoleDiametersTextBox_Validating(object sender, CancelEventArgs e)
+        private void HoleDiametersTextBox_Validating(object sender,
+            CancelEventArgs e)
         {
             try
             {
@@ -132,7 +134,8 @@ namespace KompasPlugin
         /// <summary>
         /// Валидация текстбокса с радиусом фаски
         /// </summary>
-        private void RadiusCrossTieTextBox_Validating(object sender, CancelEventArgs e)
+        private void RadiusCrossTieTextBox_Validating(object sender,
+            CancelEventArgs e)
         {
             try
             {
@@ -149,7 +152,8 @@ namespace KompasPlugin
         /// <summary>
         /// Валидация текстбокса с высотой креплений
         /// </summary>
-        private void AnchorageHeightTextBox_Validating(object sender, CancelEventArgs e)
+        private void AnchorageHeightTextBox_Validating(object sender,
+            CancelEventArgs e)
         {
             try
             {
@@ -182,7 +186,8 @@ namespace KompasPlugin
         /// <summary>
         /// Валидация текстбокса с шириной креплений
         /// </summary>
-        private void AnchorageWidthTextBox_Validating(object sender, CancelEventArgs e)
+        private void AnchorageWidthTextBox_Validating(object sender,
+            CancelEventArgs e)
         {
             try
             {
@@ -216,7 +221,8 @@ namespace KompasPlugin
         /// <summary>
         /// Валидация текстбокса с толщиной креплений
         /// </summary>
-        private void AnchorageThicknessTextBox_Validating(object sender, CancelEventArgs e)
+        private void AnchorageThicknessTextBox_Validating(object sender,
+            CancelEventArgs e)
         {
             try
             {
@@ -233,7 +239,8 @@ namespace KompasPlugin
         /// <summary>
         /// Валидация текстбокса с длиной волновода
         /// </summary>
-        private void WaveguideLengthTextBox_Validating(object sender, CancelEventArgs e)
+        private void WaveguideLengthTextBox_Validating(object sender,
+            CancelEventArgs e)
         {
             try
             {
@@ -250,7 +257,8 @@ namespace KompasPlugin
         /// <summary>
         /// Валидация текстбокса с шириной сечения
         /// </summary>
-        private void CrossSectionWidthTextBox_Validating(object sender, CancelEventArgs e)
+        private void CrossSectionWidthTextBox_Validating(object sender,
+            CancelEventArgs e)
         {
             try
             {
@@ -283,7 +291,8 @@ namespace KompasPlugin
         /// <summary>
         /// Валидация текстбокса с толщиной сечения
         /// </summary>
-        private void CrossSectionThicknessTextBox_Validating(object sender, CancelEventArgs e)
+        private void CrossSectionThicknessTextBox_Validating(object sender,
+            CancelEventArgs e)
         {
             try
             {
@@ -300,7 +309,8 @@ namespace KompasPlugin
         /// <summary>
         /// Валидация текстбокса с высотой сечения
         /// </summary>
-        private void CrossSectionHeightTextBox_Validating(object sender, CancelEventArgs e)
+        private void CrossSectionHeightTextBox_Validating(object sender,
+            CancelEventArgs e)
         {
             try
             {
@@ -334,7 +344,8 @@ namespace KompasPlugin
         /// <summary>
         /// Валидация текстбокса с расстоянием от угла до отверстия
         /// </summary>
-        private void DistanceAngleToHoleTextBox_Validating(object sender, CancelEventArgs e)
+        private void DistanceAngleToHoleTextBox_Validating(object sender,
+            CancelEventArgs e)
         {
             try
             {

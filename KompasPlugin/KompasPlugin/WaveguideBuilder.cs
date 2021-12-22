@@ -65,8 +65,9 @@ namespace KompasPlugin
             //Смещени плоскости для построения второго крепления
             var offsetEntity = (ksEntity) _connector
                 .Part.NewEntity((short) Obj3dType.o3d_planeOffset);
-            var offsetDefinition = (ksPlaneOffsetDefinition) offsetEntity
-                .GetDefinition();
+            var offsetDefinition = 
+                (ksPlaneOffsetDefinition) offsetEntity
+                    .GetDefinition();
             offsetDefinition.SetPlane((ksEntity) _connector
                 .Part.NewEntity((short) Obj3dType.o3d_planeXOZ));
             offsetDefinition.offset = _parameters.WaveguideLength
@@ -179,8 +180,10 @@ namespace KompasPlugin
 
             //Создание внтуреннего контура
             doc2d.ksRectangle(DrawRectangle(WaveguideParameters.
-                ANCHORAGE_CROSS_SECTION_DIFFERENCE / 2, WaveguideParameters.
-                ANCHORAGE_CROSS_SECTION_DIFFERENCE / 2, height, width),0);
+                ANCHORAGE_CROSS_SECTION_DIFFERENCE / 2,
+                WaveguideParameters.
+                ANCHORAGE_CROSS_SECTION_DIFFERENCE / 2,
+                height, width), 0);
 
             //Создание внешнего контура
             doc2d.ksRectangle(DrawRectangle(
@@ -235,10 +238,12 @@ namespace KompasPlugin
             ksObj3dTypeEnum type = ksObj3dTypeEnum.o3d_bossExtrusion;
             var extrusionEntity =
                 (ksEntity)_connector.Part.NewEntity((short)type);
-            var extrusionDef =
-                (ksBossExtrusionDefinition)extrusionEntity.GetDefinition();
+            var extrusionDef = 
+                (ksBossExtrusionDefinition)extrusionEntity
+                    .GetDefinition();
 
-            extrusionDef.SetSideParam(side, (short)End_Type.etBlind, depth);
+            extrusionDef.SetSideParam(side,
+                (short)End_Type.etBlind, depth);
             extrusionDef.directionType = side ?
                 (short)Direction_Type.dtNormal :
                 (short)Direction_Type.dtReverse;
@@ -281,13 +286,13 @@ namespace KompasPlugin
         {
             var filletEntity = (ksEntity)_connector
                 .Part.NewEntity((short)Obj3dType.o3d_fillet);
-            var filletDefinition = (ksFilletDefinition)filletEntity
-                .GetDefinition();
+            var filletDefinition =
+                (ksFilletDefinition)filletEntity.GetDefinition();
             filletDefinition.radius = radiusCrossTie;
             filletDefinition.tangent = true;
             ksEntityCollection iArray = filletDefinition.array();
-            ksEntityCollection iCollection = 
-                _connector.Part.EntityCollection((short)Obj3dType.o3d_edge);
+            ksEntityCollection iCollection = _connector
+                .Part.EntityCollection((short)Obj3dType.o3d_edge);
 
             //Выбор точки на грани
             iCollection.SelectByPoint(x, y, z);

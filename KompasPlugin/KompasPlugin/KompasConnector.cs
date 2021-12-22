@@ -11,26 +11,29 @@ namespace KompasPlugin
     public class KompasConnector
     {
         /// <summary>
-        /// Объект КОМПАС-3D
+        /// Объект интерфейса API КОМПАС-3D
         /// </summary>
         private KompasObject _object;
 
         /// <summary>
-        /// Часть документа
+        /// Компонент сборки
         /// </summary>
         private ksPart _part;
 
+        /// <summary>
+        /// Свойство возвращающее объект интерфейса API
+        /// </summary>
         public KompasObject Object
         {
             get => _object;
         }
 
+        /// <summary>
+        /// Свойство возвращающее компонент сборки
+        /// </summary>
         public ksPart Part
         {
-            get
-            {
-                return _part;
-            }
+            get => _part;
         }
 
         /// <summary>
@@ -42,7 +45,8 @@ namespace KompasPlugin
             {
                 if (!IsKompasOpen(out kompas))
                 {
-                    throw new ArgumentException("Не удалось открыть КОМПАС-3D.");
+                    throw new ArgumentException("Не удалось " 
+                                                + "открыть КОМПАС-3D.");
                 }
             }
 
