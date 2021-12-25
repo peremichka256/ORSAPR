@@ -39,7 +39,7 @@ namespace KompasPlugin
                 _parameters.AnchorageThickness,
                 _parameters.AnchorageWidth,
                 _parameters.DistanceAngleToHole,
-                _parameters.HoleDiameters, null);
+                _parameters.HoleDiameters, Obj3dType.o3d_planeXOZ, null);
 
             //Скругление первого крепления
             CreateFillet(_parameters.RadiusCrossTie, 0,
@@ -59,8 +59,9 @@ namespace KompasPlugin
             BuildCrossSection(_parameters.CrossSectionHeight,
                 _parameters.CrossSectionThickness,
                 _parameters.CrossSectionWidth,
-                _parameters.WaveguideLength - _parameters.AnchorageThickness,
-                null);
+                _parameters.WaveguideLength
+                - _parameters.AnchorageThickness,
+                Obj3dType.o3d_planeXOZ, null);
 
             //Смещени плоскости для построения второго крепления
             var offsetEntity = (ksEntity) _connector
@@ -79,7 +80,8 @@ namespace KompasPlugin
                 _parameters.AnchorageThickness,
                 _parameters.AnchorageWidth,
                 _parameters.DistanceAngleToHole,
-                _parameters.HoleDiameters, offsetEntity);
+                _parameters.HoleDiameters,
+                Obj3dType.o3d_planeXOZ, offsetEntity);
 
             //Скругление второго крепления
             CreateFillet(_parameters.RadiusCrossTie, 0,
@@ -111,9 +113,9 @@ namespace KompasPlugin
         /// <param name="offsetPlane">Смещение плоскости</param>
         private void BuildAnchorage(double height, double thickness,
             double width, double distanceAngleToHole,
-            double holeDiameters, ksEntity offsetPlane)
+            double holeDiameters, Obj3dType planeType, ksEntity offsetPlane)
         {
-            var sketch = CreateSketch(Obj3dType.o3d_planeXOZ, offsetPlane);
+            var sketch = CreateSketch(planeType, offsetPlane);
             var doc2d = (ksDocument2D)sketch.BeginEdit();
             var pointCrossSectionAngle =
                 WaveguideParameters.ANCHORAGE_CROSS_SECTION_DIFFERENCE / 2;
@@ -173,9 +175,9 @@ namespace KompasPlugin
         /// <param name="width">Ширина</param>
         /// <param name="length">Длина</param>
         private void BuildCrossSection(double height, double thickness,
-            double width, double length, ksEntity offsetPlane)
+            double width, double length, Obj3dType planeType, ksEntity offsetPlane)
         {
-            var sketch = CreateSketch(Obj3dType.o3d_planeXOZ, offsetPlane);
+            var sketch = CreateSketch(planeType, offsetPlane);
             var doc2d = (ksDocument2D)sketch.BeginEdit();
 
             //Создание внтуреннего контура
