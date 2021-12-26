@@ -3,7 +3,7 @@
     /// <summary>
     /// Класс хранящий параметры волновода
     /// </summary>
-    public class WaveguideParameters
+    public class WaveguideParameters 
     {
         /// <summary>
         /// Высота креплений

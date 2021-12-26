@@ -45,14 +45,18 @@ namespace KompasPlugin
                     _parameters.HoleDiameters, Obj3dType.o3d_planeXOZ, null);
 
                 //Скругление первого крепления
-                var x = _parameters.AnchorageWidth / 2;
-                var y = _parameters.AnchorageThickness / 2;
-                var z = _parameters.AnchorageHeight / 2;
+                var xCoordOfEdge = _parameters.AnchorageWidth / 2;
+                var yCoordOfEdge = _parameters.AnchorageThickness / 2;
+                var zCoordOfEdge = _parameters.AnchorageHeight / 2;
 
-                CreateFillet(_parameters.RadiusCrossTie, x, y, z);
-                CreateFillet(_parameters.RadiusCrossTie, -x, y, -z);
-                CreateFillet(_parameters.RadiusCrossTie, -x, y, z);
-                CreateFillet(_parameters.RadiusCrossTie, x, y, -z);
+                CreateFillet(_parameters.RadiusCrossTie,
+                    xCoordOfEdge, yCoordOfEdge, zCoordOfEdge);
+                CreateFillet(_parameters.RadiusCrossTie,
+                    -xCoordOfEdge, yCoordOfEdge, -zCoordOfEdge);
+                CreateFillet(_parameters.RadiusCrossTie,
+                    -xCoordOfEdge, yCoordOfEdge, zCoordOfEdge);
+                CreateFillet(_parameters.RadiusCrossTie,
+                    xCoordOfEdge, yCoordOfEdge, -zCoordOfEdge);
 
                 //Построение сечения
                 BuildCrossSection(_parameters.CrossSectionHeight,
@@ -75,15 +79,19 @@ namespace KompasPlugin
                     Obj3dType.o3d_planeXOZ, offsetEntity);
 
                 //Скругление второго крепления
-                x = _parameters.AnchorageWidth / 2;
-                y = _parameters.WaveguideLength
+                xCoordOfEdge = _parameters.AnchorageWidth / 2;
+                yCoordOfEdge = _parameters.WaveguideLength
                     - _parameters.AnchorageThickness / 2;
-                z = _parameters.AnchorageHeight / 2;
+                zCoordOfEdge = _parameters.AnchorageHeight / 2;
 
-                CreateFillet(_parameters.RadiusCrossTie, x, y, z);
-                CreateFillet(_parameters.RadiusCrossTie, -x, y, -z);
-                CreateFillet(_parameters.RadiusCrossTie, -x, y, z);
-                CreateFillet(_parameters.RadiusCrossTie, x, y, -z);
+                CreateFillet(_parameters.RadiusCrossTie,
+                    xCoordOfEdge, yCoordOfEdge, zCoordOfEdge);
+                CreateFillet(_parameters.RadiusCrossTie,
+                    -xCoordOfEdge, yCoordOfEdge, -zCoordOfEdge);
+                CreateFillet(_parameters.RadiusCrossTie,
+                    -xCoordOfEdge, yCoordOfEdge, zCoordOfEdge);
+                CreateFillet(_parameters.RadiusCrossTie,
+                    xCoordOfEdge, yCoordOfEdge, -zCoordOfEdge);
             }
             else
             {
@@ -111,15 +119,19 @@ namespace KompasPlugin
                     Obj3dType.o3d_planeXOY, offsetForXOYEntity);
 
                 //Скругление первого крепления
-                var x = _parameters.AnchorageWidth / 2;
-                var y = _parameters.AnchorageHeight / 2;
-                var z = -_parameters.WaveguideLength / 2
-                        + _parameters.AnchorageThickness / 2;
+                var xCoordOfEdge = _parameters.AnchorageWidth / 2;
+                var yCoordOfEdge = _parameters.AnchorageHeight / 2;
+                var zCoordOfEdge = -_parameters.WaveguideLength / 2
+                                  + _parameters.AnchorageThickness / 2;
 
-                CreateFillet(_parameters.RadiusCrossTie, x, y, z);
-                CreateFillet(_parameters.RadiusCrossTie, -x, y, z);
-                CreateFillet(_parameters.RadiusCrossTie, x, -y, z);
-                CreateFillet(_parameters.RadiusCrossTie, -x, -y, z);
+                CreateFillet(_parameters.RadiusCrossTie,
+                    xCoordOfEdge, yCoordOfEdge, zCoordOfEdge);
+                CreateFillet(_parameters.RadiusCrossTie,
+                    -xCoordOfEdge, yCoordOfEdge, zCoordOfEdge);
+                CreateFillet(_parameters.RadiusCrossTie,
+                    xCoordOfEdge, -yCoordOfEdge, zCoordOfEdge);
+                CreateFillet(_parameters.RadiusCrossTie,
+                    -xCoordOfEdge, -yCoordOfEdge, zCoordOfEdge);
 
                 //Смещени плоскости для построения
                 //второй половины волновода
@@ -144,15 +156,19 @@ namespace KompasPlugin
                     Obj3dType.o3d_planeXOZ, offsetEntity);
 
                 //Скругление второго крепления
-                x = _parameters.AnchorageWidth / 2;
-                y = - _parameters.WaveguideLength / 2
+                xCoordOfEdge = _parameters.AnchorageWidth / 2;
+                yCoordOfEdge = - _parameters.WaveguideLength / 2
                     + _parameters.AnchorageThickness / 2;
-                z = _parameters.AnchorageHeight / 2;
+                zCoordOfEdge = _parameters.AnchorageHeight / 2;
 
-                CreateFillet(_parameters.RadiusCrossTie, x, y, z);
-                CreateFillet(_parameters.RadiusCrossTie, -x, y, z);
-                CreateFillet(_parameters.RadiusCrossTie, x, y, -z);
-                CreateFillet(_parameters.RadiusCrossTie, -x, y, -z);
+                CreateFillet(_parameters.RadiusCrossTie,
+                    xCoordOfEdge, yCoordOfEdge, zCoordOfEdge);
+                CreateFillet(_parameters.RadiusCrossTie, 
+                    -xCoordOfEdge, yCoordOfEdge, zCoordOfEdge);
+                CreateFillet(_parameters.RadiusCrossTie,
+                    xCoordOfEdge, yCoordOfEdge, -zCoordOfEdge);
+                CreateFillet(_parameters.RadiusCrossTie,
+                    -xCoordOfEdge, yCoordOfEdge, -zCoordOfEdge);
 
                 //Очистка сечения
                 var sketch = CreateSketch(Obj3dType.o3d_planeXOZ,
@@ -183,15 +199,20 @@ namespace KompasPlugin
                 СreateCutExtrusion(sketch, _parameters.WaveguideLength);
 
                 //Скругление угла волновода
-                x = _parameters.CrossSectionThickness;
-                y = z = (_parameters.CrossSectionHeight
+                xCoordOfEdge = _parameters.CrossSectionThickness;
+                yCoordOfEdge = zCoordOfEdge = (_parameters.CrossSectionHeight
                          + 2 * _parameters.CrossSectionThickness) / 2;
-                CreateFillet(_parameters.CrossSectionThickness, x, y, z);
-                CreateFillet(_parameters.CrossSectionThickness, x, -y, -z);
+                CreateFillet(_parameters.CrossSectionThickness,
+                    xCoordOfEdge, yCoordOfEdge, zCoordOfEdge);
+                CreateFillet(_parameters.CrossSectionThickness,
+                    xCoordOfEdge, -yCoordOfEdge, -zCoordOfEdge);
                 
-                y = z = _parameters.CrossSectionHeight / 2;
-                CreateFillet(_parameters.CrossSectionThickness, x, y, z);
-                CreateFillet(_parameters.CrossSectionThickness, x, -y, -z);
+                yCoordOfEdge = zCoordOfEdge 
+                    = _parameters.CrossSectionHeight / 2;
+                CreateFillet(_parameters.CrossSectionThickness, 
+                    xCoordOfEdge, yCoordOfEdge, zCoordOfEdge);
+                CreateFillet(_parameters.CrossSectionThickness,
+                    xCoordOfEdge, -yCoordOfEdge, -zCoordOfEdge);
             }
         }
 
@@ -234,18 +255,18 @@ namespace KompasPlugin
             //Создание кругов для отвестий
             var cathet = Math
                 .Sqrt((distanceAngleToHole * distanceAngleToHole) / 2);
-            doc2d.ksCircle(xCoordInternalRectangle - cathet,
-                yCoordInternalRectangle - cathet,
-                holeDiameters/2, MainLineStyle);
-            doc2d.ksCircle(-(xCoordInternalRectangle - cathet),
-                -(yCoordInternalRectangle - cathet),
-                holeDiameters / 2, MainLineStyle);
-            doc2d.ksCircle(-xCoordInternalRectangle + cathet,
-                yCoordInternalRectangle - cathet, 
-                holeDiameters / 2, MainLineStyle);
-            doc2d.ksCircle(xCoordInternalRectangle - cathet,
-                -yCoordInternalRectangle + cathet,
-                holeDiameters / 2, MainLineStyle);
+
+            var x = xCoordInternalRectangle - cathet;
+            var y = yCoordInternalRectangle - cathet;
+
+            doc2d.ksCircle(x, y, holeDiameters/2,
+                MainLineStyle);
+            doc2d.ksCircle(-x, -y, holeDiameters / 2,
+                MainLineStyle);
+            doc2d.ksCircle(-x, y, holeDiameters / 2,
+                MainLineStyle);
+            doc2d.ksCircle(x, -y, holeDiameters / 2,
+                MainLineStyle);
 
             //Выдавливание крепления
             sketch.EndEdit();
@@ -381,12 +402,12 @@ namespace KompasPlugin
         }
 
         /// <summary>
-        /// Создания фаски на выбранной грани
+        /// Создания фаски на выбранном ребре
         /// </summary>
         /// <param name="radiusCrossTie">Радиус</param>
-        /// <param name="x">X-координата точки на грани</param>
-        /// <param name="y">Y-координата точки на грани</param>
-        /// <param name="z">Z-координата точки на грани</param>
+        /// <param name="x">X-координата точки на ребре</param>
+        /// <param name="y">Y-координата точки на ребре</param>
+        /// <param name="z">Z-координата точки на ребре</param>
         private void CreateFillet(double radiusCrossTie, double x,
             double y, double z)
         {
@@ -399,8 +420,7 @@ namespace KompasPlugin
             ksEntityCollection iArray = filletDef.array();
             ksEntityCollection iCollection = _connector
                 .Part.EntityCollection((short)Obj3dType.o3d_edge);
-
-            //Выбор точки на грани
+            
             iCollection.SelectByPoint(x, y, z);
             var iEdge = iCollection.Last();
             iArray.Add(iEdge);

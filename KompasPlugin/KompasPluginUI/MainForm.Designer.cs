@@ -64,7 +64,7 @@ namespace KompasPlugin
             this.BuildButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.WaveguideParametersPictureBox = new System.Windows.Forms.PictureBox();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.DefaultWaveguideRadioButton = new System.Windows.Forms.RadioButton();
             this.TurnWaveguideRadioButton = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -363,6 +363,11 @@ namespace KompasPlugin
             this.WaveguideParametersPictureBox.TabIndex = 64;
             this.WaveguideParametersPictureBox.TabStop = false;
             // 
+            // toolTip
+            // 
+            this.toolTip.Active = false;
+            this.toolTip.ToolTipTitle = "Ошибка ввода";
+            // 
             // DefaultWaveguideRadioButton
             // 
             this.DefaultWaveguideRadioButton.AutoSize = true;
@@ -483,7 +488,7 @@ namespace KompasPlugin
         private System.Windows.Forms.Button BuildButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox WaveguideParametersPictureBox;
-        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.RadioButton DefaultWaveguideRadioButton;
         private System.Windows.Forms.RadioButton TurnWaveguideRadioButton;
         private System.Windows.Forms.GroupBox groupBox1;

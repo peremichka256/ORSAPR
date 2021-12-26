@@ -77,6 +77,7 @@ namespace KompasPlugin
             {
                 BuildButton.Enabled = true;
                 textBox.BackColor = Color.White;
+                toolTip.Active = false;
             }
             else
             {
@@ -88,12 +89,17 @@ namespace KompasPlugin
         /// Устанавливает стиль для значения непрошедшего проверку 
         /// </summary>
         /// <param name="sender">Текстбокс</param>
-        private void TextBox_ValidatingFail(object sender, CancelEventArgs e)
+        /// <param name="e"></param>
+        /// <param name="errorMessage"></param>
+        private void TextBox_ValidatingFail(object sender,
+            CancelEventArgs e, string errorMessage)
         {
             if (sender is TextBox textBox)
             {
                 BuildButton.Enabled = false;
                 textBox.BackColor = Color.LightSalmon;
+                toolTip.Active = true;
+                toolTip.SetToolTip(textBox, errorMessage);
                 e.Cancel = true;
             }
             else
@@ -124,9 +130,9 @@ namespace KompasPlugin
                 _waveguideParameters.HoleDiameters = 
                     double.Parse(holeDiametersTextBox.Text);
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                TextBox_ValidatingFail(sender, e);
+                TextBox_ValidatingFail(sender, e, exception.Message);
             }
         }
 
@@ -142,9 +148,9 @@ namespace KompasPlugin
                 _waveguideParameters.RadiusCrossTie = 
                     double.Parse(radiusCrossTieTextBox.Text);
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                TextBox_ValidatingFail(sender, e);
+                TextBox_ValidatingFail(sender, e, exception.Message);
             }
         }
 
@@ -176,9 +182,9 @@ namespace KompasPlugin
                 anchorageWidthTextBox.Text =
                     _waveguideParameters.AnchorageWidth.ToString();
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                TextBox_ValidatingFail(sender, e);
+                TextBox_ValidatingFail(sender, e, exception.Message);
             }
         }
 
@@ -211,9 +217,9 @@ namespace KompasPlugin
                 anchorageHeightTextBox.Text =
                     _waveguideParameters.AnchorageHeight.ToString();
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                TextBox_ValidatingFail(sender, e);
+                TextBox_ValidatingFail(sender, e, exception.Message);
             }
         }
 
@@ -229,9 +235,9 @@ namespace KompasPlugin
                 _waveguideParameters.AnchorageThickness = 
                     double.Parse(anchorageThicknessTextBox.Text);
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                TextBox_ValidatingFail(sender, e);
+                TextBox_ValidatingFail(sender, e, exception.Message);
             }
         }
 
@@ -247,9 +253,9 @@ namespace KompasPlugin
                 _waveguideParameters.WaveguideLength = 
                     double.Parse(waveguideLengthTextBox.Text);
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                TextBox_ValidatingFail(sender, e);
+                TextBox_ValidatingFail(sender, e, exception.Message);
             }
         }
 
@@ -281,9 +287,9 @@ namespace KompasPlugin
                 anchorageWidthTextBox.Text =
                     _waveguideParameters.AnchorageWidth.ToString();
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                TextBox_ValidatingFail(sender, e);
+                TextBox_ValidatingFail(sender, e, exception.Message);
             }
         }
 
@@ -299,9 +305,9 @@ namespace KompasPlugin
                 _waveguideParameters.CrossSectionThickness = 
                     double.Parse(crossSectionThicknessTextBox.Text);
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                TextBox_ValidatingFail(sender, e);
+                TextBox_ValidatingFail(sender, e, exception.Message);
             }
         }
 
@@ -333,9 +339,9 @@ namespace KompasPlugin
                 anchorageWidthTextBox.Text =
                     _waveguideParameters.AnchorageWidth.ToString();
             }
-            catch (Exception)
+            catch (Exception exception) 
             {
-                TextBox_ValidatingFail(sender, e);
+                TextBox_ValidatingFail(sender, e, exception.Message);
             }
         }
 
@@ -352,9 +358,9 @@ namespace KompasPlugin
                 _waveguideParameters.DistanceAngleToHole = 
                     double.Parse(distanceAngleToHoleTextBox.Text);
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                TextBox_ValidatingFail(sender, e);
+                TextBox_ValidatingFail(sender, e, exception.Message);
             }
         }
 
