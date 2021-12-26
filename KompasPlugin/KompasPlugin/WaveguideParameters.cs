@@ -76,6 +76,11 @@
                 MAX_WAVEGUIDE_LENGTH, MIN_WAVEGUIDE_LENGTH);
 
         /// <summary>
+        /// Является ли волновод изгонутым
+        /// </summary>
+        private bool _isWaveguideTurn;
+
+        /// <summary>
         /// Конастанты минимальных и максимальных значений параметров в мм
         /// </summary>
         public const double MIN_ANCHORAGE_HEIGHT = 65.0;
@@ -254,6 +259,16 @@
             }
         }
 
+        public bool IsWaveguideTurn
+        {
+            get => _isWaveguideTurn;
+
+            set
+            {
+                _isWaveguideTurn = value;
+            }
+        }
+
         /// <summary>
         /// Конструктор класса с минимальными значенми по умолчанию
         /// </summary>
@@ -269,6 +284,7 @@
             this.HoleDiameters = MIN_HOLE_DIAMETERS;
             this.RadiusCrossTie = MIN_RADIUS_CROSS_TIE;
             this.WaveguideLength = MIN_WAVEGUIDE_LENGTH;
+            this.IsWaveguideTurn = false;
         }
     }
 }

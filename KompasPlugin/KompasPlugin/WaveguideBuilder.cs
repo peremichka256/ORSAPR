@@ -31,75 +31,168 @@ namespace KompasPlugin
         /// </summary>
         public void BuildWaveguide()
         {
+            //в центр всё перенести
             _connector.Start();
             _connector.CreateDocument3D();
 
-            //Построение первого крепления
-            BuildAnchorage(_parameters.AnchorageHeight,
-                _parameters.AnchorageThickness,
-                _parameters.AnchorageWidth,
-                _parameters.DistanceAngleToHole,
-                _parameters.HoleDiameters, Obj3dType.o3d_planeXOZ, null);
+            if (!_parameters.IsWaveguideTurn)
+            {
+                //Построение первого крепления
+                BuildAnchorage(_parameters.AnchorageHeight,
+                    _parameters.AnchorageThickness,
+                    _parameters.AnchorageWidth,
+                    _parameters.DistanceAngleToHole,
+                    _parameters.HoleDiameters, Obj3dType.o3d_planeXOZ, null);
 
-            //Скругление первого крепления
-            CreateFillet(_parameters.RadiusCrossTie, 0,
-                _parameters.AnchorageThickness / 2, 0);
-            CreateFillet(_parameters.RadiusCrossTie,
-                _parameters.AnchorageWidth,
-                _parameters.AnchorageThickness / 2, 0);
-            CreateFillet(_parameters.RadiusCrossTie,
-                0, _parameters.AnchorageThickness / 2,
-                -_parameters.AnchorageHeight);
-            CreateFillet(_parameters.RadiusCrossTie,
-                _parameters.AnchorageWidth,
-                _parameters.AnchorageThickness / 2,
-                -_parameters.AnchorageHeight);
-            
-            //Построение сечения
-            BuildCrossSection(_parameters.CrossSectionHeight,
-                _parameters.CrossSectionThickness,
-                _parameters.CrossSectionWidth,
-                _parameters.WaveguideLength
-                - _parameters.AnchorageThickness,
-                Obj3dType.o3d_planeXOZ, null);
+                //Скругление первого крепления
+                var x = _parameters.AnchorageWidth / 2;
+                var y = _parameters.AnchorageThickness / 2;
+                var z = _parameters.AnchorageHeight / 2;
 
-            //Смещени плоскости для построения второго крепления
-            var offsetEntity = (ksEntity) _connector
-                .Part.NewEntity((short) Obj3dType.o3d_planeOffset);
-            var offsetDefinition = 
-                (ksPlaneOffsetDefinition) offsetEntity
-                    .GetDefinition();
-            offsetDefinition.SetPlane((ksEntity) _connector
-                .Part.NewEntity((short) Obj3dType.o3d_planeXOZ));
-            offsetDefinition.offset = _parameters.WaveguideLength
-                                      - _parameters.AnchorageThickness;
-            offsetEntity.Create();
+                CreateFillet(_parameters.RadiusCrossTie, x, y, z);
+                CreateFillet(_parameters.RadiusCrossTie, -x, y, -z);
+                CreateFillet(_parameters.RadiusCrossTie, -x, y, z);
+                CreateFillet(_parameters.RadiusCrossTie, x, y, -z);
 
-            //Создание второго крепления
-            BuildAnchorage(_parameters.AnchorageHeight,
-                _parameters.AnchorageThickness,
-                _parameters.AnchorageWidth,
-                _parameters.DistanceAngleToHole,
-                _parameters.HoleDiameters,
-                Obj3dType.o3d_planeXOZ, offsetEntity);
+                //Построение сечения
+                BuildCrossSection(_parameters.CrossSectionHeight,
+                    _parameters.CrossSectionThickness,
+                    _parameters.CrossSectionWidth,
+                    _parameters.WaveguideLength,
+                    Obj3dType.o3d_planeXOZ, null);
 
-            //Скругление второго крепления
-            CreateFillet(_parameters.RadiusCrossTie, 0,
-                _parameters.WaveguideLength
-                - _parameters.AnchorageThickness / 2, 0);
-            CreateFillet(_parameters.RadiusCrossTie,
-                _parameters.AnchorageWidth,
-                _parameters.WaveguideLength
-                - _parameters.AnchorageThickness / 2, 0);
-            CreateFillet(_parameters.RadiusCrossTie,
-                0, _parameters.WaveguideLength
-                   - _parameters.AnchorageThickness / 2,
-                -_parameters.AnchorageHeight);
-            CreateFillet(_parameters.RadiusCrossTie,
-                _parameters.AnchorageWidth,
-                _parameters.WaveguideLength
-                - _parameters.AnchorageThickness / 2,
-                -_parameters.AnchorageHeight);
+                //Смещени плоскости для построения второго крепления
+                var offsetEntity = CreateOffsetPlane(Obj3dType.o3d_planeXOZ,
+                    - _parameters.WaveguideLength 
+                    + _parameters.AnchorageThickness);
+
+                //Создание второго крепления
+                BuildAnchorage(_parameters.AnchorageHeight,
+                    _parameters.AnchorageThickness,
+                    _parameters.AnchorageWidth,
+                    _parameters.DistanceAngleToHole,
+                    _parameters.HoleDiameters,
+                    Obj3dType.o3d_planeXOZ, offsetEntity);
+
+                //Скругление второго крепления
+                x = _parameters.AnchorageWidth / 2;
+                y = _parameters.WaveguideLength
+                    - _parameters.AnchorageThickness / 2;
+                z = _parameters.AnchorageHeight / 2;
+
+                CreateFillet(_parameters.RadiusCrossTie, x, y, z);
+                CreateFillet(_parameters.RadiusCrossTie, -x, y, -z);
+                CreateFillet(_parameters.RadiusCrossTie, -x, y, z);
+                CreateFillet(_parameters.RadiusCrossTie, x, y, -z);
+            }
+            else
+            {
+                //Смещение плоскости для построения
+                //первой половины волновода
+                var offsetForXOYEntity = CreateOffsetPlane(
+                    Obj3dType.o3d_planeXOY,
+                    _parameters.WaveguideLength / 2);
+                
+                //Создания первого крепления
+                BuildAnchorage(_parameters.AnchorageHeight,
+                    _parameters.AnchorageThickness,
+                    _parameters.AnchorageWidth,
+                    _parameters.DistanceAngleToHole,
+                    _parameters.HoleDiameters,
+                    Obj3dType.o3d_planeXOY, offsetForXOYEntity);
+                
+                //Создание первой половины сечения
+                BuildCrossSection(_parameters.CrossSectionHeight,
+                    _parameters.CrossSectionThickness,
+                    _parameters.CrossSectionWidth,
+                    (_parameters.WaveguideLength
+                    + _parameters.CrossSectionHeight) / 2
+                    + _parameters.CrossSectionThickness,
+                    Obj3dType.o3d_planeXOY, offsetForXOYEntity);
+
+                //Скругление первого крепления
+                var x = _parameters.AnchorageWidth / 2;
+                var y = _parameters.AnchorageHeight / 2;
+                var z = -_parameters.WaveguideLength / 2
+                        + _parameters.AnchorageThickness / 2;
+
+                CreateFillet(_parameters.RadiusCrossTie, x, y, z);
+                CreateFillet(_parameters.RadiusCrossTie, -x, y, z);
+                CreateFillet(_parameters.RadiusCrossTie, x, -y, z);
+                CreateFillet(_parameters.RadiusCrossTie, -x, -y, z);
+
+                //Смещени плоскости для построения
+                //второй половины волновода
+                var offsetEntity = CreateOffsetPlane(Obj3dType.o3d_planeXOZ,
+                    _parameters.WaveguideLength / 2);
+
+                //Создание второго крепления
+                BuildAnchorage(_parameters.AnchorageHeight,
+                    _parameters.AnchorageThickness,
+                    _parameters.AnchorageWidth,
+                    _parameters.DistanceAngleToHole,
+                    _parameters.HoleDiameters,
+                    Obj3dType.o3d_planeXOZ, offsetEntity);
+
+                //Построение второй половины сечения
+                BuildCrossSection(_parameters.CrossSectionHeight,
+                    _parameters.CrossSectionThickness,
+                    _parameters.CrossSectionWidth,
+                    (_parameters.WaveguideLength 
+                    + _parameters.CrossSectionHeight) / 2
+                    + _parameters.CrossSectionThickness,
+                    Obj3dType.o3d_planeXOZ, offsetEntity);
+
+                //Скругление второго крепления
+                x = _parameters.AnchorageWidth / 2;
+                y = - _parameters.WaveguideLength / 2
+                    + _parameters.AnchorageThickness / 2;
+                z = _parameters.AnchorageHeight / 2;
+
+                CreateFillet(_parameters.RadiusCrossTie, x, y, z);
+                CreateFillet(_parameters.RadiusCrossTie, -x, y, z);
+                CreateFillet(_parameters.RadiusCrossTie, x, y, -z);
+                CreateFillet(_parameters.RadiusCrossTie, -x, y, -z);
+
+                //Очистка сечения
+                var sketch = CreateSketch(Obj3dType.o3d_planeXOZ,
+                    null);
+                var doc2d = (ksDocument2D)sketch.BeginEdit();
+                
+                doc2d.ksRectangle(DrawRectangle(
+                    -_parameters.CrossSectionWidth / 2,
+                    -_parameters.CrossSectionHeight / 2,
+                    _parameters.CrossSectionHeight,
+                    _parameters.CrossSectionWidth), 0);
+                
+                sketch.EndEdit();
+                СreateCutExtrusion(sketch, _parameters.WaveguideLength);
+
+
+                sketch = CreateSketch(Obj3dType.o3d_planeXOY,
+                    null);
+                doc2d = (ksDocument2D)sketch.BeginEdit();
+
+                doc2d.ksRectangle(DrawRectangle(
+                    -_parameters.CrossSectionWidth / 2,
+                    -_parameters.CrossSectionHeight / 2,
+                    _parameters.CrossSectionHeight,
+                    _parameters.CrossSectionWidth), 0);
+
+                sketch.EndEdit();
+                СreateCutExtrusion(sketch, _parameters.WaveguideLength);
+
+                //Скругление угла волновода
+                x = _parameters.CrossSectionThickness;
+                y = z = (_parameters.CrossSectionHeight
+                         + 2 * _parameters.CrossSectionThickness) / 2;
+                CreateFillet(_parameters.CrossSectionThickness, x, y, z);
+                CreateFillet(_parameters.CrossSectionThickness, x, -y, -z);
+                
+                y = z = _parameters.CrossSectionHeight / 2;
+                CreateFillet(_parameters.CrossSectionThickness, x, y, z);
+                CreateFillet(_parameters.CrossSectionThickness, x, -y, -z);
+            }
         }
 
         /// <summary>
@@ -117,12 +210,17 @@ namespace KompasPlugin
         {
             var sketch = CreateSketch(planeType, offsetPlane);
             var doc2d = (ksDocument2D)sketch.BeginEdit();
-            var pointCrossSectionAngle =
-                WaveguideParameters.ANCHORAGE_CROSS_SECTION_DIFFERENCE / 2;
 
             //Создание внтуреннего контура
-            doc2d.ksRectangle(DrawRectangle(pointCrossSectionAngle,
-                pointCrossSectionAngle,
+            var xCoordInternalRectangle =
+                - (width - WaveguideParameters
+                .ANCHORAGE_CROSS_SECTION_DIFFERENCE) / 2;
+            var yCoordInternalRectangle =
+                - (height - WaveguideParameters
+                .ANCHORAGE_CROSS_SECTION_DIFFERENCE) / 2;
+
+            doc2d.ksRectangle(DrawRectangle(xCoordInternalRectangle,
+                yCoordInternalRectangle,
                 height - 
                 WaveguideParameters.ANCHORAGE_CROSS_SECTION_DIFFERENCE,
                 width - 
@@ -130,36 +228,23 @@ namespace KompasPlugin
                 0);
 
             //Создание внешнего контура
-            var externalRectangleParam = 
-                DrawRectangle(0,0,height, width);
-            doc2d.ksRectangle(externalRectangleParam, 0);
+            doc2d.ksRectangle(DrawRectangle(-width / 2,
+                -height / 2, height, width), 0);
 
             //Создание кругов для отвестий
-            var cathet =
-                Math.Sqrt((distanceAngleToHole * distanceAngleToHole) / 2);
-            doc2d.ksCircle(
-                pointCrossSectionAngle - cathet,
-                pointCrossSectionAngle - cathet,
+            var cathet = Math
+                .Sqrt((distanceAngleToHole * distanceAngleToHole) / 2);
+            doc2d.ksCircle(xCoordInternalRectangle - cathet,
+                yCoordInternalRectangle - cathet,
                 holeDiameters/2, MainLineStyle);
-            doc2d.ksCircle(
-                pointCrossSectionAngle + (width -
-                WaveguideParameters.ANCHORAGE_CROSS_SECTION_DIFFERENCE)
-                + cathet,
-                pointCrossSectionAngle - cathet,
+            doc2d.ksCircle(-(xCoordInternalRectangle - cathet),
+                -(yCoordInternalRectangle - cathet),
                 holeDiameters / 2, MainLineStyle);
-            doc2d.ksCircle(
-                pointCrossSectionAngle - cathet,
-                pointCrossSectionAngle + (height -
-                WaveguideParameters.ANCHORAGE_CROSS_SECTION_DIFFERENCE)
-                + cathet, 
+            doc2d.ksCircle(-xCoordInternalRectangle + cathet,
+                yCoordInternalRectangle - cathet, 
                 holeDiameters / 2, MainLineStyle);
-            doc2d.ksCircle(
-                pointCrossSectionAngle + (width - 
-                WaveguideParameters.ANCHORAGE_CROSS_SECTION_DIFFERENCE)
-                + cathet,
-                pointCrossSectionAngle + (height - 
-                WaveguideParameters.ANCHORAGE_CROSS_SECTION_DIFFERENCE)
-                + cathet,
+            doc2d.ksCircle(xCoordInternalRectangle - cathet,
+                -yCoordInternalRectangle + cathet,
                 holeDiameters / 2, MainLineStyle);
 
             //Выдавливание крепления
@@ -181,20 +266,13 @@ namespace KompasPlugin
             var doc2d = (ksDocument2D)sketch.BeginEdit();
 
             //Создание внтуреннего контура
-            doc2d.ksRectangle(DrawRectangle(WaveguideParameters.
-                ANCHORAGE_CROSS_SECTION_DIFFERENCE / 2,
-                WaveguideParameters.
-                ANCHORAGE_CROSS_SECTION_DIFFERENCE / 2,
-                height, width), 0);
+            doc2d.ksRectangle(DrawRectangle(-width  / 2,
+                -height  / 2, height, width), 0);
 
             //Создание внешнего контура
-            doc2d.ksRectangle(DrawRectangle(
-                WaveguideParameters.ANCHORAGE_CROSS_SECTION_DIFFERENCE 
-                / 2 - thickness,
-                WaveguideParameters.ANCHORAGE_CROSS_SECTION_DIFFERENCE 
-                / 2 - thickness,
-                height + thickness * 2, width + thickness * 2),
-                0);
+            doc2d.ksRectangle(DrawRectangle(-width / 2 - thickness, 
+                -height / 2 - thickness, height + thickness * 2,
+                width + thickness * 2), 0);
 
             //Выдавливание сечения
             sketch.EndEdit();
@@ -237,9 +315,9 @@ namespace KompasPlugin
         private void СreateExtrusion(ksSketchDefinition sketch,
             double depth, bool side = true)
         {
-            ksObj3dTypeEnum type = ksObj3dTypeEnum.o3d_bossExtrusion;
             var extrusionEntity =
-                (ksEntity)_connector.Part.NewEntity((short)type);
+                (ksEntity)_connector.Part.NewEntity(
+                    (short)ksObj3dTypeEnum.o3d_bossExtrusion);
             var extrusionDef = 
                 (ksBossExtrusionDefinition)extrusionEntity
                     .GetDefinition();
@@ -252,6 +330,32 @@ namespace KompasPlugin
             extrusionDef.SetSketch(sketch);
 
             extrusionEntity.Create();
+        }
+
+        /// <summary>
+        /// Метод осуществляющий вырезание
+        /// </summary>
+        /// <param name="sketch">Эскиз</param>
+        /// <param name="depth">Расстояние выреза</param>
+        private void СreateCutExtrusion(ksSketchDefinition sketch,
+            double depth, bool side = true)
+        {
+            var cutExtrusionEntity =
+                (ksEntity)_connector.Part.NewEntity(
+                    (short)ksObj3dTypeEnum.o3d_cutExtrusion);
+            var cutExtrusionDef =
+                (ksCutExtrusionDefinition)cutExtrusionEntity
+                    .GetDefinition();
+
+            cutExtrusionDef.SetSideParam(side,
+                (short)End_Type.etBlind, depth);
+            cutExtrusionDef.directionType = side ?
+                (short)Direction_Type.dtNormal :
+                (short)Direction_Type.dtReverse;
+            cutExtrusionDef.cut = true;
+            cutExtrusionDef.SetSketch(sketch);
+
+            cutExtrusionEntity.Create();
         }
 
         /// <summary>
@@ -288,11 +392,11 @@ namespace KompasPlugin
         {
             var filletEntity = (ksEntity)_connector
                 .Part.NewEntity((short)Obj3dType.o3d_fillet);
-            var filletDefinition =
+            var filletDef =
                 (ksFilletDefinition)filletEntity.GetDefinition();
-            filletDefinition.radius = radiusCrossTie;
-            filletDefinition.tangent = true;
-            ksEntityCollection iArray = filletDefinition.array();
+            filletDef.radius = radiusCrossTie;
+            filletDef.tangent = true;
+            ksEntityCollection iArray = filletDef.array();
             ksEntityCollection iCollection = _connector
                 .Part.EntityCollection((short)Obj3dType.o3d_edge);
 
@@ -301,6 +405,21 @@ namespace KompasPlugin
             var iEdge = iCollection.Last();
             iArray.Add(iEdge);
             filletEntity.Create();
+        }
+
+        private ksEntity CreateOffsetPlane(Obj3dType plane, double offset)
+        {
+            var offsetEntity = (ksEntity)_connector
+                .Part.NewEntity((short)Obj3dType.o3d_planeOffset);
+            var offsetDef =
+                (ksPlaneOffsetDefinition)offsetEntity
+                    .GetDefinition();
+            offsetDef.SetPlane((ksEntity)_connector
+                .Part.NewEntity((short)plane));
+            offsetDef.offset = offset;
+            offsetDef.direction = false;
+            offsetEntity.Create();
+            return offsetEntity;
         }
 
         /// <summary>

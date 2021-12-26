@@ -357,6 +357,24 @@ namespace KompasPlugin
                 TextBox_ValidatingFail(sender, e);
             }
         }
+
+        /// <summary>
+        /// Выбор построения прямого волновода
+        /// </summary>
+        private void DefaultWaveguideRadioButton_CheckedChanged
+            (object sender, EventArgs e)
+        {
+            _waveguideParameters.IsWaveguideTurn = false;
+        }
+
+        /// <summary>
+        /// Выбор построения изогнутого волновода
+        /// </summary>
+        private void TurnWaveguideRadioButton_CheckedChanged
+            (object sender, EventArgs e)
+        {
+            _waveguideParameters.IsWaveguideTurn = true;
+        }
         //TODO: Убрать дубли
     }
 }

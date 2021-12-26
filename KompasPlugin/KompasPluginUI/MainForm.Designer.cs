@@ -65,7 +65,11 @@ namespace KompasPlugin
             this.label1 = new System.Windows.Forms.Label();
             this.WaveguideParametersPictureBox = new System.Windows.Forms.PictureBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.DefaultWaveguideRadioButton = new System.Windows.Forms.RadioButton();
+            this.TurnWaveguideRadioButton = new System.Windows.Forms.RadioButton();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.WaveguideParametersPictureBox)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label21
@@ -332,7 +336,7 @@ namespace KompasPlugin
             // 
             // BuildButton
             // 
-            this.BuildButton.Location = new System.Drawing.Point(15, 285);
+            this.BuildButton.Location = new System.Drawing.Point(15, 338);
             this.BuildButton.Name = "BuildButton";
             this.BuildButton.Size = new System.Drawing.Size(192, 23);
             this.BuildButton.TabIndex = 33;
@@ -354,16 +358,52 @@ namespace KompasPlugin
             this.WaveguideParametersPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("WaveguideParametersPictureBox.Image")));
             this.WaveguideParametersPictureBox.Location = new System.Drawing.Point(373, 6);
             this.WaveguideParametersPictureBox.Name = "WaveguideParametersPictureBox";
-            this.WaveguideParametersPictureBox.Size = new System.Drawing.Size(152, 297);
+            this.WaveguideParametersPictureBox.Size = new System.Drawing.Size(174, 355);
             this.WaveguideParametersPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.WaveguideParametersPictureBox.TabIndex = 64;
             this.WaveguideParametersPictureBox.TabStop = false;
+            // 
+            // DefaultWaveguideRadioButton
+            // 
+            this.DefaultWaveguideRadioButton.AutoSize = true;
+            this.DefaultWaveguideRadioButton.Checked = true;
+            this.DefaultWaveguideRadioButton.Location = new System.Drawing.Point(10, 19);
+            this.DefaultWaveguideRadioButton.Name = "DefaultWaveguideRadioButton";
+            this.DefaultWaveguideRadioButton.Size = new System.Drawing.Size(65, 17);
+            this.DefaultWaveguideRadioButton.TabIndex = 65;
+            this.DefaultWaveguideRadioButton.TabStop = true;
+            this.DefaultWaveguideRadioButton.Text = "Прямой";
+            this.DefaultWaveguideRadioButton.UseVisualStyleBackColor = true;
+            this.DefaultWaveguideRadioButton.CheckedChanged += new System.EventHandler(this.DefaultWaveguideRadioButton_CheckedChanged);
+            // 
+            // TurnWaveguideRadioButton
+            // 
+            this.TurnWaveguideRadioButton.AutoSize = true;
+            this.TurnWaveguideRadioButton.Location = new System.Drawing.Point(97, 19);
+            this.TurnWaveguideRadioButton.Name = "TurnWaveguideRadioButton";
+            this.TurnWaveguideRadioButton.Size = new System.Drawing.Size(159, 17);
+            this.TurnWaveguideRadioButton.TabIndex = 66;
+            this.TurnWaveguideRadioButton.Text = "Изогнутый на 90 градусов";
+            this.TurnWaveguideRadioButton.UseVisualStyleBackColor = true;
+            this.TurnWaveguideRadioButton.CheckedChanged += new System.EventHandler(this.TurnWaveguideRadioButton_CheckedChanged);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.DefaultWaveguideRadioButton);
+            this.groupBox1.Controls.Add(this.TurnWaveguideRadioButton);
+            this.groupBox1.Location = new System.Drawing.Point(5, 282);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(362, 50);
+            this.groupBox1.TabIndex = 67;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Форма волновода";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(537, 315);
+            this.ClientSize = new System.Drawing.Size(559, 368);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.WaveguideParametersPictureBox);
             this.Controls.Add(this.label21);
             this.Controls.Add(this.label20);
@@ -398,11 +438,11 @@ namespace KompasPlugin
             this.Controls.Add(this.BuildButton);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.MaximumSize = new System.Drawing.Size(553, 354);
-            this.MinimumSize = new System.Drawing.Size(553, 354);
             this.Name = "MainForm";
             this.Text = "Построение волновода в КОМПАС-3D";
             ((System.ComponentModel.ISupportInitialize)(this.WaveguideParametersPictureBox)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -444,6 +484,9 @@ namespace KompasPlugin
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox WaveguideParametersPictureBox;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.RadioButton DefaultWaveguideRadioButton;
+        private System.Windows.Forms.RadioButton TurnWaveguideRadioButton;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }
 
