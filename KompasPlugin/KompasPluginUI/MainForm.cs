@@ -165,15 +165,6 @@ namespace KompasPlugin
             {
                 _waveguideParameters.AnchorageHeight = 
                     double.Parse(anchorageHeightTextBox.Text);
-                _waveguideParameters.CrossSectionHeight = 
-                    _waveguideParameters.AnchorageHeight 
-                    - WaveguideParameters.ANCHORAGE_CROSS_SECTION_DIFFERENCE;
-                _waveguideParameters.CrossSectionWidth =
-                    _waveguideParameters.CrossSectionHeight 
-                    * WaveguideParameters.CROSS_SECTION_SIDE_MULTIPLIER;
-                _waveguideParameters.AnchorageWidth =
-                    _waveguideParameters.CrossSectionWidth
-                    + WaveguideParameters.ANCHORAGE_CROSS_SECTION_DIFFERENCE;
 
                 crossSectionHeightTextBox.Text =
                     _waveguideParameters.CrossSectionHeight.ToString();
@@ -199,15 +190,6 @@ namespace KompasPlugin
             {
                 _waveguideParameters.AnchorageWidth = 
                     double.Parse(anchorageWidthTextBox.Text);
-                _waveguideParameters.CrossSectionWidth = 
-                    _waveguideParameters.AnchorageWidth
-                    - WaveguideParameters.ANCHORAGE_CROSS_SECTION_DIFFERENCE;
-                _waveguideParameters.CrossSectionHeight =
-                    _waveguideParameters.CrossSectionWidth
-                    / WaveguideParameters.CROSS_SECTION_SIDE_MULTIPLIER;
-                _waveguideParameters.AnchorageHeight =
-                    _waveguideParameters.CrossSectionHeight
-                    + WaveguideParameters.ANCHORAGE_CROSS_SECTION_DIFFERENCE;
 
 
                 crossSectionHeightTextBox.Text =
@@ -270,15 +252,6 @@ namespace KompasPlugin
             {
                 _waveguideParameters.CrossSectionWidth = 
                     double.Parse(crossSectionWidthTextBox.Text);
-                _waveguideParameters.CrossSectionHeight = 
-                    _waveguideParameters.CrossSectionWidth 
-                    / WaveguideParameters.CROSS_SECTION_SIDE_MULTIPLIER;
-                _waveguideParameters.AnchorageWidth =
-                    _waveguideParameters.CrossSectionWidth + 
-                    WaveguideParameters.ANCHORAGE_CROSS_SECTION_DIFFERENCE;
-                _waveguideParameters.AnchorageHeight =
-                    _waveguideParameters.CrossSectionHeight + 
-                    WaveguideParameters.ANCHORAGE_CROSS_SECTION_DIFFERENCE;
 
                 crossSectionHeightTextBox.Text = 
                     _waveguideParameters.CrossSectionHeight.ToString();
@@ -322,15 +295,6 @@ namespace KompasPlugin
             {
                 _waveguideParameters.CrossSectionHeight = 
                     double.Parse(crossSectionHeightTextBox.Text);
-                _waveguideParameters.CrossSectionWidth =
-                    _waveguideParameters.CrossSectionHeight 
-                    * WaveguideParameters.CROSS_SECTION_SIDE_MULTIPLIER;
-                _waveguideParameters.AnchorageWidth =
-                    _waveguideParameters.CrossSectionWidth +
-                    WaveguideParameters.ANCHORAGE_CROSS_SECTION_DIFFERENCE;
-                _waveguideParameters.AnchorageHeight =
-                    _waveguideParameters.CrossSectionHeight +
-                    WaveguideParameters.ANCHORAGE_CROSS_SECTION_DIFFERENCE;
 
                 crossSectionWidthTextBox.Text =
                     _waveguideParameters.CrossSectionWidth.ToString();

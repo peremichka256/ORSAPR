@@ -1,4 +1,6 @@
-﻿namespace KompasPlugin
+﻿using System;
+
+namespace KompasPlugin
 {
     /// <summary>
     /// Класс хранящий параметры волновода
@@ -8,9 +10,7 @@
         /// <summary>
         /// Высота креплений
         /// </summary>
-        private Parameter<double> _anchorageHeight =
-            new Parameter<double>("Anchorage height",
-                MAX_ANCHORAGE_HEIGHT, MIN_ANCHORAGE_HEIGHT);
+        private double _anchorageHeight;
 
         /// <summary>
         /// Толщина креплений
@@ -22,16 +22,12 @@
         /// <summary>
         /// Ширина креплений
         /// </summary>
-        private Parameter<double> _anchorageWidth =
-            new Parameter<double>("Anchorage width",
-                MAX_ANCHORAGE_WIDTH, MIN_ANCHORAGE_WIDTH);
+        private double _anchorageWidth;
 
         /// <summary>
         /// Высота сечения
         /// </summary>
-        private Parameter<double> _crossSectionHeight =
-            new Parameter<double>("Cross section height",
-                MAX_CROSS_SECTION_HEIGHT, MIN_CROSS_SECTION_HEIGHT);
+        private double _crossSectionHeight;
 
         /// <summary>
         /// Толщина стенок сечения
@@ -43,9 +39,7 @@
         /// <summary>
         /// Ширина сечения
         /// </summary>
-        private Parameter<double> _crossSectionWidth =
-            new Parameter<double>("Cross section width",
-                MAX_CROSS_SECTION_WIDTH, MIN_CROSS_SECTION_WIDTH);
+        private double _crossSectionWidth;
 
         /// <summary>
         /// Расстояние от угла сечения до отверстия в креплении
@@ -124,12 +118,20 @@
         /// </summary>
         public double AnchorageHeight
         {
-            get => _anchorageHeight.Value;
+            get => _anchorageHeight;
 
             set
             {
                 //TODO: Убрать дубли
-                _anchorageHeight.Value = value;
+                SetValue(ref _anchorageHeight, value, 
+                    MIN_ANCHORAGE_HEIGHT, MAX_ANCHORAGE_HEIGHT);
+
+                if (CrossSectionHeight != (_anchorageHeight 
+                    - ANCHORAGE_CROSS_SECTION_DIFFERENCE))
+                {
+                    CrossSectionHeight = _anchorageHeight
+                        - ANCHORAGE_CROSS_SECTION_DIFFERENCE;
+                }
             }
         }
 
@@ -152,12 +154,24 @@
         /// </summary>
         public double AnchorageWidth
         {
-            get => _anchorageWidth.Value;
+            get => _anchorageWidth;
 
             set
             {
                 //TODO: Убрать дубли
-                _anchorageWidth.Value = value;
+                SetValue(ref _anchorageWidth, value, 
+                MIN_ANCHORAGE_WIDTH, MAX_ANCHORAGE_WIDTH);
+
+                if (AnchorageHeight !=
+                    (AnchorageWidth - ANCHORAGE_CROSS_SECTION_DIFFERENCE)
+                    * CROSS_SECTION_SIDE_MULTIPLIER
+                    + ANCHORAGE_CROSS_SECTION_DIFFERENCE)
+                {
+                    AnchorageHeight = (AnchorageWidth 
+                        - ANCHORAGE_CROSS_SECTION_DIFFERENCE)
+                        / CROSS_SECTION_SIDE_MULTIPLIER
+                        + ANCHORAGE_CROSS_SECTION_DIFFERENCE;
+                }
             }
         }
 
@@ -166,12 +180,20 @@
         /// </summary>
         public double CrossSectionHeight
         {
-            get => _crossSectionHeight.Value; 
+            get => _crossSectionHeight; 
 
             set
             {
                 //TODO: Убрать дубли
-                _crossSectionHeight.Value = value;
+                SetValue(ref _crossSectionHeight, value,
+                    MIN_CROSS_SECTION_HEIGHT, MAX_CROSS_SECTION_HEIGHT);
+
+                if (CrossSectionWidth != _crossSectionHeight 
+                    / CROSS_SECTION_SIDE_MULTIPLIER)
+                {
+                    CrossSectionWidth = 
+                        _crossSectionHeight * CROSS_SECTION_SIDE_MULTIPLIER;
+                }
             }
         }
 
@@ -194,12 +216,20 @@
         /// </summary>
         public double CrossSectionWidth
         {
-            get => _crossSectionWidth.Value;
+            get => _crossSectionWidth;
 
             set
             {
                 //TODO: Убрать дубли
-                _crossSectionWidth.Value = value;
+                SetValue(ref _crossSectionWidth, value,
+                    MIN_CROSS_SECTION_WIDTH, MAX_CROSS_SECTION_WIDTH);
+
+                if (AnchorageWidth != CrossSectionWidth 
+                    + ANCHORAGE_CROSS_SECTION_DIFFERENCE)
+                {
+                    AnchorageWidth = CrossSectionWidth 
+                        + ANCHORAGE_CROSS_SECTION_DIFFERENCE;
+                }
             }
         }
 
@@ -285,6 +315,21 @@
             this.RadiusCrossTie = MIN_RADIUS_CROSS_TIE;
             this.WaveguideLength = MIN_WAVEGUIDE_LENGTH;
             this.IsWaveguideTurn = false;
+        }
+
+        public void SetValue(ref double property, double value,
+            double minValue, double maxValue)
+        {
+            if (value >= minValue && value <= maxValue)
+            {
+                property = value;
+            }
+            else
+            {
+                throw new Exception($"{nameof(property)} should be "
+                                    + $"more or equal to {minValue} " 
+                                    + $"and less or equal to {maxValue}");
+            }
         }
     }
 }
