@@ -117,7 +117,11 @@ namespace KompasPlugin
             KompasConnector connector = new KompasConnector();
             _waveguideBuilder = 
                 new WaveguideBuilder(_waveguideParameters, connector);
-            _waveguideBuilder.BuildWaveguide();
+
+            for (var i = 1; ; i++)
+            {
+                _waveguideBuilder.BuildWaveguide(); 
+            }
         }
 
         /// <summary>
