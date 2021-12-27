@@ -86,28 +86,21 @@ namespace KompasPlugin
             }
         }
 
-        //TODO: Отрефакторить, передавать не object.
+        //TODO: Отрефакторить, передавать не object. (+)
         /// <summary>
         /// Устанавливает стиль для значения непрошедшего проверку 
         /// </summary>
         /// <param name="sender">Текстбокс</param>
         /// <param name="e"></param>
         /// <param name="errorMessage"></param>
-        private void TextBox_ValidatingFail(object sender,
+        private void TextBox_ValidatingFail(TextBox textBox,
             CancelEventArgs e, string errorMessage)
         {
-            if (sender is TextBox textBox)
-            {
-                BuildButton.Enabled = false;
-                textBox.BackColor = Color.LightSalmon;
-                toolTip.Active = true;
-                toolTip.SetToolTip(textBox, errorMessage);
-                e.Cancel = true;
-            }
-            else
-            {
-                return;
-            }
+            BuildButton.Enabled = false;
+            textBox.BackColor = Color.LightSalmon;
+            toolTip.Active = true;
+            toolTip.SetToolTip(textBox, errorMessage);
+            e.Cancel = true;
         }
 
         /// <summary>
@@ -136,7 +129,8 @@ namespace KompasPlugin
             }
             catch (Exception exception)
             {
-                TextBox_ValidatingFail(sender, e, exception.Message);
+                TextBox_ValidatingFail(holeDiametersTextBox, e,
+                    exception.Message);
             }
         }
 
@@ -154,7 +148,8 @@ namespace KompasPlugin
             }
             catch (Exception exception)
             {
-                TextBox_ValidatingFail(sender, e, exception.Message);
+                TextBox_ValidatingFail(radiusCrossTieTextBox, e,
+                    exception.Message);
             }
         }
 
@@ -179,7 +174,8 @@ namespace KompasPlugin
             }
             catch (Exception exception)
             {
-                TextBox_ValidatingFail(sender, e, exception.Message);
+                TextBox_ValidatingFail(anchorageHeightTextBox, e, 
+                    exception.Message);
             }
         }
 
@@ -205,7 +201,8 @@ namespace KompasPlugin
             }
             catch (Exception exception)
             {
-                TextBox_ValidatingFail(sender, e, exception.Message);
+                TextBox_ValidatingFail(anchorageWidthTextBox, e,
+                    exception.Message);
             }
         }
 
@@ -223,7 +220,8 @@ namespace KompasPlugin
             }
             catch (Exception exception)
             {
-                TextBox_ValidatingFail(sender, e, exception.Message);
+                TextBox_ValidatingFail(anchorageThicknessTextBox, e,
+                    exception.Message);
             }
         }
 
@@ -241,7 +239,8 @@ namespace KompasPlugin
             }
             catch (Exception exception)
             {
-                TextBox_ValidatingFail(sender, e, exception.Message);
+                TextBox_ValidatingFail(waveguideLengthTextBox, e,
+                    exception.Message);
             }
         }
 
@@ -266,7 +265,8 @@ namespace KompasPlugin
             }
             catch (Exception exception)
             {
-                TextBox_ValidatingFail(sender, e, exception.Message);
+                TextBox_ValidatingFail(crossSectionWidthTextBox, e,
+                    exception.Message);
             }
         }
 
@@ -284,7 +284,8 @@ namespace KompasPlugin
             }
             catch (Exception exception)
             {
-                TextBox_ValidatingFail(sender, e, exception.Message);
+                TextBox_ValidatingFail(crossSectionThicknessTextBox, e,
+                    exception.Message);
             }
         }
 
@@ -309,7 +310,8 @@ namespace KompasPlugin
             }
             catch (Exception exception) 
             {
-                TextBox_ValidatingFail(sender, e, exception.Message);
+                TextBox_ValidatingFail(crossSectionHeightTextBox, e, 
+                    exception.Message);
             }
         }
         
@@ -326,7 +328,8 @@ namespace KompasPlugin
             }
             catch (Exception exception)
             {
-                TextBox_ValidatingFail(sender, e, exception.Message);
+                TextBox_ValidatingFail(distanceAngleToHoleTextBox, e,
+                    exception.Message);
             }
         }
 

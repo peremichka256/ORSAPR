@@ -4,6 +4,7 @@ using KompasPlugin;
 
 namespace KompasPluginUnitTests
 {
+    //Проверить геттеры
     [TestFixture]
     public class WaveguideParametersTests
     {
@@ -29,7 +30,7 @@ namespace KompasPluginUnitTests
         }
 
         /// <summary>
-        /// Возвращает условие ""
+        /// Возвращает условие "Поменялись ли значения параметров"
         /// </summary>
         private bool IsParametersChanged(
             WaveguideParameters testWaveguideParameters)

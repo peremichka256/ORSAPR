@@ -431,7 +431,13 @@ namespace KompasPlugin
             filletEntity.Create();
         }
 
-        //TODO: XML
+        //TODO: XML (+)
+        /// <summary>
+        /// Метод смещающий плоскость
+        /// </summary>
+        /// <param name="plane">Плоскость</param>
+        /// <param name="offset">Расстояние смещения</param>
+        /// <returns></returns>
         private ksEntity CreateOffsetPlane(Obj3dType plane, double offset)
         {
             var offsetEntity = (ksEntity)_connector
@@ -447,7 +453,7 @@ namespace KompasPlugin
             return offsetEntity;
         }
 
-        //TODO: Несоответсткие XML-комментария сигнатуре метода 
+        //TODO: Несоответсткие XML-комментария сигнатуре метода (+)
         /// <summary>
         /// Конструктор класса
         /// </summary>

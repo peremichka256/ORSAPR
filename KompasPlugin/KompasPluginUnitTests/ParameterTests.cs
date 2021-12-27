@@ -4,6 +4,7 @@ using KompasPlugin;
 
 namespace KompasPlugin.UnitTests
 {
+    //Проверить геттеры
     [TestFixture]
     public class ParameterTests
     {
@@ -40,6 +41,16 @@ namespace KompasPlugin.UnitTests
             Assert.Throws<Exception>(() =>
                 { _testParameter.Value = wrongValue; },
                 "Возникает, если высота крепления больше 100 или меньше 0");
+        }
+
+        [Test(Description = "Позитивный тест на геттер параметра")]
+        public void TestParameterGet()
+        {
+            var testValue = 6.66;
+            _testParameter.Value = testValue;
+
+            Assert.AreEqual(_testParameter.Value, testValue,
+                "Возникает, если геттер вернул не то значение");
         }
     }
 }
