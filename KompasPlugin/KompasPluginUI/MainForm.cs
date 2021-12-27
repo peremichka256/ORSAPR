@@ -118,10 +118,8 @@ namespace KompasPlugin
             _waveguideBuilder = 
                 new WaveguideBuilder(_waveguideParameters, connector);
 
-            for (var i = 1; ; i++)
-            {
-                _waveguideBuilder.BuildWaveguide(); 
-            }
+             _waveguideBuilder.BuildWaveguide(); 
+            
         }
 
         /// <summary>
