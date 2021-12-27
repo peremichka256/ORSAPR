@@ -147,12 +147,8 @@ namespace KompasPlugin
         /// </summary>
         public double AnchorageThickness
         {
-            get => _anchorageThickness.Value; 
-
-            set
-            {
-                _anchorageThickness.Value = value;
-            }
+            get => _anchorageThickness.Value;
+            set => _anchorageThickness.Value = value;
         }
 
         /// <summary>
@@ -234,11 +230,7 @@ namespace KompasPlugin
         public double DistanceAngleToHole
         {
             get => _distanceAngleToHole.Value;
-
-            set
-            {
-                _distanceAngleToHole.Value = value;
-            }
+            set => _distanceAngleToHole.Value = value;
         }
 
         /// <summary>
@@ -247,11 +239,7 @@ namespace KompasPlugin
         public double HoleDiameters
         {
             get => _holeDiameters.Value;
-
-            set
-            {
-                _holeDiameters.Value = value;
-            }
+            set => _holeDiameters.Value = value;
         }
 
         /// <summary>
@@ -260,11 +248,7 @@ namespace KompasPlugin
         public double RadiusCrossTie
         {
             get => _radiusCrossTie.Value;
-
-            set
-            {
-                _radiusCrossTie.Value = value;
-            }
+            set => _radiusCrossTie.Value = value;
         }
 
         /// <summary>
@@ -273,21 +257,13 @@ namespace KompasPlugin
         public double WaveguideLength
         {
             get => _waveguideLength.Value;
-
-            set
-            {
-                _waveguideLength.Value = value;
-            }
+            set => _waveguideLength.Value = value;
         }
 
         public bool IsWaveguideTurn
         {
             get => _isWaveguideTurn;
-
-            set
-            {
-                _isWaveguideTurn = value;
-            }
+            set => _isWaveguideTurn = value;
         }
 
         /// <summary>

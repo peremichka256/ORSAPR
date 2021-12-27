@@ -451,7 +451,8 @@ namespace KompasPlugin
         /// <summary>
         /// Конструктор класса
         /// </summary>
-        /// <param name="parameters">Парамаетры введенные в главной форме</param>
+        /// <param name="parameters">Параметры волновода</param>
+        /// <param name="connector">Объект для связи с КОМПАС-3D</param>
         public WaveguideBuilder(WaveguideParameters parameters,
             KompasConnector connector)
         {

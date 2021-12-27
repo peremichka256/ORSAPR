@@ -111,7 +111,7 @@ namespace KompasPlugin
         }
 
         /// <summary>
-        /// Обработчик нажания кнопки "Построить"
+        /// Обработчик нажатия кнопки "Построить"
         /// </summary>
         private void BuildButton_Click(object sender, EventArgs e)
         {
