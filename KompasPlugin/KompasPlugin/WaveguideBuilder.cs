@@ -209,8 +209,8 @@ namespace KompasPlugin
                 CreateFillet(_parameters.CrossSectionThickness,
                     xCoordOfEdge, -yCoordOfEdge, -zCoordOfEdge);
                 
-                yCoordOfEdge = zCoordOfEdge 
-                    = _parameters.CrossSectionHeight / 2;
+                yCoordOfEdge = zCoordOfEdge = 
+                    _parameters.CrossSectionHeight / 2;
                 CreateFillet(_parameters.CrossSectionThickness, 
                     xCoordOfEdge, yCoordOfEdge, zCoordOfEdge);
                 CreateFillet(_parameters.CrossSectionThickness,
@@ -256,8 +256,8 @@ namespace KompasPlugin
                 -height / 2, height, width), 0);
 
             //Создание кругов для отвестий
-            var cathet = Math
-                .Sqrt((distanceAngleToHole * distanceAngleToHole) / 2);
+            var cathet = Math.Sqrt(
+                (distanceAngleToHole * distanceAngleToHole) / 2);
 
             var x = xCoordInternalRectangle - cathet;
             var y = yCoordInternalRectangle - cathet;
