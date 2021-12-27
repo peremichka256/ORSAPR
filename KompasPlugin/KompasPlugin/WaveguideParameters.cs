@@ -10,7 +10,9 @@ namespace KompasPlugin
         /// <summary>
         /// Высота креплений
         /// </summary>
-        private double _anchorageHeight;
+        private Parameter<double> _anchorageHeight =
+            new Parameter<double>("Anchorage height",
+                MAX_ANCHORAGE_HEIGHT, MIN_ANCHORAGE_HEIGHT);
 
         /// <summary>
         /// Толщина креплений
@@ -22,12 +24,16 @@ namespace KompasPlugin
         /// <summary>
         /// Ширина креплений
         /// </summary>
-        private double _anchorageWidth;
+        private Parameter<double> _anchorageWidth =
+            new Parameter<double>("Anchorage width",
+                MAX_ANCHORAGE_WIDTH, MIN_ANCHORAGE_WIDTH);
 
         /// <summary>
         /// Высота сечения
         /// </summary>
-        private double _crossSectionHeight;
+        private Parameter<double> _crossSectionHeight =
+            new Parameter<double>("Cross section height",
+                MAX_CROSS_SECTION_HEIGHT, MIN_CROSS_SECTION_HEIGHT);
 
         /// <summary>
         /// Толщина стенок сечения
@@ -39,7 +45,9 @@ namespace KompasPlugin
         /// <summary>
         /// Ширина сечения
         /// </summary>
-        private double _crossSectionWidth;
+        private Parameter<double> _crossSectionWidth =
+            new Parameter<double>("Cross section width",
+                MAX_CROSS_SECTION_WIDTH, MIN_CROSS_SECTION_WIDTH);
 
         /// <summary>
         /// Расстояние от угла сечения до отверстия в креплении
@@ -76,6 +84,7 @@ namespace KompasPlugin
 
         /// <summary>
         /// Конастанты минимальных и максимальных значений параметров в мм
+        /// Минимальные значения являются дефолтными
         /// </summary>
         public const double MIN_ANCHORAGE_HEIGHT = 65.0;
         public const double MAX_ANCHORAGE_HEIGHT = 100.0;
@@ -118,18 +127,17 @@ namespace KompasPlugin
         /// </summary>
         public double AnchorageHeight
         {
-            get => _anchorageHeight;
+            get => _anchorageHeight.Value;
 
             set
             {
                 //TODO: Убрать дубли
-                SetValue(ref _anchorageHeight, value, 
-                    MIN_ANCHORAGE_HEIGHT, MAX_ANCHORAGE_HEIGHT);
+                _anchorageHeight.Value = value;
 
-                if (CrossSectionHeight != (_anchorageHeight 
+                if (CrossSectionHeight != (AnchorageHeight
                     - ANCHORAGE_CROSS_SECTION_DIFFERENCE))
                 {
-                    CrossSectionHeight = _anchorageHeight
+                    CrossSectionHeight = AnchorageHeight
                         - ANCHORAGE_CROSS_SECTION_DIFFERENCE;
                 }
             }
@@ -154,13 +162,12 @@ namespace KompasPlugin
         /// </summary>
         public double AnchorageWidth
         {
-            get => _anchorageWidth;
+            get => _anchorageWidth.Value;
 
             set
             {
                 //TODO: Убрать дубли
-                SetValue(ref _anchorageWidth, value, 
-                MIN_ANCHORAGE_WIDTH, MAX_ANCHORAGE_WIDTH);
+                _anchorageWidth.Value = value;
 
                 if (AnchorageHeight !=
                     (AnchorageWidth - ANCHORAGE_CROSS_SECTION_DIFFERENCE)
@@ -180,19 +187,18 @@ namespace KompasPlugin
         /// </summary>
         public double CrossSectionHeight
         {
-            get => _crossSectionHeight; 
+            get => _crossSectionHeight.Value; 
 
             set
             {
                 //TODO: Убрать дубли
-                SetValue(ref _crossSectionHeight, value,
-                    MIN_CROSS_SECTION_HEIGHT, MAX_CROSS_SECTION_HEIGHT);
+                _crossSectionHeight.Value = value;
 
-                if (CrossSectionWidth != _crossSectionHeight 
+                if (CrossSectionWidth != CrossSectionHeight 
                     / CROSS_SECTION_SIDE_MULTIPLIER)
                 {
                     CrossSectionWidth = 
-                        _crossSectionHeight * CROSS_SECTION_SIDE_MULTIPLIER;
+                        CrossSectionHeight * CROSS_SECTION_SIDE_MULTIPLIER;
                 }
             }
         }
@@ -216,13 +222,12 @@ namespace KompasPlugin
         /// </summary>
         public double CrossSectionWidth
         {
-            get => _crossSectionWidth;
+            get => _crossSectionWidth.Value;
 
             set
             {
                 //TODO: Убрать дубли
-                SetValue(ref _crossSectionWidth, value,
-                    MIN_CROSS_SECTION_WIDTH, MAX_CROSS_SECTION_WIDTH);
+                _crossSectionWidth.Value = value;
 
                 if (AnchorageWidth != CrossSectionWidth 
                     + ANCHORAGE_CROSS_SECTION_DIFFERENCE)
@@ -315,21 +320,6 @@ namespace KompasPlugin
             this.RadiusCrossTie = MIN_RADIUS_CROSS_TIE;
             this.WaveguideLength = MIN_WAVEGUIDE_LENGTH;
             this.IsWaveguideTurn = false;
-        }
-
-        public void SetValue(ref double property, double value,
-            double minValue, double maxValue)
-        {
-            if (value >= minValue && value <= maxValue)
-            {
-                property = value;
-            }
-            else
-            {
-                throw new Exception($"{nameof(property)} should be "
-                                    + $"more or equal to {minValue} " 
-                                    + $"and less or equal to {maxValue}");
-            }
         }
     }
 }

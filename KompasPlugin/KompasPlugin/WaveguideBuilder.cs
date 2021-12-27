@@ -42,7 +42,8 @@ namespace KompasPlugin
                     _parameters.AnchorageThickness,
                     _parameters.AnchorageWidth,
                     _parameters.DistanceAngleToHole,
-                    _parameters.HoleDiameters, Obj3dType.o3d_planeXOZ, null);
+                    _parameters.HoleDiameters,
+                    Obj3dType.o3d_planeXOZ, null);
 
                 //Скругление первого крепления
                 var xCoordOfEdge = _parameters.AnchorageWidth / 2;
@@ -66,7 +67,8 @@ namespace KompasPlugin
                     Obj3dType.o3d_planeXOZ, null);
 
                 //Смещени плоскости для построения второго крепления
-                var offsetEntity = CreateOffsetPlane(Obj3dType.o3d_planeXOZ,
+                var offsetEntity = CreateOffsetPlane(
+                    Obj3dType.o3d_planeXOZ,
                     - _parameters.WaveguideLength 
                     + _parameters.AnchorageThickness);
 
@@ -227,7 +229,8 @@ namespace KompasPlugin
         /// <param name="offsetPlane">Смещение плоскости</param>
         private void BuildAnchorage(double height, double thickness,
             double width, double distanceAngleToHole,
-            double holeDiameters, Obj3dType planeType, ksEntity offsetPlane)
+            double holeDiameters, Obj3dType planeType, 
+            ksEntity offsetPlane)
         {
             var sketch = CreateSketch(planeType, offsetPlane);
             var doc2d = (ksDocument2D)sketch.BeginEdit();
@@ -281,7 +284,8 @@ namespace KompasPlugin
         /// <param name="width">Ширина</param>
         /// <param name="length">Длина</param>
         private void BuildCrossSection(double height, double thickness,
-            double width, double length, Obj3dType planeType, ksEntity offsetPlane)
+            double width, double length, Obj3dType planeType,
+            ksEntity offsetPlane)
         {
             var sketch = CreateSketch(planeType, offsetPlane);
             var doc2d = (ksDocument2D)sketch.BeginEdit();

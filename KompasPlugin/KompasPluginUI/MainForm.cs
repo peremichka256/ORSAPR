@@ -19,7 +19,8 @@ namespace KompasPlugin
         /// <summary>
         /// Объект класса с параметрами
         /// </summary>
-        private WaveguideParameters _waveguideParameters = new WaveguideParameters();
+        private WaveguideParameters _waveguideParameters = 
+            new WaveguideParameters();
 
         /// <summary>
         /// Конструктор главной формы с необходимыми инициализациями
