@@ -86,6 +86,7 @@ namespace KompasPlugin
             }
         }
 
+        //TODO: Отрефакторить, передавать не object.
         /// <summary>
         /// Устанавливает стиль для значения непрошедшего проверку 
         /// </summary>
@@ -311,9 +312,7 @@ namespace KompasPlugin
                 TextBox_ValidatingFail(sender, e, exception.Message);
             }
         }
-
-        //TODO: Убрать дубли
-        //TODO: Убрать дубли
+        
         /// <summary>
         /// Валидация текстбокса с расстоянием от угла до отверстия
         /// </summary>
@@ -348,6 +347,5 @@ namespace KompasPlugin
         {
             _waveguideParameters.IsWaveguideTurn = true;
         }
-        //TODO: Убрать дубли
     }
 }

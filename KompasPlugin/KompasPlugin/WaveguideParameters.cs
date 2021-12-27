@@ -131,7 +131,6 @@ namespace KompasPlugin
 
             set
             {
-                //TODO: Убрать дубли
                 _anchorageHeight.Value = value;
 
                 if (CrossSectionHeight != (AnchorageHeight
@@ -152,7 +151,6 @@ namespace KompasPlugin
 
             set
             {
-                //TODO: Убрать дубли
                 _anchorageThickness.Value = value;
             }
         }
@@ -166,7 +164,6 @@ namespace KompasPlugin
 
             set
             {
-                //TODO: Убрать дубли
                 _anchorageWidth.Value = value;
 
                 if (AnchorageHeight !=
@@ -191,7 +188,6 @@ namespace KompasPlugin
 
             set
             {
-                //TODO: Убрать дубли
                 _crossSectionHeight.Value = value;
 
                 if (CrossSectionWidth != CrossSectionHeight 
@@ -209,12 +205,7 @@ namespace KompasPlugin
         public double CrossSectionThickness
         {
             get => _crossSectionThickness.Value;
-
-            set
-            {
-                //TODO: Убрать дубли
-                _crossSectionThickness.Value = value;
-            }
+            set => _crossSectionThickness.Value = value;
         }
 
         /// <summary>
@@ -226,7 +217,6 @@ namespace KompasPlugin
 
             set
             {
-                //TODO: Убрать дубли
                 _crossSectionWidth.Value = value;
 
                 if (AnchorageWidth != CrossSectionWidth 
@@ -247,7 +237,6 @@ namespace KompasPlugin
 
             set
             {
-                //TODO: Убрать дубли
                 _distanceAngleToHole.Value = value;
             }
         }
@@ -261,7 +250,6 @@ namespace KompasPlugin
 
             set
             {
-                //TODO: Убрать дубли
                 _holeDiameters.Value = value;
             }
         }
@@ -275,7 +263,6 @@ namespace KompasPlugin
 
             set
             {
-                //TODO: Убрать дубли
                 _radiusCrossTie.Value = value;
             }
         }
@@ -289,7 +276,6 @@ namespace KompasPlugin
 
             set
             {
-                //TODO: Убрать дубли
                 _waveguideLength.Value = value;
             }
         }

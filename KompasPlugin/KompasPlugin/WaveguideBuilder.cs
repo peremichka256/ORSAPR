@@ -431,6 +431,7 @@ namespace KompasPlugin
             filletEntity.Create();
         }
 
+        //TODO: XML
         private ksEntity CreateOffsetPlane(Obj3dType plane, double offset)
         {
             var offsetEntity = (ksEntity)_connector
@@ -446,6 +447,7 @@ namespace KompasPlugin
             return offsetEntity;
         }
 
+        //TODO: Несоответсткие XML-комментария сигнатуре метода 
         /// <summary>
         /// Конструктор класса
         /// </summary>
