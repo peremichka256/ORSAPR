@@ -149,21 +149,13 @@ namespace KompasPlugin
         }
 
         /// <summary>
-        /// Выбор построения прямого волновода
+        /// Обработчик выбора формы для построения волновода
         /// </summary>
-        private void DefaultWaveguideRadioButton_CheckedChanged
+        private void RadioButtons_CheckedChanged
             (object sender, EventArgs e)
         {
-            _waveguideParameters.IsWaveguideTurn = false;
-        }
-
-        /// <summary>
-        /// Выбор построения изогнутого волновода
-        /// </summary>
-        private void TurnWaveguideRadioButton_CheckedChanged
-            (object sender, EventArgs e)
-        {
-            _waveguideParameters.IsWaveguideTurn = true;
+            _waveguideParameters.IsWaveguideTurn = 
+                TurnWaveguideRadioButton.Checked;
         }
     }
 }

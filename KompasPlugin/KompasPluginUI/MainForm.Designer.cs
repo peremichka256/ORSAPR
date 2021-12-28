@@ -389,7 +389,7 @@ namespace KompasPlugin
             this.DefaultWaveguideRadioButton.TabStop = true;
             this.DefaultWaveguideRadioButton.Text = "Прямой";
             this.DefaultWaveguideRadioButton.UseVisualStyleBackColor = true;
-            this.DefaultWaveguideRadioButton.CheckedChanged += new System.EventHandler(this.DefaultWaveguideRadioButton_CheckedChanged);
+            this.DefaultWaveguideRadioButton.CheckedChanged += new System.EventHandler(this.RadioButtons_CheckedChanged);
             // 
             // TurnWaveguideRadioButton
             // 
@@ -400,7 +400,7 @@ namespace KompasPlugin
             this.TurnWaveguideRadioButton.TabIndex = 66;
             this.TurnWaveguideRadioButton.Text = "Изогнутый на 90 градусов";
             this.TurnWaveguideRadioButton.UseVisualStyleBackColor = true;
-            this.TurnWaveguideRadioButton.CheckedChanged += new System.EventHandler(this.TurnWaveguideRadioButton_CheckedChanged);
+            this.TurnWaveguideRadioButton.CheckedChanged += new System.EventHandler(this.RadioButtons_CheckedChanged);
             // 
             // groupBox1
             // 
