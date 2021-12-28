@@ -22,6 +22,8 @@ namespace KompasPlugin
         private WaveguideParameters _waveguideParameters = 
             new WaveguideParameters();
 
+        private List<TextBox> _textBoxes;
+
         /// <summary>
         /// Конструктор главной формы с необходимыми инициализациями
         /// </summary>
@@ -29,7 +31,7 @@ namespace KompasPlugin
         {
             InitializeComponent();
 
-            List<TextBox> textBoxes = new List<TextBox>
+            _textBoxes = new List<TextBox>
             {
                 anchorageHeightTextBox,
                 anchorageThicknessTextBox,
@@ -59,12 +61,9 @@ namespace KompasPlugin
             };
 
             //Занесения в текстбоксы дефолтных значений
-            //и задание поведения проверенного текстбокса
-            for (int i = 0; i < textBoxes.Count; i++)
+            for (int i = 0; i < _textBoxes.Count; i++)
             {
-                textBoxes[i].Text = parameters[i].ToString();
-                textBoxes[i].Validated 
-                    += new EventHandler(TextBox_Validated);
+                _textBoxes[i].Text = parameters[i].ToString();
             }
         }
 
@@ -86,21 +85,57 @@ namespace KompasPlugin
             }
         }
 
-        //TODO: Отрефакторить, передавать не object. (+)
         /// <summary>
-        /// Устанавливает стиль для значения непрошедшего проверку 
+        /// Общий метод валидации текстбокса
         /// </summary>
-        /// <param name="sender">Текстбокс</param>
-        /// <param name="e"></param>
-        /// <param name="errorMessage"></param>
-        private void TextBox_ValidatingFail(TextBox textBox,
-            CancelEventArgs e, string errorMessage)
+        private void TextBox_Validating(object sender, CancelEventArgs e)
         {
-            BuildButton.Enabled = false;
-            textBox.BackColor = Color.LightSalmon;
-            toolTip.Active = true;
-            toolTip.SetToolTip(textBox, errorMessage);
-            e.Cancel = true;
+            if (sender is TextBox textBox)
+            {
+                var parameterNames = _waveguideParameters
+                    .GetAllParameterNames();
+                Action<string, double> setParameter = 
+                    _waveguideParameters.SetValueByKey;
+
+                for (var i = 0; i < _textBoxes.Count; i++)
+                {
+                    if (_textBoxes[i] == textBox)
+                    {
+                        try
+                        {
+                            setParameter(parameterNames[i],
+                                double.Parse(textBox.Text));
+
+                            if (textBox == anchorageHeightTextBox
+                                || textBox == anchorageWidthTextBox
+                                || textBox == crossSectionHeightTextBox
+                                || textBox == crossSectionWidthTextBox)
+                            {
+                                anchorageHeightTextBox.Text =
+                                    _waveguideParameters.AnchorageHeight
+                                    .ToString();
+                                anchorageWidthTextBox.Text =
+                                    _waveguideParameters.AnchorageWidth
+                                    .ToString();
+                                crossSectionHeightTextBox.Text =
+                                    _waveguideParameters.CrossSectionHeight
+                                    .ToString();
+                                crossSectionWidthTextBox.Text =
+                                    _waveguideParameters.CrossSectionWidth
+                                    .ToString();
+                            }
+                        }
+                        catch (Exception exception)
+                        {
+                            BuildButton.Enabled = false;
+                            textBox.BackColor = Color.LightSalmon;
+                            toolTip.Active = true;
+                            toolTip.SetToolTip(textBox, exception.Message);
+                            e.Cancel = true;
+                        }
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -114,223 +149,6 @@ namespace KompasPlugin
 
              _waveguideBuilder.BuildWaveguide(); 
             
-        }
-
-        /// <summary>
-        /// Валидация текстбокса с диаметром отверстий
-        /// </summary>
-        private void HoleDiametersTextBox_Validating(object sender,
-            CancelEventArgs e)
-        {
-            try
-            {
-                _waveguideParameters.HoleDiameters = 
-                    double.Parse(holeDiametersTextBox.Text);
-            }
-            catch (Exception exception)
-            {
-                TextBox_ValidatingFail(holeDiametersTextBox, e,
-                    exception.Message);
-            }
-        }
-
-        //TODO: Убрать дубли
-        /// <summary>
-        /// Валидация текстбокса с радиусом фаски
-        /// </summary>
-        private void RadiusCrossTieTextBox_Validating(object sender,
-            CancelEventArgs e)
-        {
-            try
-            {
-                _waveguideParameters.RadiusCrossTie = 
-                    double.Parse(radiusCrossTieTextBox.Text);
-            }
-            catch (Exception exception)
-            {
-                TextBox_ValidatingFail(radiusCrossTieTextBox, e,
-                    exception.Message);
-            }
-        }
-
-        //TODO: Убрать дубли
-        /// <summary>
-        /// Валидация текстбокса с высотой креплений
-        /// </summary>
-        private void AnchorageHeightTextBox_Validating(object sender,
-            CancelEventArgs e)
-        {
-            try
-            {
-                _waveguideParameters.AnchorageHeight = 
-                    double.Parse(anchorageHeightTextBox.Text);
-
-                crossSectionHeightTextBox.Text =
-                    _waveguideParameters.CrossSectionHeight.ToString();
-                crossSectionWidthTextBox.Text =
-                    _waveguideParameters.CrossSectionWidth.ToString();
-                anchorageWidthTextBox.Text =
-                    _waveguideParameters.AnchorageWidth.ToString();
-            }
-            catch (Exception exception)
-            {
-                TextBox_ValidatingFail(anchorageHeightTextBox, e, 
-                    exception.Message);
-            }
-        }
-
-        //TODO: Убрать дубли
-        /// <summary>
-        /// Валидация текстбокса с шириной креплений
-        /// </summary>
-        private void AnchorageWidthTextBox_Validating(object sender,
-            CancelEventArgs e)
-        {
-            try
-            {
-                _waveguideParameters.AnchorageWidth = 
-                    double.Parse(anchorageWidthTextBox.Text);
-
-
-                crossSectionHeightTextBox.Text =
-                    _waveguideParameters.CrossSectionHeight.ToString();
-                crossSectionWidthTextBox.Text =
-                    _waveguideParameters.CrossSectionWidth.ToString();
-                anchorageHeightTextBox.Text =
-                    _waveguideParameters.AnchorageHeight.ToString();
-            }
-            catch (Exception exception)
-            {
-                TextBox_ValidatingFail(anchorageWidthTextBox, e,
-                    exception.Message);
-            }
-        }
-
-        //TODO: Убрать дубли
-        /// <summary>
-        /// Валидация текстбокса с толщиной креплений
-        /// </summary>
-        private void AnchorageThicknessTextBox_Validating(object sender,
-            CancelEventArgs e)
-        {
-            try
-            {
-                _waveguideParameters.AnchorageThickness = 
-                    double.Parse(anchorageThicknessTextBox.Text);
-            }
-            catch (Exception exception)
-            {
-                TextBox_ValidatingFail(anchorageThicknessTextBox, e,
-                    exception.Message);
-            }
-        }
-
-
-        /// <summary>
-        /// Валидация текстбокса с длиной волновода
-        /// </summary>
-        private void WaveguideLengthTextBox_Validating(object sender,
-            CancelEventArgs e)
-        {
-            try
-            {
-                _waveguideParameters.WaveguideLength = 
-                    double.Parse(waveguideLengthTextBox.Text);
-            }
-            catch (Exception exception)
-            {
-                TextBox_ValidatingFail(waveguideLengthTextBox, e,
-                    exception.Message);
-            }
-        }
-
-        //TODO: Убрать дубли
-        /// <summary>
-        /// Валидация текстбокса с шириной сечения
-        /// </summary>
-        private void CrossSectionWidthTextBox_Validating(object sender,
-            CancelEventArgs e)
-        {
-            try
-            {
-                _waveguideParameters.CrossSectionWidth = 
-                    double.Parse(crossSectionWidthTextBox.Text);
-
-                crossSectionHeightTextBox.Text = 
-                    _waveguideParameters.CrossSectionHeight.ToString();
-                anchorageHeightTextBox.Text = 
-                    _waveguideParameters.AnchorageHeight.ToString();
-                anchorageWidthTextBox.Text =
-                    _waveguideParameters.AnchorageWidth.ToString();
-            }
-            catch (Exception exception)
-            {
-                TextBox_ValidatingFail(crossSectionWidthTextBox, e,
-                    exception.Message);
-            }
-        }
-
-        //TODO: Убрать дубли
-        /// <summary>
-        /// Валидация текстбокса с толщиной сечения
-        /// </summary>
-        private void CrossSectionThicknessTextBox_Validating(object sender,
-            CancelEventArgs e)
-        {
-            try
-            {
-                _waveguideParameters.CrossSectionThickness = 
-                    double.Parse(crossSectionThicknessTextBox.Text);
-            }
-            catch (Exception exception)
-            {
-                TextBox_ValidatingFail(crossSectionThicknessTextBox, e,
-                    exception.Message);
-            }
-        }
-
-        //TODO: Убрать дубли
-        /// <summary>
-        /// Валидация текстбокса с высотой сечения
-        /// </summary>
-        private void CrossSectionHeightTextBox_Validating(object sender,
-            CancelEventArgs e)
-        {
-            try
-            {
-                _waveguideParameters.CrossSectionHeight = 
-                    double.Parse(crossSectionHeightTextBox.Text);
-
-                crossSectionWidthTextBox.Text =
-                    _waveguideParameters.CrossSectionWidth.ToString();
-                anchorageHeightTextBox.Text =
-                    _waveguideParameters.AnchorageHeight.ToString();
-                anchorageWidthTextBox.Text =
-                    _waveguideParameters.AnchorageWidth.ToString();
-            }
-            catch (Exception exception) 
-            {
-                TextBox_ValidatingFail(crossSectionHeightTextBox, e, 
-                    exception.Message);
-            }
-        }
-        
-        /// <summary>
-        /// Валидация текстбокса с расстоянием от угла до отверстия
-        /// </summary>
-        private void DistanceAngleToHoleTextBox_Validating(object sender,
-            CancelEventArgs e)
-        {
-            try
-            {
-                _waveguideParameters.DistanceAngleToHole = 
-                    double.Parse(distanceAngleToHoleTextBox.Text);
-            }
-            catch (Exception exception)
-            {
-                TextBox_ValidatingFail(distanceAngleToHoleTextBox, e,
-                    exception.Message);
-            }
         }
 
         /// <summary>

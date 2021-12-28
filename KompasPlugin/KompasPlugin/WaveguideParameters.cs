@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace KompasPlugin
 {
@@ -10,7 +11,7 @@ namespace KompasPlugin
         /// <summary>
         /// Высота креплений
         /// </summary>
-        private Parameter<double> _anchorageHeight =
+        private  Parameter<double> _anchorageHeight =
             new Parameter<double>("Anchorage height",
                 MAX_ANCHORAGE_HEIGHT, MIN_ANCHORAGE_HEIGHT);
 
@@ -282,6 +283,67 @@ namespace KompasPlugin
             this.RadiusCrossTie = MIN_RADIUS_CROSS_TIE;
             this.WaveguideLength = MIN_WAVEGUIDE_LENGTH;
             this.IsWaveguideTurn = false;
+        }
+
+        public void SetValueByKey(string key, double value)
+        {
+            if (key == _anchorageHeight.Name)
+            {
+                AnchorageHeight = value;
+            }
+            else if (key == _anchorageThickness.Name)
+            {
+                AnchorageThickness = value;
+            }
+            else if (key == _anchorageWidth.Name)
+            {
+                AnchorageWidth = value;
+            }
+            else if (key == _crossSectionHeight.Name)
+            {
+                CrossSectionHeight = value;
+            }
+            else if (key == _crossSectionThickness.Name)
+            {
+                CrossSectionThickness = value;
+            }
+            else if (key == _crossSectionWidth.Name)
+            {
+                CrossSectionWidth = value;
+            }
+            else if (key == _distanceAngleToHole.Name)
+            {
+                DistanceAngleToHole = value;
+            }
+            else if (key == _holeDiameters.Name)
+            {
+                HoleDiameters = value;
+            }
+            else if (key == _radiusCrossTie.Name)
+            {
+                RadiusCrossTie = value;
+            }
+            else if (key == _waveguideLength.Name)
+            {
+                WaveguideLength = value;
+            }
+        }
+
+        public List<string> GetAllParameterNames()
+        {
+            return new List<string>
+            {
+                _anchorageHeight.Name,
+                _anchorageThickness.Name,
+                _anchorageWidth.Name,
+                _crossSectionHeight.Name,
+                _crossSectionThickness.Name,
+                _crossSectionWidth.Name,
+                _distanceAngleToHole.Name,
+                _holeDiameters.Name,
+                _radiusCrossTie.Name,
+                _waveguideLength.Name
+            };
         }
     }
 }
