@@ -120,5 +120,55 @@ namespace KompasPluginUnitTests
             Assert.IsTrue(negativeTestResult && positiveTestResult,
                 _uncorrectSetterErrorMessage);
         }
+
+        [Test(Description = "Тест метода передающий значение "
+            + "в сеттер параметра по его имени")]
+        public void TestSetParameterByName()
+        {
+            _testWaveguideParameters = new WaveguideParameters();
+
+            _testWaveguideParameters.SetParameterByName((ParameterNames)0,
+                WaveguideParameters.MAX_ANCHORAGE_HEIGHT);
+            _testWaveguideParameters.SetParameterByName((ParameterNames)1,
+                WaveguideParameters.MAX_ANCHORAGE_THICKNESS);
+            _testWaveguideParameters.SetParameterByName((ParameterNames)2,
+                WaveguideParameters.MAX_ANCHORAGE_WIDTH);
+            _testWaveguideParameters.SetParameterByName((ParameterNames)3,
+                WaveguideParameters.MAX_CROSS_SECTION_HEIGHT);
+            _testWaveguideParameters.SetParameterByName((ParameterNames)4,
+                WaveguideParameters.MAX_CROSS_SECTION_THICKNESS);
+            _testWaveguideParameters.SetParameterByName((ParameterNames)5,
+                WaveguideParameters.MAX_CROSS_SECTION_WIDTH);
+            _testWaveguideParameters.SetParameterByName((ParameterNames)6,
+                WaveguideParameters.MAX_DISTANCE_ANGLE_TO_HOLE);
+            _testWaveguideParameters.SetParameterByName((ParameterNames)7,
+                WaveguideParameters.MAX_HOLE_DIAMETERS);
+            _testWaveguideParameters.SetParameterByName((ParameterNames)8,
+                WaveguideParameters.MAX_RADIUS_CROSS_TIE);
+            _testWaveguideParameters.SetParameterByName((ParameterNames)9,
+                WaveguideParameters.MAX_WAVEGUIDE_LENGTH);
+
+            Assert.IsTrue(_testWaveguideParameters.AnchorageHeight
+                == WaveguideParameters.MAX_ANCHORAGE_HEIGHT
+                && _testWaveguideParameters.AnchorageThickness
+                == WaveguideParameters.MAX_ANCHORAGE_THICKNESS
+                && _testWaveguideParameters.AnchorageWidth
+                == WaveguideParameters.MAX_ANCHORAGE_WIDTH
+                && _testWaveguideParameters.CrossSectionHeight
+                == WaveguideParameters.MAX_CROSS_SECTION_HEIGHT
+                && _testWaveguideParameters.CrossSectionThickness
+                == WaveguideParameters.MAX_CROSS_SECTION_THICKNESS
+                && _testWaveguideParameters.CrossSectionWidth
+                == WaveguideParameters.MAX_CROSS_SECTION_WIDTH
+                && _testWaveguideParameters.DistanceAngleToHole
+                == WaveguideParameters.MAX_DISTANCE_ANGLE_TO_HOLE
+                && _testWaveguideParameters.HoleDiameters
+                == WaveguideParameters.MAX_HOLE_DIAMETERS
+                && _testWaveguideParameters.RadiusCrossTie
+                == WaveguideParameters.MAX_RADIUS_CROSS_TIE
+                && _testWaveguideParameters.WaveguideLength
+                == WaveguideParameters.MAX_WAVEGUIDE_LENGTH,
+                "Значения не были помещены в сеттеры параметров");
+        }
     }
 }

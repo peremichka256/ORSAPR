@@ -22,6 +22,9 @@ namespace KompasPlugin
         private WaveguideParameters _waveguideParameters = 
             new WaveguideParameters();
 
+        /// <summary>
+        /// Список всех текстбоксов параметров
+        /// </summary>
         private List<TextBox> _textBoxes;
 
         /// <summary>
@@ -46,7 +49,7 @@ namespace KompasPlugin
             };
             //Важно точное соотношение порядка текстбоксов и параметров
             //валидируемых в этих текстбоксах
-            List<double> parameters = new List<double>
+            List<double> parameterValues = new List<double>
             {
                 _waveguideParameters.AnchorageHeight,
                 _waveguideParameters.AnchorageThickness,
@@ -63,7 +66,7 @@ namespace KompasPlugin
             //Занесения в текстбоксы дефолтных значений
             for (int i = 0; i < _textBoxes.Count; i++)
             {
-                _textBoxes[i].Text = parameters[i].ToString();
+                _textBoxes[i].Text = parameterValues[i].ToString();
             }
         }
 
@@ -79,10 +82,6 @@ namespace KompasPlugin
                 textBox.BackColor = Color.White;
                 toolTip.Active = false;
             }
-            else
-            {
-                return;
-            }
         }
 
         /// <summary>
@@ -92,10 +91,8 @@ namespace KompasPlugin
         {
             if (sender is TextBox textBox)
             {
-                var parameterNames = _waveguideParameters
-                    .GetAllParameterNames();
-                Action<string, double> setParameter = 
-                    _waveguideParameters.SetValueByKey;
+                Action<ParameterNames, double> setParameter = 
+                    _waveguideParameters.SetParameterByName;
 
                 for (var i = 0; i < _textBoxes.Count; i++)
                 {
@@ -103,7 +100,7 @@ namespace KompasPlugin
                     {
                         try
                         {
-                            setParameter(parameterNames[i],
+                            setParameter((ParameterNames)i,
                                 double.Parse(textBox.Text));
 
                             if (textBox == anchorageHeightTextBox

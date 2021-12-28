@@ -11,77 +11,95 @@ namespace KompasPlugin
         /// <summary>
         /// Высота креплений
         /// </summary>
-        private  Parameter<double> _anchorageHeight =
-            new Parameter<double>("Anchorage height",
+        private static Parameter<double> _anchorageHeight =
+            new Parameter<double>(ParameterNames.AnchorageHeight,
                 MAX_ANCHORAGE_HEIGHT, MIN_ANCHORAGE_HEIGHT);
 
         /// <summary>
         /// Толщина креплений
         /// </summary>
-        private Parameter<double> _anchorageThickness =
-            new Parameter<double>("Anchorage thickness",
+        private static Parameter<double> _anchorageThickness =
+            new Parameter<double>(ParameterNames.AnchorageThickness,
                 MAX_ANCHORAGE_THICKNESS, MIN_ANCHORAGE_THICKNESS);
 
         /// <summary>
         /// Ширина креплений
         /// </summary>
-        private Parameter<double> _anchorageWidth =
-            new Parameter<double>("Anchorage width",
+        private static Parameter<double> _anchorageWidth =
+            new Parameter<double>(ParameterNames.AnchorageWidth,
                 MAX_ANCHORAGE_WIDTH, MIN_ANCHORAGE_WIDTH);
 
         /// <summary>
         /// Высота сечения
         /// </summary>
-        private Parameter<double> _crossSectionHeight =
-            new Parameter<double>("Cross section height",
+        private static Parameter<double> _crossSectionHeight =
+            new Parameter<double>(ParameterNames.CrossSectionHeight,
                 MAX_CROSS_SECTION_HEIGHT, MIN_CROSS_SECTION_HEIGHT);
 
         /// <summary>
         /// Толщина стенок сечения
         /// </summary>
-        private Parameter<double> _crossSectionThickness =
-            new Parameter<double>("Cross section thickness",
+        private static Parameter<double> _crossSectionThickness =
+            new Parameter<double>(ParameterNames.CrossSectionThickness,
                 MAX_CROSS_SECTION_THICKNESS, MIN_CROSS_SECTION_THICKNESS);
 
         /// <summary>
         /// Ширина сечения
         /// </summary>
-        private Parameter<double> _crossSectionWidth =
-            new Parameter<double>("Cross section width",
+        private static Parameter<double> _crossSectionWidth =
+            new Parameter<double>(ParameterNames.CrossSectionWidth,
                 MAX_CROSS_SECTION_WIDTH, MIN_CROSS_SECTION_WIDTH);
 
         /// <summary>
         /// Расстояние от угла сечения до отверстия в креплении
         /// </summary>
-        private Parameter<double> _distanceAngleToHole =
-            new Parameter<double>("Distance angle to hole",
+        private static Parameter<double> _distanceAngleToHole =
+            new Parameter<double>(ParameterNames.DistanceAngleToHole,
                 MAX_DISTANCE_ANGLE_TO_HOLE, MIN_DISTANCE_ANGLE_TO_HOLE);
 
         /// <summary>
         /// Диаметр отверстий в креплениях
         /// </summary>
-        private Parameter<double> _holeDiameters =
-            new Parameter<double>("Hole diameters",
+        private static Parameter<double> _holeDiameters =
+            new Parameter<double>(ParameterNames.HoleDiameters,
                 MAX_HOLE_DIAMETERS, MIN_HOLE_DIAMETERS);
 
         /// <summary>
         /// Радиус фаски креплений
         /// </summary>
-        private Parameter<double> _radiusCrossTie =
-            new Parameter<double>("Radius cross tie",
+        private static Parameter<double> _radiusCrossTie =
+            new Parameter<double>(ParameterNames.RadiusCrossTie,
                 MAX_RADIUS_CROSS_TIE, MIN_RADIUS_CROSS_TIE);
 
         /// <summary>
         /// Длина волновода
         /// </summary>
-        private Parameter<double> _waveguideLength =
-            new Parameter<double>("Waveguide lenght",
+        private static Parameter<double> _waveguideLength =
+            new Parameter<double>(ParameterNames.WaveguideLenght,
                 MAX_WAVEGUIDE_LENGTH, MIN_WAVEGUIDE_LENGTH);
 
         /// <summary>
         /// Является ли волновод изгонутым
         /// </summary>
         private bool _isWaveguideTurn;
+
+        /// <summary>
+        /// Словарь содержащий пары (Имя параметра, указатель на него)
+        /// </summary>
+        private Dictionary<ParameterNames, Parameter<double>> _parametersDictionary =
+            new Dictionary<ParameterNames, Parameter<double>>()
+            {
+                {_anchorageHeight.Name, _anchorageHeight},
+                {_anchorageThickness.Name, _anchorageThickness},
+                {_anchorageWidth.Name, _anchorageWidth},
+                {_crossSectionHeight.Name, _crossSectionHeight},
+                {_crossSectionThickness.Name, _crossSectionThickness},
+                {_crossSectionWidth.Name, _crossSectionWidth},
+                {_distanceAngleToHole.Name, _distanceAngleToHole},
+                {_holeDiameters.Name, _holeDiameters},
+                {_radiusCrossTie.Name, _radiusCrossTie},
+                {_waveguideLength.Name, _waveguideLength}
+            };
 
         /// <summary>
         /// Конастанты минимальных и максимальных значений параметров в мм
@@ -285,65 +303,38 @@ namespace KompasPlugin
             this.IsWaveguideTurn = false;
         }
 
-        public void SetValueByKey(string key, double value)
+        /// <summary>
+        /// Метод передающй значение в сеттер параметра по имени
+        /// </summary>
+        /// <param name="name">Имя параметра</param>
+        /// <param name="value">Значение</param>
+        public void SetParameterByName(ParameterNames name, double value)
         {
-            if (key == _anchorageHeight.Name)
+            if (_parametersDictionary.ContainsKey(name))
             {
-                AnchorageHeight = value;
+                if (name == ParameterNames.AnchorageHeight)
+                {
+                    AnchorageHeight = value;
+                }
+                else if (name == ParameterNames.AnchorageWidth)
+                {
+                    AnchorageWidth = value;
+                }
+                else if(name == ParameterNames.CrossSectionHeight)
+                {
+                    CrossSectionHeight = value;
+                }
+                else if(name == ParameterNames.CrossSectionWidth)
+                {
+                    CrossSectionWidth = value;
+                }
+                else
+                {
+                    _parametersDictionary.TryGetValue(name,
+                        out var parameter);
+                    parameter.Value = value;
+                }
             }
-            else if (key == _anchorageThickness.Name)
-            {
-                AnchorageThickness = value;
-            }
-            else if (key == _anchorageWidth.Name)
-            {
-                AnchorageWidth = value;
-            }
-            else if (key == _crossSectionHeight.Name)
-            {
-                CrossSectionHeight = value;
-            }
-            else if (key == _crossSectionThickness.Name)
-            {
-                CrossSectionThickness = value;
-            }
-            else if (key == _crossSectionWidth.Name)
-            {
-                CrossSectionWidth = value;
-            }
-            else if (key == _distanceAngleToHole.Name)
-            {
-                DistanceAngleToHole = value;
-            }
-            else if (key == _holeDiameters.Name)
-            {
-                HoleDiameters = value;
-            }
-            else if (key == _radiusCrossTie.Name)
-            {
-                RadiusCrossTie = value;
-            }
-            else if (key == _waveguideLength.Name)
-            {
-                WaveguideLength = value;
-            }
-        }
-
-        public List<string> GetAllParameterNames()
-        {
-            return new List<string>
-            {
-                _anchorageHeight.Name,
-                _anchorageThickness.Name,
-                _anchorageWidth.Name,
-                _crossSectionHeight.Name,
-                _crossSectionThickness.Name,
-                _crossSectionWidth.Name,
-                _distanceAngleToHole.Name,
-                _holeDiameters.Name,
-                _radiusCrossTie.Name,
-                _waveguideLength.Name
-            };
         }
     }
 }

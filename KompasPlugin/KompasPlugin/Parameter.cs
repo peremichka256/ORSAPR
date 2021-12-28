@@ -27,29 +27,16 @@ namespace KompasPlugin
         /// <summary>
         /// Название параметра для составления сообщения исключения
         /// </summary>
-        private string _name;
+        private ParameterNames _name;
 
         /// <summary>
         /// Передаёт или задаёт имя, которое должно быть не
         /// пустым или не являтся разделяющим знаком
         /// </summary>
-        public string Name
+        public ParameterNames Name
         {
             get => _name;
-
-            set
-            {
-                if (string.IsNullOrEmpty(value) 
-                    || string.IsNullOrWhiteSpace(value))
-                {
-                    throw new Exception("Name can't be null," 
-                                        + " empty or blank.");
-                }
-                else
-                {
-                    _name = value;
-                }
-            }
+            set => _name = value;
         }
 
         /// <summary>
@@ -124,7 +111,7 @@ namespace KompasPlugin
         /// <param name="name">Название параметра</param>
         /// <param name="max">Максимально возможное значение</param>
         /// <param name="min">Минимально возможное значение</param>
-        public Parameter(string name, T max, T min)
+        public Parameter(ParameterNames name, T max, T min)
         {
             Name = name;
             Min = min;
