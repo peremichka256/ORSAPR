@@ -89,12 +89,12 @@ namespace KompasPlugin
         private Dictionary<ParameterNames, Parameter<double>> _parametersDictionary =
             new Dictionary<ParameterNames, Parameter<double>>()
             {
-                {_anchorageHeight.Name, _anchorageHeight},
+                {_anchorageHeight.Name, null},
                 {_anchorageThickness.Name, _anchorageThickness},
-                {_anchorageWidth.Name, _anchorageWidth},
-                {_crossSectionHeight.Name, _crossSectionHeight},
+                {_anchorageWidth.Name, null},
+                {_crossSectionHeight.Name, null},
                 {_crossSectionThickness.Name, _crossSectionThickness},
-                {_crossSectionWidth.Name, _crossSectionWidth},
+                {_crossSectionWidth.Name, null},
                 {_distanceAngleToHole.Name, _distanceAngleToHole},
                 {_holeDiameters.Name, _holeDiameters},
                 {_radiusCrossTie.Name, _radiusCrossTie},
