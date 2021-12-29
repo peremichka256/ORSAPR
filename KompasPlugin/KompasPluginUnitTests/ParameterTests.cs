@@ -34,15 +34,6 @@ namespace KompasPlugin.UnitTests
                 "Геттер вернул неверное имя");
         }
 
-        [TestCase(-1, Description = "Значение максимума меньше минимума")]
-        [Test(Description = "Негативный тест на сеттер максимума")]
-        public void TestParameterSet_MaxUncorrect(double wrongMax)
-        {
-            Assert.Throws<Exception>(() =>
-                { _testParameter.Max = wrongMax; },
-                "Возникает, если максимальное значение меньше минимального");
-        }
-
         [TestCase(-1, Description = "Значение меньше допустимого")]
         [TestCase(101, Description = "Значение больше допустимого")]
         [Test(Description = "Негативный тест на сеттер параметра")]
@@ -53,6 +44,16 @@ namespace KompasPlugin.UnitTests
                 "Возникает, если высота крепления больше 100 или меньше 0");
         }
 
+        [Test(Description = "Позитивный тест на сеттер параметра")]
+        public void TestParameterSet_ValueСorrect()
+        {
+            var newValue = 50;
+            _testParameter.Value = newValue;
+
+            Assert.True(_testParameter.Value == newValue,
+                "Возникает, если значение не было передано в параметр");
+        }
+
         [Test(Description = "Позитивный тест на геттер параметра")]
         public void TestParameterGet()
         {
@@ -61,6 +62,26 @@ namespace KompasPlugin.UnitTests
 
             Assert.AreEqual(_testParameter.Value, testValue,
                 "Возникает, если геттер вернул не то значение");
+        }
+
+        [TestCase(-1, Description = "Значение максимума меньше минимума")]
+        [Test(Description = "Негативный тест на сеттер максимума")]
+        public void TestParameterMaxSet_MaxUncorrect(double wrongMax)
+        {
+            Assert.Throws<Exception>(() =>
+                { _testParameter.Max = wrongMax; },
+                "Возникает, если максимальное значение меньше минимального");
+        }
+
+        [Test(Description = "Позитивный тест на геттер максимума")]
+        public void TestParameterMaxGet()
+        {
+            var parameterMax = 50;
+            _testParameter.Max = parameterMax;
+
+            Assert.AreEqual(parameterMax, _testParameter.Max,
+                "Геттер вернул неккоректное значение максимума");
+            _testParameter.Max = 100;
         }
     }
 }

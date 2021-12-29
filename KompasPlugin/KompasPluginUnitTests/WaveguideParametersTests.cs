@@ -170,5 +170,16 @@ namespace KompasPluginUnitTests
                 == WaveguideParameters.MAX_WAVEGUIDE_LENGTH,
                 "Значения не были помещены в сеттеры параметров");
         }
+
+        [Test(Description = "Тест на геттер изогнутости волновода")]
+        public void TestIsWaveguideTurnGet()
+        {
+            var testIsWaveguide = true;
+            _testWaveguideParameters.IsWaveguideTurn = testIsWaveguide;
+
+            Assert.AreEqual(testIsWaveguide,
+                _testWaveguideParameters.IsWaveguideTurn,
+                "Геттер вернул не то значение");
+        }
     }
 }
