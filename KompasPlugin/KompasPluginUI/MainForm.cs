@@ -53,6 +53,10 @@ namespace KompasPlugin
                 {waveguideLengthTextBox, ParameterNames.WaveguideLenght},
             };
 
+            //foreach (var textBox in _textBoxesDictionary)
+            //{
+            //    textBox.Key.Text = _waveguideParameters.SetParameterByName();
+            //}
             anchorageHeightTextBox.Text = 
                 _waveguideParameters.AnchorageHeight.ToString();
             anchorageThicknessTextBox.Text = 
@@ -94,44 +98,40 @@ namespace KompasPlugin
         /// </summary>
         private void TextBox_Validating(object sender, CancelEventArgs e)
         {
-            if (sender is TextBox textBox)
-            {
-                try
-                {
-                    Action<ParameterNames, double> setParameter =
-                        _waveguideParameters.SetParameterByName;
-                    _textBoxesDictionary.TryGetValue(textBox,
-                        out var parameterInTextBoxName);
-                    setParameter(parameterInTextBoxName,
-                        double.Parse(textBox.Text));
+            if (!(sender is TextBox textBox)) return;
 
-                    if (textBox == anchorageHeightTextBox
-                        || textBox == anchorageWidthTextBox
-                        || textBox == crossSectionHeightTextBox
-                        || textBox == crossSectionWidthTextBox)
-                    {
-                        anchorageHeightTextBox.Text =
-                            _waveguideParameters.AnchorageHeight
-                            .ToString();
-                        anchorageWidthTextBox.Text =
-                            _waveguideParameters.AnchorageWidth
-                            .ToString();
-                        crossSectionHeightTextBox.Text =
-                            _waveguideParameters.CrossSectionHeight
-                            .ToString();
-                        crossSectionWidthTextBox.Text =
-                            _waveguideParameters.CrossSectionWidth
-                            .ToString();
-                    }
-                }
-                catch (Exception exception)
-                {
-                    BuildButton.Enabled = false;
-                    textBox.BackColor = Color.LightSalmon;
-                    toolTip.Active = true;
-                    toolTip.SetToolTip(textBox, exception.Message);
-                    e.Cancel = true;
-                }
+            try
+            {
+                _textBoxesDictionary.TryGetValue(textBox,
+                    out var parameterInTextBoxName);
+                _waveguideParameters.SetParameterByName(parameterInTextBoxName,
+                    double.Parse(textBox.Text));
+
+                if (textBox != anchorageHeightTextBox 
+                    && textBox != anchorageWidthTextBox 
+                    && textBox != crossSectionHeightTextBox 
+                    && textBox != crossSectionWidthTextBox) return;
+
+                anchorageHeightTextBox.Text =
+                    _waveguideParameters.AnchorageHeight
+                        .ToString();
+                anchorageWidthTextBox.Text =
+                    _waveguideParameters.AnchorageWidth
+                        .ToString();
+                crossSectionHeightTextBox.Text =
+                    _waveguideParameters.CrossSectionHeight
+                        .ToString();
+                crossSectionWidthTextBox.Text =
+                    _waveguideParameters.CrossSectionWidth
+                        .ToString();
+            }
+            catch (Exception exception)
+            {
+                BuildButton.Enabled = false;
+                textBox.BackColor = Color.LightSalmon;
+                toolTip.Active = true;
+                toolTip.SetToolTip(textBox, exception.Message);
+                e.Cancel = true;
             }
         }
 
