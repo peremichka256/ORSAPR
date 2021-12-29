@@ -14,6 +14,26 @@ namespace KompasPlugin.UnitTests
         private Parameter<double> _testParameter
             = new Parameter<double>(0, 100, 0);
 
+        [Test(Description = "Позитивный тест на сеттер имени параметра")]
+        public void TestParameterNameSet()
+        {
+            ParameterNames newName = ParameterNames.DistanceAngleToHole;
+            _testParameter.Name = newName;
+
+            Assert.AreEqual(newName, _testParameter.Name,
+                "Имя параметра присвоено неверно");
+        }
+
+        [Test(Description = "Позитивный тест на геттер имени параметра")]
+        public void TestParameterNameGet()
+        {
+            ParameterNames newName = ParameterNames.DistanceAngleToHole;
+            _testParameter.Name = newName;
+
+            Assert.IsTrue(_testParameter.Name == newName,
+                "Геттер вернул неверное имя");
+        }
+
         [TestCase(-1, Description = "Значение максимума меньше минимума")]
         [Test(Description = "Негативный тест на сеттер максимума")]
         public void TestParameterSet_MaxUncorrect(double wrongMax)

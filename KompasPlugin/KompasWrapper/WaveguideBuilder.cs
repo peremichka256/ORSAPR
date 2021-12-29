@@ -262,14 +262,10 @@ namespace KompasPlugin
             var x = xCoordInternalRectangle - cathet;
             var y = yCoordInternalRectangle - cathet;
 
-            doc2d.ksCircle(x, y, holeDiameters/2,
-                MainLineStyle);
-            doc2d.ksCircle(-x, -y, holeDiameters / 2,
-                MainLineStyle);
-            doc2d.ksCircle(-x, y, holeDiameters / 2,
-                MainLineStyle);
-            doc2d.ksCircle(x, -y, holeDiameters / 2,
-                MainLineStyle);
+            doc2d.ksCircle(x, y, holeDiameters/2, MainLineStyle);
+            doc2d.ksCircle(-x, -y, holeDiameters / 2, MainLineStyle);
+            doc2d.ksCircle(-x, y, holeDiameters / 2, MainLineStyle);
+            doc2d.ksCircle(x, -y, holeDiameters / 2, MainLineStyle);
 
             //Выдавливание крепления
             sketch.EndEdit();
@@ -313,8 +309,8 @@ namespace KompasPlugin
         private ksSketchDefinition CreateSketch(Obj3dType planeType,
             ksEntity offsetPlane)
         {
-            var plane = (ksEntity)_connector
-                .Part.GetDefaultEntity((short)planeType);
+            var plane = (ksEntity)_connector.Part
+                .GetDefaultEntity((short)planeType);
 
             var sketch = (ksEntity)_connector.Part.
                 NewEntity((short)Obj3dType.o3d_sketch);
@@ -340,12 +336,10 @@ namespace KompasPlugin
         private void СreateExtrusion(ksSketchDefinition sketch,
             double depth, bool side = true)
         {
-            var extrusionEntity =
-                (ksEntity)_connector.Part.NewEntity(
-                    (short)ksObj3dTypeEnum.o3d_bossExtrusion);
-            var extrusionDef = 
-                (ksBossExtrusionDefinition)extrusionEntity
-                    .GetDefinition();
+            var extrusionEntity = (ksEntity)_connector.Part.NewEntity(
+                (short)ksObj3dTypeEnum.o3d_bossExtrusion);
+            var extrusionDef = (ksBossExtrusionDefinition)extrusionEntity
+                .GetDefinition();
 
             extrusionDef.SetSideParam(side,
                 (short)End_Type.etBlind, depth);
@@ -365,9 +359,8 @@ namespace KompasPlugin
         private void СreateCutExtrusion(ksSketchDefinition sketch,
             double depth, bool side = true)
         {
-            var cutExtrusionEntity =
-                (ksEntity)_connector.Part.NewEntity(
-                    (short)ksObj3dTypeEnum.o3d_cutExtrusion);
+            var cutExtrusionEntity = (ksEntity)_connector.Part.NewEntity(
+                (short)ksObj3dTypeEnum.o3d_cutExtrusion);
             var cutExtrusionDef =
                 (ksCutExtrusionDefinition)cutExtrusionEntity
                     .GetDefinition();
@@ -442,9 +435,8 @@ namespace KompasPlugin
         {
             var offsetEntity = (ksEntity)_connector
                 .Part.NewEntity((short)Obj3dType.o3d_planeOffset);
-            var offsetDef =
-                (ksPlaneOffsetDefinition)offsetEntity
-                    .GetDefinition();
+            var offsetDef = (ksPlaneOffsetDefinition)offsetEntity
+                .GetDefinition();
             offsetDef.SetPlane((ksEntity)_connector
                 .Part.NewEntity((short)plane));
             offsetDef.offset = offset;

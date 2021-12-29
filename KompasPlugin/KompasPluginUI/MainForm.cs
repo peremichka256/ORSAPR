@@ -23,7 +23,7 @@ namespace KompasPlugin
             new WaveguideParameters();
 
         /// <summary>
-        /// Список всех текстбоксов параметров
+        /// Список всех текстбоксов для ввода значений параметров на форме
         /// </summary>
         private List<TextBox> _textBoxes;
 
@@ -91,46 +91,40 @@ namespace KompasPlugin
         {
             if (sender is TextBox textBox)
             {
-                Action<ParameterNames, double> setParameter = 
-                    _waveguideParameters.SetParameterByName;
-
-                for (var i = 0; i < _textBoxes.Count; i++)
+                try
                 {
-                    if (_textBoxes[i] == textBox)
-                    {
-                        try
-                        {
-                            setParameter((ParameterNames)i,
-                                double.Parse(textBox.Text));
+                    Action<ParameterNames, double> setParameter =
+                        _waveguideParameters.SetParameterByName;
 
-                            if (textBox == anchorageHeightTextBox
-                                || textBox == anchorageWidthTextBox
-                                || textBox == crossSectionHeightTextBox
-                                || textBox == crossSectionWidthTextBox)
-                            {
-                                anchorageHeightTextBox.Text =
-                                    _waveguideParameters.AnchorageHeight
-                                    .ToString();
-                                anchorageWidthTextBox.Text =
-                                    _waveguideParameters.AnchorageWidth
-                                    .ToString();
-                                crossSectionHeightTextBox.Text =
-                                    _waveguideParameters.CrossSectionHeight
-                                    .ToString();
-                                crossSectionWidthTextBox.Text =
-                                    _waveguideParameters.CrossSectionWidth
-                                    .ToString();
-                            }
-                        }
-                        catch (Exception exception)
-                        {
-                            BuildButton.Enabled = false;
-                            textBox.BackColor = Color.LightSalmon;
-                            toolTip.Active = true;
-                            toolTip.SetToolTip(textBox, exception.Message);
-                            e.Cancel = true;
-                        }
+                    setParameter((ParameterNames)_textBoxes
+                        .IndexOf(textBox), double.Parse(textBox.Text));
+
+                    if (textBox == anchorageHeightTextBox
+                        || textBox == anchorageWidthTextBox
+                        || textBox == crossSectionHeightTextBox
+                        || textBox == crossSectionWidthTextBox)
+                    {
+                        anchorageHeightTextBox.Text =
+                            _waveguideParameters.AnchorageHeight
+                            .ToString();
+                        anchorageWidthTextBox.Text =
+                            _waveguideParameters.AnchorageWidth
+                            .ToString();
+                        crossSectionHeightTextBox.Text =
+                            _waveguideParameters.CrossSectionHeight
+                            .ToString();
+                        crossSectionWidthTextBox.Text =
+                            _waveguideParameters.CrossSectionWidth
+                            .ToString();
                     }
+                }
+                catch (Exception exception)
+                {
+                    BuildButton.Enabled = false;
+                    textBox.BackColor = Color.LightSalmon;
+                    toolTip.Active = true;
+                    toolTip.SetToolTip(textBox, exception.Message);
+                    e.Cancel = true;
                 }
             }
         }

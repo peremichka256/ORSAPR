@@ -86,7 +86,8 @@ namespace KompasPlugin
         /// <summary>
         /// Словарь содержащий пары (Имя параметра, указатель на него)
         /// </summary>
-        private Dictionary<ParameterNames, Parameter<double>> _parametersDictionary =
+        private Dictionary<ParameterNames, Parameter<double>> 
+            _parametersDictionary =
             new Dictionary<ParameterNames, Parameter<double>>()
             {
                 {_anchorageHeight.Name, null},

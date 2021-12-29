@@ -21,6 +21,11 @@ namespace KompasPlugin
         private ksPart _part;
 
         /// <summary>
+        /// Строковое наименование идентификатора COM-объекта
+        /// </summary>
+        private string KOMPAS3D_PROG_ID = "KOMPAS.Application.5";
+
+        /// <summary>
         /// Свойство возвращающее объект интерфейса API
         /// </summary>
         public KompasObject Object
@@ -67,7 +72,7 @@ namespace KompasPlugin
             try
             {
                 kompas = (KompasObject) Marshal.
-                    GetActiveObject("KOMPAS.Application.5");
+                    GetActiveObject(KOMPAS3D_PROG_ID);
                 return true;
             }
             catch (COMException)
@@ -85,7 +90,7 @@ namespace KompasPlugin
         {
             try
             {
-                var kompasType = Type.GetTypeFromProgID("KOMPAS.Application.5");
+                var kompasType = Type.GetTypeFromProgID(KOMPAS3D_PROG_ID);
                 kompas = (KompasObject) Activator.CreateInstance(kompasType);
                 return true;
             }
