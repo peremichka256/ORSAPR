@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 using KompasPlugin;
 
@@ -45,6 +46,51 @@ namespace KompasPluginUnitTests
                 == WaveguideParameters.MAX_CROSS_SECTION_WIDTH);
         }
 
+        private Dictionary<ParameterNames, double>
+            _maxValuesOfParameterDictionary =
+                new Dictionary<ParameterNames, double>()
+                {
+                    {
+                        ParameterNames.AnchorageHeight,
+                        WaveguideParameters.MAX_ANCHORAGE_HEIGHT
+                    },
+                    {
+                        ParameterNames.AnchorageThickness, 
+                        WaveguideParameters.MAX_ANCHORAGE_THICKNESS
+                    },
+                    {
+                        ParameterNames.AnchorageWidth,
+                        WaveguideParameters.MAX_ANCHORAGE_WIDTH
+                    },
+                    {
+                        ParameterNames.CrossSectionHeight,
+                        WaveguideParameters.MAX_CROSS_SECTION_HEIGHT
+                    },
+                    {
+                        ParameterNames.CrossSectionThickness,
+                        WaveguideParameters.MAX_CROSS_SECTION_THICKNESS
+                    },
+                    {
+                        ParameterNames.CrossSectionWidth,
+                        WaveguideParameters.MAX_CROSS_SECTION_WIDTH
+                    },
+                    {
+                        ParameterNames.DistanceAngleToHole,
+                        WaveguideParameters.MAX_DISTANCE_ANGLE_TO_HOLE
+                    },
+                    {
+                        ParameterNames.HoleDiameters,
+                        WaveguideParameters.MAX_HOLE_DIAMETERS
+                    },
+                    {
+                        ParameterNames.RadiusCrossTie,
+                        WaveguideParameters.MAX_RADIUS_CROSS_TIE
+                    },
+                    {
+                        ParameterNames.WaveguideLenght,
+                        WaveguideParameters.MAX_WAVEGUIDE_LENGTH
+                    },
+                };
         /// <summary>
         /// Сообщение для сеттера непрошедшего проверку
         /// </summary>
@@ -126,60 +172,84 @@ namespace KompasPluginUnitTests
         public void TestSetParameterByName()
         {
             _testWaveguideParameters = new WaveguideParameters();
+        
+            foreach (var parameterMaxValue 
+                     in _maxValuesOfParameterDictionary)
+            {
+                _testWaveguideParameters.SetParameterByName(
+                    parameterMaxValue.Key, parameterMaxValue.Value);
+            }
 
-            _testWaveguideParameters.SetParameterByName((ParameterNames)0,
-                WaveguideParameters.MAX_ANCHORAGE_HEIGHT);
-            _testWaveguideParameters.SetParameterByName((ParameterNames)1,
-                WaveguideParameters.MAX_ANCHORAGE_THICKNESS);
-            _testWaveguideParameters.SetParameterByName((ParameterNames)2,
-                WaveguideParameters.MAX_ANCHORAGE_WIDTH);
-            _testWaveguideParameters.SetParameterByName((ParameterNames)3,
-                WaveguideParameters.MAX_CROSS_SECTION_HEIGHT);
-            _testWaveguideParameters.SetParameterByName((ParameterNames)4,
-                WaveguideParameters.MAX_CROSS_SECTION_THICKNESS);
-            _testWaveguideParameters.SetParameterByName((ParameterNames)5,
-                WaveguideParameters.MAX_CROSS_SECTION_WIDTH);
-            _testWaveguideParameters.SetParameterByName((ParameterNames)6,
-                WaveguideParameters.MAX_DISTANCE_ANGLE_TO_HOLE);
-            _testWaveguideParameters.SetParameterByName((ParameterNames)7,
-                WaveguideParameters.MAX_HOLE_DIAMETERS);
-            _testWaveguideParameters.SetParameterByName((ParameterNames)8,
-                WaveguideParameters.MAX_RADIUS_CROSS_TIE);
-            _testWaveguideParameters.SetParameterByName((ParameterNames)9,
-                WaveguideParameters.MAX_WAVEGUIDE_LENGTH);
-
-            Assert.IsTrue(_testWaveguideParameters.AnchorageHeight
-                == WaveguideParameters.MAX_ANCHORAGE_HEIGHT
-                && _testWaveguideParameters.AnchorageThickness
-                == WaveguideParameters.MAX_ANCHORAGE_THICKNESS
-                && _testWaveguideParameters.AnchorageWidth
-                == WaveguideParameters.MAX_ANCHORAGE_WIDTH
-                && _testWaveguideParameters.CrossSectionHeight
-                == WaveguideParameters.MAX_CROSS_SECTION_HEIGHT
-                && _testWaveguideParameters.CrossSectionThickness
-                == WaveguideParameters.MAX_CROSS_SECTION_THICKNESS
-                && _testWaveguideParameters.CrossSectionWidth
-                == WaveguideParameters.MAX_CROSS_SECTION_WIDTH
-                && _testWaveguideParameters.DistanceAngleToHole
-                == WaveguideParameters.MAX_DISTANCE_ANGLE_TO_HOLE
-                && _testWaveguideParameters.HoleDiameters
-                == WaveguideParameters.MAX_HOLE_DIAMETERS
-                && _testWaveguideParameters.RadiusCrossTie
-                == WaveguideParameters.MAX_RADIUS_CROSS_TIE
-                && _testWaveguideParameters.WaveguideLength
-                == WaveguideParameters.MAX_WAVEGUIDE_LENGTH,
+            int errorCounter = 0;
+            
+            foreach (var parameterMaxValue 
+                     in _maxValuesOfParameterDictionary)
+            {
+                if (_testWaveguideParameters.GetParameterValueByName(
+                          parameterMaxValue.Key) != parameterMaxValue.Value)
+                {
+                    errorCounter++;
+                }
+            }
+            
+            Assert.Zero(errorCounter,
                 "Значения не были помещены в сеттеры параметров");
+        }
+
+        [Test(Description = "Тест на геттер значения параметра по имени")]
+        public void TestGetParameterByName()
+        {
+            _testWaveguideParameters = new WaveguideParameters();
+
+            var newValue = (WaveguideParameters.MIN_HOLE_DIAMETERS
+                            + WaveguideParameters.MAX_HOLE_DIAMETERS)/2;
+            ParameterNames testParameterName =
+                ParameterNames.HoleDiameters;
+            _testWaveguideParameters
+                .SetParameterByName(testParameterName, newValue);
+
+            Assert.AreEqual(newValue, _testWaveguideParameters
+                    .GetParameterValueByName(testParameterName),
+                "Из геттера вернулось неверное значение");
         }
 
         [Test(Description = "Тест на геттер изогнутости волновода")]
         public void TestIsWaveguideTurnGet()
         {
+            _testWaveguideParameters = new WaveguideParameters();
             var testIsWaveguide = true;
             _testWaveguideParameters.IsWaveguideTurn = testIsWaveguide;
 
             Assert.AreEqual(testIsWaveguide,
                 _testWaveguideParameters.IsWaveguideTurn,
                 "Геттер вернул не то значение");
+        }
+
+        [Test(Description = "Позитивный тест на геттеры параметров")]
+        public void TestParameterGet()
+        {
+            _testWaveguideParameters = new WaveguideParameters();
+
+            foreach (var parameterMaxValue
+                     in _maxValuesOfParameterDictionary)
+            {
+                _testWaveguideParameters.SetParameterByName(
+                    parameterMaxValue.Key, parameterMaxValue.Value);
+            }
+
+            Assert.IsTrue(_testWaveguideParameters.AnchorageThickness 
+                == WaveguideParameters.MAX_ANCHORAGE_THICKNESS
+                && _testWaveguideParameters.CrossSectionThickness
+                == WaveguideParameters.MAX_CROSS_SECTION_THICKNESS
+                && _testWaveguideParameters.HoleDiameters
+                == WaveguideParameters.MAX_HOLE_DIAMETERS
+                && _testWaveguideParameters.DistanceAngleToHole
+                == WaveguideParameters.MAX_DISTANCE_ANGLE_TO_HOLE
+                && _testWaveguideParameters.RadiusCrossTie
+                == WaveguideParameters.MAX_RADIUS_CROSS_TIE
+                && _testWaveguideParameters.WaveguideLength
+                == WaveguideParameters.MAX_WAVEGUIDE_LENGTH,
+                "Возникает, если геттер вернул не то значение");
         }
     }
 }

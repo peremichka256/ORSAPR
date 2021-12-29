@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using static System.Double;
 
 namespace KompasPlugin
 {
@@ -90,12 +90,12 @@ namespace KompasPlugin
             _parametersDictionary =
             new Dictionary<ParameterNames, Parameter<double>>()
             {
-                {_anchorageHeight.Name, null},
+                {_anchorageHeight.Name, _anchorageHeight},
                 {_anchorageThickness.Name, _anchorageThickness},
-                {_anchorageWidth.Name, null},
-                {_crossSectionHeight.Name, null},
+                {_anchorageWidth.Name, _anchorageWidth},
+                {_crossSectionHeight.Name, _crossSectionHeight},
                 {_crossSectionThickness.Name, _crossSectionThickness},
-                {_crossSectionWidth.Name, null},
+                {_crossSectionWidth.Name, _crossSectionWidth},
                 {_distanceAngleToHole.Name, _distanceAngleToHole},
                 {_holeDiameters.Name, _holeDiameters},
                 {_radiusCrossTie.Name, _radiusCrossTie},
@@ -332,6 +332,25 @@ namespace KompasPlugin
                         out var parameter);
                     parameter.Value = value;
                     break;
+            }
+        }
+
+        /// <summary>
+        /// Метод возвращающий значение параметра по имени
+        /// </summary>
+        /// <param name="name">Имя</param>
+        /// <returns>Значение</returns>
+        public double GetParameterValueByName(ParameterNames name)
+        {
+            if (_parametersDictionary.ContainsKey(name))
+            {
+                _parametersDictionary.TryGetValue(name,
+                    out var parameter);
+                return parameter.Value;
+            }
+            else
+            {
+                return NaN;
             }
         }
     }

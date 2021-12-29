@@ -53,30 +53,11 @@ namespace KompasPlugin
                 {waveguideLengthTextBox, ParameterNames.WaveguideLenght},
             };
 
-            //foreach (var textBox in _textBoxesDictionary)
-            //{
-            //    textBox.Key.Text = _waveguideParameters.SetParameterByName();
-            //}
-            anchorageHeightTextBox.Text = 
-                _waveguideParameters.AnchorageHeight.ToString();
-            anchorageThicknessTextBox.Text = 
-                _waveguideParameters.AnchorageThickness.ToString();
-            anchorageWidthTextBox.Text = 
-                _waveguideParameters.AnchorageWidth.ToString();
-            crossSectionHeightTextBox.Text = 
-                _waveguideParameters.CrossSectionHeight.ToString();
-            crossSectionThicknessTextBox.Text = 
-                _waveguideParameters.CrossSectionThickness.ToString();
-            crossSectionWidthTextBox.Text = 
-                _waveguideParameters.CrossSectionWidth.ToString();
-            distanceAngleToHoleTextBox.Text = 
-                _waveguideParameters.DistanceAngleToHole.ToString();
-            holeDiametersTextBox.Text = 
-                _waveguideParameters.HoleDiameters.ToString();
-            radiusCrossTieTextBox.Text = 
-                _waveguideParameters.RadiusCrossTie.ToString();
-            waveguideLengthTextBox.Text = 
-                _waveguideParameters.WaveguideLength.ToString();
+            foreach (var textBox in _textBoxesDictionary)
+            {
+                textBox.Key.Text = _waveguideParameters
+                    .GetParameterValueByName(textBox.Value).ToString();
+            }
         }
 
         /// <summary>
@@ -113,17 +94,13 @@ namespace KompasPlugin
                     && textBox != crossSectionWidthTextBox) return;
 
                 anchorageHeightTextBox.Text =
-                    _waveguideParameters.AnchorageHeight
-                        .ToString();
+                    _waveguideParameters.AnchorageHeight.ToString();
                 anchorageWidthTextBox.Text =
-                    _waveguideParameters.AnchorageWidth
-                        .ToString();
+                    _waveguideParameters.AnchorageWidth.ToString();
                 crossSectionHeightTextBox.Text =
-                    _waveguideParameters.CrossSectionHeight
-                        .ToString();
+                    _waveguideParameters.CrossSectionHeight.ToString();
                 crossSectionWidthTextBox.Text =
-                    _waveguideParameters.CrossSectionWidth
-                        .ToString();
+                    _waveguideParameters.CrossSectionWidth.ToString();
             }
             catch (Exception exception)
             {
@@ -151,8 +128,8 @@ namespace KompasPlugin
         /// <summary>
         /// Обработчик выбора формы для построения волновода
         /// </summary>
-        private void RadioButtons_CheckedChanged
-            (object sender, EventArgs e)
+        private void RadioButtons_CheckedChanged(object sender,
+            EventArgs e)
         {
             _waveguideParameters.IsWaveguideTurn = 
                 TurnWaveguideRadioButton.Checked;
