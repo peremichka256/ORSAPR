@@ -311,30 +311,27 @@ namespace KompasPlugin
         /// <param name="value">Значение</param>
         public void SetParameterByName(ParameterNames name, double value)
         {
-            if (_parametersDictionary.ContainsKey(name))
+            if (!_parametersDictionary.ContainsKey(name)) return;
+
+            switch (name)
             {
-                if (name == ParameterNames.AnchorageHeight)
-                {
+                case ParameterNames.AnchorageHeight:
                     AnchorageHeight = value;
-                }
-                else if (name == ParameterNames.AnchorageWidth)
-                {
+                    break;
+                case ParameterNames.AnchorageWidth:
                     AnchorageWidth = value;
-                }
-                else if(name == ParameterNames.CrossSectionHeight)
-                {
+                    break;
+                case ParameterNames.CrossSectionHeight:
                     CrossSectionHeight = value;
-                }
-                else if(name == ParameterNames.CrossSectionWidth)
-                {
+                    break;
+                case ParameterNames.CrossSectionWidth:
                     CrossSectionWidth = value;
-                }
-                else
-                {
+                    break;
+                default:
                     _parametersDictionary.TryGetValue(name,
                         out var parameter);
                     parameter.Value = value;
-                }
+                    break;
             }
         }
     }

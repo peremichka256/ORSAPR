@@ -423,8 +423,7 @@ namespace KompasPlugin
             iArray.Add(iEdge);
             filletEntity.Create();
         }
-
-        //TODO: XML (+)
+        
         /// <summary>
         /// Метод смещающий плоскость
         /// </summary>
@@ -444,8 +443,7 @@ namespace KompasPlugin
             offsetEntity.Create();
             return offsetEntity;
         }
-
-        //TODO: Несоответсткие XML-комментария сигнатуре метода (+)
+        
         /// <summary>
         /// Конструктор класса
         /// </summary>
