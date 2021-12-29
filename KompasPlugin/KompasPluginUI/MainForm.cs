@@ -23,9 +23,9 @@ namespace KompasPlugin
             new WaveguideParameters();
 
         /// <summary>
-        /// Список всех текстбоксов для ввода значений параметров на форме
+        /// Словарь содержащий пары (Текстбоксы, имя параметра)
         /// </summary>
-        private Dictionary<TextBox, ParameterNames> _textBoxes;
+        private Dictionary<TextBox, ParameterNames> _textBoxesDictionary;
 
         /// <summary>
         /// Конструктор главной формы с необходимыми инициализациями
@@ -34,7 +34,7 @@ namespace KompasPlugin
         {
             InitializeComponent();
 
-            _textBoxes = new Dictionary<TextBox, ParameterNames> 
+            _textBoxesDictionary = new Dictionary<TextBox, ParameterNames> 
             {
                 {anchorageHeightTextBox, ParameterNames.AnchorageHeight},
                 {anchorageThicknessTextBox,
@@ -100,7 +100,7 @@ namespace KompasPlugin
                 {
                     Action<ParameterNames, double> setParameter =
                         _waveguideParameters.SetParameterByName;
-                    _textBoxes.TryGetValue(textBox,
+                    _textBoxesDictionary.TryGetValue(textBox,
                         out var parameterInTextBoxName);
                     setParameter(parameterInTextBoxName,
                         double.Parse(textBox.Text));
