@@ -25,7 +25,7 @@ namespace KompasPlugin
         /// <summary>
         /// Список всех текстбоксов для ввода значений параметров на форме
         /// </summary>
-        private List<TextBox> _textBoxes;
+        private Dictionary<TextBox, ParameterNames> _textBoxes;
 
         /// <summary>
         /// Конструктор главной формы с необходимыми инициализациями
@@ -34,40 +34,40 @@ namespace KompasPlugin
         {
             InitializeComponent();
 
-            _textBoxes = new List<TextBox>
+            _textBoxes = new Dictionary<TextBox, ParameterNames> 
             {
-                anchorageHeightTextBox,
-                anchorageThicknessTextBox,
-                anchorageWidthTextBox,
-                crossSectionHeightTextBox,
-                crossSectionThicknessTextBox,
-                crossSectionWidthTextBox,
-                distanceAngleToHoleTextBox,
-                holeDiametersTextBox,
-                radiusCrossTieTextBox,
-                waveguideLengthTextBox
-            };
-            //Важно точное соотношение порядка текстбоксов и параметров
-            //валидируемых в этих текстбоксах
-            List<double> parameterValues = new List<double>
-            {
-                _waveguideParameters.AnchorageHeight,
-                _waveguideParameters.AnchorageThickness,
-                _waveguideParameters.AnchorageWidth,
-                _waveguideParameters.CrossSectionHeight,
-                _waveguideParameters.CrossSectionThickness,
-                _waveguideParameters.CrossSectionWidth,
-                _waveguideParameters.DistanceAngleToHole,
-                _waveguideParameters.HoleDiameters,
-                _waveguideParameters.RadiusCrossTie,
-                _waveguideParameters.WaveguideLength
+                {anchorageHeightTextBox, ParameterNames.AnchorageHeight},
+                {anchorageThicknessTextBox, ParameterNames.AnchorageThickness},
+                {anchorageWidthTextBox, ParameterNames.AnchorageWidth},
+                {crossSectionHeightTextBox, ParameterNames.CrossSectionHeight},
+                {crossSectionThicknessTextBox, ParameterNames.CrossSectionThickness},
+                {crossSectionWidthTextBox, ParameterNames.CrossSectionWidth},
+                {distanceAngleToHoleTextBox, ParameterNames.DistanceAngleToHole},
+                {holeDiametersTextBox, ParameterNames.HoleDiameters},
+                {radiusCrossTieTextBox, ParameterNames.RadiusCrossTie},
+                {waveguideLengthTextBox, ParameterNames.WaveguideLenght},
             };
 
-            //Занесения в текстбоксы дефолтных значений
-            for (int i = 0; i < _textBoxes.Count; i++)
-            {
-                _textBoxes[i].Text = parameterValues[i].ToString();
-            }
+            anchorageHeightTextBox.Text = 
+                _waveguideParameters.AnchorageHeight.ToString();
+            anchorageThicknessTextBox.Text = 
+                _waveguideParameters.AnchorageThickness.ToString();
+            anchorageWidthTextBox.Text = 
+                _waveguideParameters.AnchorageWidth.ToString();
+            crossSectionHeightTextBox.Text = 
+                _waveguideParameters.CrossSectionHeight.ToString();
+            crossSectionThicknessTextBox.Text = 
+                _waveguideParameters.CrossSectionThickness.ToString();
+            crossSectionWidthTextBox.Text = 
+                _waveguideParameters.CrossSectionWidth.ToString();
+            distanceAngleToHoleTextBox.Text = 
+                _waveguideParameters.DistanceAngleToHole.ToString();
+            holeDiametersTextBox.Text = 
+                _waveguideParameters.HoleDiameters.ToString();
+            radiusCrossTieTextBox.Text = 
+                _waveguideParameters.RadiusCrossTie.ToString();
+            waveguideLengthTextBox.Text = 
+                _waveguideParameters.WaveguideLength.ToString();
         }
 
         /// <summary>
@@ -95,9 +95,9 @@ namespace KompasPlugin
                 {
                     Action<ParameterNames, double> setParameter =
                         _waveguideParameters.SetParameterByName;
-
-                    setParameter((ParameterNames)_textBoxes
-                        .IndexOf(textBox), double.Parse(textBox.Text));
+                    _textBoxes.TryGetValue(textBox,
+                        out var parameterInTextBoxName);
+                    setParameter(parameterInTextBoxName, double.Parse(textBox.Text));
 
                     if (textBox == anchorageHeightTextBox
                         || textBox == anchorageWidthTextBox

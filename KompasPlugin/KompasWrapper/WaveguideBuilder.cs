@@ -305,7 +305,7 @@ namespace KompasPlugin
         /// </summary>
         /// <param name="planeType">Плоскость</param>
         /// <param name="offsetPlane">Объект смещения</param>
-        /// <returns></returns>
+        /// <returns>Эскиз</returns>
         private ksSketchDefinition CreateSketch(Obj3dType planeType,
             ksEntity offsetPlane)
         {
@@ -429,7 +429,7 @@ namespace KompasPlugin
         /// </summary>
         /// <param name="plane">Плоскость</param>
         /// <param name="offset">Расстояние смещения</param>
-        /// <returns></returns>
+        /// <returns>Объект смещения</returns>
         private ksEntity CreateOffsetPlane(Obj3dType plane, double offset)
         {
             var offsetEntity = (ksEntity)_connector
