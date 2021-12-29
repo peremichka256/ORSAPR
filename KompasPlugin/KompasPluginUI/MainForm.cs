@@ -102,7 +102,8 @@ namespace KompasPlugin
                         _waveguideParameters.SetParameterByName;
                     _textBoxes.TryGetValue(textBox,
                         out var parameterInTextBoxName);
-                    setParameter(parameterInTextBoxName, double.Parse(textBox.Text));
+                    setParameter(parameterInTextBoxName,
+                        double.Parse(textBox.Text));
 
                     if (textBox == anchorageHeightTextBox
                         || textBox == anchorageWidthTextBox
