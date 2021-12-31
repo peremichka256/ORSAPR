@@ -349,10 +349,8 @@ namespace KompasPlugin
                     out var parameter);
                 return parameter.Value;
             }
-            else
-            {
-                return NaN;
-            }
+
+            return NaN;
         }
     }
 }
