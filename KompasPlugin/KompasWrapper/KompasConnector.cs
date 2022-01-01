@@ -23,7 +23,7 @@ namespace KompasPlugin
         /// <summary>
         /// Строковое наименование идентификатора COM-объекта
         /// </summary>
-        private string KOMPAS3D_PROG_ID = "KOMPAS.Application.5";
+        private const string KOMPAS3D_PROG_ID = "KOMPAS.Application.5";
 
         /// <summary>
         /// Свойство возвращающее объект интерфейса API
