@@ -343,14 +343,8 @@ namespace KompasPlugin
         /// <returns>Значение</returns>
         public double GetParameterValueByName(ParameterNames name)
         {
-            if (_parametersDictionary.ContainsKey(name))
-            {
-                _parametersDictionary.TryGetValue(name,
-                    out var parameter);
-                return parameter.Value;
-            }
-
-            return NaN;
+            _parametersDictionary.TryGetValue(name, out var parameter);
+            return parameter.Value;
         }
     }
 }
