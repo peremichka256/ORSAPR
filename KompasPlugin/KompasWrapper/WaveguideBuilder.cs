@@ -23,7 +23,6 @@ namespace KompasPlugin
         /// <summary>
         /// Стиль линии: основная
         /// </summary>
-        /// 
         private const int MainLineStyle = 1;
 
         /// <summary>
