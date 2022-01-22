@@ -34,8 +34,8 @@ namespace KompasPlugin.UnitTests
                 "Геттер вернул неверное имя");
         }
 
-        [TestCase(-1, Description = "Значение меньше допустимого")]
-        [TestCase(101, Description = "Значение больше допустимого")]
+        [TestCase(-1000, Description = "Значение меньше допустимого")]
+        [TestCase(1000, Description = "Значение больше допустимого")]
         [Test(Description = "Негативный тест на сеттер параметра")]
         public void TestParameterSet_ValueUncorrect(double wrongValue)
         {
@@ -82,6 +82,17 @@ namespace KompasPlugin.UnitTests
             Assert.AreEqual(parameterMax, _testParameter.Max,
                 "Геттер вернул неккоректное значение максимума");
             _testParameter.Max = 100;
+        }
+
+        [Test(Description = "Позитивный тест на геттер максимума")]
+        public void TestParameterMinGet()
+        {
+            var parameterMin = 1;
+            _testParameter.Min = parameterMin;
+
+            Assert.AreEqual(parameterMin, _testParameter.Min,
+                "Геттер вернул неккоректное значение минимума");
+            _testParameter.Min = 0;
         }
     }
 }

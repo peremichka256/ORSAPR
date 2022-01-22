@@ -46,6 +46,9 @@ namespace KompasPluginUnitTests
                 == WaveguideParameters.MAX_CROSS_SECTION_WIDTH);
         }
 
+        /// <summary>
+        /// Словарь имён и максимальных значений параметров
+        /// </summary>
         private Dictionary<ParameterNames, double>
             _maxValuesOfParameterDictionary =
                 new Dictionary<ParameterNames, double>()
@@ -91,6 +94,7 @@ namespace KompasPluginUnitTests
                         WaveguideParameters.MAX_WAVEGUIDE_LENGTH
                     },
                 };
+
         /// <summary>
         /// Сообщение для сеттера непрошедшего проверку
         /// </summary>
@@ -217,11 +221,12 @@ namespace KompasPluginUnitTests
         public void TestIsWaveguideTurnGet()
         {
             _testWaveguideParameters = new WaveguideParameters();
-            var testIsWaveguide = true;
-            _testWaveguideParameters.IsWaveguideTurn = testIsWaveguide;
+            var expectedWaveguideTurn = true;
+            _testWaveguideParameters.IsWaveguideTurn = expectedWaveguideTurn;
+            var actualWaveguideTurn =
+                _testWaveguideParameters.IsWaveguideTurn;
 
-            Assert.AreEqual(testIsWaveguide,
-                _testWaveguideParameters.IsWaveguideTurn,
+            Assert.AreEqual(expectedWaveguideTurn, actualWaveguideTurn,
                 "Геттер вернул не то значение");
         }
 
