@@ -117,7 +117,7 @@ namespace KompasPlugin
         /// </summary>
         private void BuildButton_Click(object sender, EventArgs e)
         {
-            KompasConnector connector = new KompasConnector();
+            var connector = new KompasConnector();
             _waveguideBuilder = 
                 new WaveguideBuilder(_waveguideParameters, connector);
 

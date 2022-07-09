@@ -88,7 +88,7 @@ namespace KompasPlugin
         /// </summary>
         private Dictionary<ParameterNames, Parameter<double>> 
             _parametersDictionary =
-            new Dictionary<ParameterNames, Parameter<double>>()
+            new Dictionary<ParameterNames, Parameter<double>>
             {
                 {_anchorageHeight.Name, _anchorageHeight},
                 {_anchorageThickness.Name, _anchorageThickness},
